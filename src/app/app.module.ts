@@ -17,11 +17,16 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
+import { ComponentListModule } from './shared/components/component-list/component-list.module';
 
 const appRoutes: Routes = [
     {
+        path: 'component-list',
+        loadChildren: () => ComponentListModule
+    },
+    {
         path      : '**',
-        redirectTo: 'sample'
+        redirectTo: 'component-list'
     }
 ];
 

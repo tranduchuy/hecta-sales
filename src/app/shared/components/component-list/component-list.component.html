@@ -1,0 +1,15 @@
+<div class="page-layout blank p-24" fusePerfectScrollbar>
+    <form novalidate [formGroup]="form" *ngIf="form">
+        <mat-list role="list">
+            <mat-list-item role="listitem">
+                <app-input-text
+                    [formControlName]="'username'"
+                    [placeholder]="'Demo'"
+                    [title]="'Username'"
+                    [icon]="usernameIcon"
+                    [errors]="getErrors(form, 'username')"
+                ></app-input-text>
+            </mat-list-item>
+        </mat-list>
+    </form>
+</div>

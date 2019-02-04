@@ -7,6 +7,9 @@ export const locale = {
                 'TITLE': 'Sample',
                 'BADGE': '25'
             }
+        },
+        'COMPONENT_LIST': {
+            TITLE: 'Component list'
         }
     }
 };

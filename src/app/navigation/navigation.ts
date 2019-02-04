@@ -20,6 +20,14 @@ export const navigation: FuseNavigation[] = [
                     bg       : '#F44336',
                     fg       : '#FFFFFF'
                 }
+            },
+            {
+                id: 'component-list',
+                title: 'Component list',
+                translate: 'COMPONENT_LIST.TITLE',
+                type: 'item',
+                icon: '',
+                url: '/component-list'
             }
         ]
     }
