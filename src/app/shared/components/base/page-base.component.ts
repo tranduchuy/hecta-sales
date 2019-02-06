@@ -1,11 +1,25 @@
-import { FormGroup } from '@angular/forms';
-
+import { FormGroup, AbstractControl } from '@angular/forms';
 export abstract class PageBaseComponent {
-  constructor() {
-    
+  public getErrorMessages(form: FormGroup, ...controlNames: string[]): string[] {
+    let errors: string[] = [];
+    controlNames.forEach(name => {
+      errors = errors.concat(this.getErrorMessagesFromControlName(form, name));
+    });
+
+    return errors;
   }
 
-  getErrors(form: FormGroup, controlName: string): string[] {
-    return ['Ahihi', 'demo 1', 'demo 2'];
+  private getErrorMessagesFromControlName(form: FormGroup, ctrlName: string): string[] {
+    const control = form.controls[ctrlName];
+    return this.getSingleErrorMessages(control);
+  }
+
+  private getSingleErrorMessages(control: AbstractControl): string[] {
+    let sErr: string[] = [];
+    if (!control.valid && control.touched && control.errors) {
+      sErr = Object.values(control.errors);
+    }
+
+    return sErr;
   }
 }

@@ -1,5 +1,5 @@
 export const locale = {
-  lang: 'en',
+  lang: 'vi',
   data: {
     'NAV': {
       'APPLICATIONS': 'Applications',
@@ -12,7 +12,7 @@ export const locale = {
       TITLE: 'Component list'
     },
     ERRORS: {
-      100: 'This field is required'
+      100: 'Trường này là bắt buộc'
     }
   }
 };

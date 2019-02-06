@@ -1,5 +1,6 @@
 import { Input, HostBinding, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { FocusEvent } from './focus-event';
 
 export abstract class BaseComponent implements OnDestroy {
   @Input()
@@ -17,9 +18,13 @@ export abstract class BaseComponent implements OnDestroy {
 
   protected subscriptions: Subscription[] = [];
 
-  onLostFocus(): void {}
+  onLostFocus(): void {
+    this.lostFocus.emit({target: this});
+  }
 
-  onFocus(): void {}
+  onFocus(event: any): void {
+    this.gotFocus.emit( event);
+  }
 
   ngOnDestroy(): void {
     this.unsubscribeAllSubscriptions(); 

@@ -1,5 +1,5 @@
-import { Component, forwardRef, OnDestroy, EventEmitter, Output, Input, ViewChild, OnInit } from '@angular/core';
-import { InputTextBaseComponent } from '../input-base/input-base.component';
+import { Component, forwardRef, OnDestroy, EventEmitter, Output, Input, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { InputTextBaseComponent } from '../base/input-base.component';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MatLabel } from '@angular/material';
 
@@ -17,6 +17,7 @@ const INPUT_TEXT_VALUE_ACCESSOR = {
 })
 export class InputTextComponent extends InputTextBaseComponent implements ControlValueAccessor, OnDestroy, OnInit {
   innerValue = '';
+
   @Input()
   set value(val: any) {
     this.innerValue = val;
@@ -30,12 +31,28 @@ export class InputTextComponent extends InputTextBaseComponent implements Contro
 
   @ViewChild('label') label: MatLabel;
 
-  constructor() {
+  constructor(private el: ElementRef) {
     super();
   }
 
   ngOnInit(): void {
     console.log(this.label);
+  }
+
+  onFocus(event: any): void {
+    super.onFocus(event);
+
+    const input = this.el.nativeElement.querySelector('input');
+    if (!input) {
+      return;
+    }
+
+    this.blurEventListener = this.onBlur.bind(this);
+    input.addEventListener('blur', this.blurEventListener);
+  }
+
+  private onInputBlur(): void {
+
   }
 
   ngOnDestroy(): void {}
@@ -58,7 +75,18 @@ export class InputTextComponent extends InputTextBaseComponent implements Contro
     this.onModelTouched = fn;
   }
 
+  onLostFocus(): void {
+    super.onLostFocus();
+    this.onModelTouched();
+  }
+
   private onModelChange = (_: any) => {};
 
   private onModelTouched = () => {};
+
+  private onBlur(): void {
+    this.onLostFocus();
+  }
+
+  private blurEventListener: any = () => {};
 }
