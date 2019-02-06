@@ -7,7 +7,8 @@ import { PageBaseComponent } from '../base/page-base.component';
 
 @Component({
   selector: 'app-component-list',
-  templateUrl: './component-list.component.html'
+  templateUrl: './component-list.component.html',
+  styleUrls: ['./component-list.component.scss']
 })
 export class ComponentListComponent extends PageBaseComponent
   implements OnInit {
@@ -22,18 +23,17 @@ export class ComponentListComponent extends PageBaseComponent
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.form = this.fb.group({
-        username: ['', [this.validatorService.getInputRequired()]]
+    this.form = this.fb.group({
+      username: ['', [this.validatorService.getInputRequired()]],
+      password: ['']
+    });
+
+    this.form.valueChanges
+      .pipe(distinctUntilChanged())
+      .subscribe((value: any) => {
+        console.log('form value', value);
       });
 
-      this.form.valueChanges
-        .pipe(distinctUntilChanged())
-        .subscribe((value: any) => {
-          console.log('form value', value);
-        });
-
-      console.log(this.messageService.get('100'));
-    }, 1000);
+    console.log(this.messageService.get('100'));
   }
 }

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputTextComponent } from './input-text.component';
 import { MatInputModule, MatFormFieldModule, MatIconModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { InputPasswordComponent } from './input-password.component';
 
 @NgModule({
   declarations: [
-    InputTextComponent
+    InputPasswordComponent
   ],
   imports: [
     FormsModule,
@@ -16,12 +16,12 @@ import { FormsModule } from '@angular/forms';
     MatIconModule
   ],
   exports: [
-    InputTextComponent
+    InputPasswordComponent
   ],
   providers: [
     
   ]
 })
-export class InputTextModule {
+export class InputPasswordModule {
   
 }

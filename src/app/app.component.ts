@@ -12,8 +12,8 @@ import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 
 import { navigation } from 'app/navigation/navigation';
-import { locale as navigationEnglish } from 'app/navigation/i18n/en';
-import { locale as navigationVietNam } from 'app/navigation/i18n/vi';
+import { locale as localeEN } from 'app/locale/en';
+import { locale as localeVN } from 'app/locale/vi';
 
 @Component({
   selector: 'app',
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this._translateService.setDefaultLang('vi');
 
     // Set the navigation translations
-    this._fuseTranslationLoaderService.loadTranslations(navigationEnglish, navigationVietNam);
+    this._fuseTranslationLoaderService.loadTranslations(localeEN, localeVN);
 
     // Use a language
     this._translateService.use('vi');

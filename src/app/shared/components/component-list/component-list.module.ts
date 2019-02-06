@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MessageService } from '../../services/message/message.service';
 import { ValidatorService } from '../../services/validators/validator.service';
+import { InputPasswordModule } from '../input-password/input-password.module';
 import { ComponentListComponent } from './component-list.component';
 import { CommonModule } from '@angular/common';
 import { ComponentListRoutingModule } from './component-list-routing.module';
@@ -16,6 +17,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       CommonModule,
       ComponentListRoutingModule,
       InputTextModule,
+      InputPasswordModule,
       MatGridListModule,
       MatListModule
     ],

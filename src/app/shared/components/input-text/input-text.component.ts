@@ -31,7 +31,7 @@ export class InputTextComponent extends InputTextBaseComponent implements Contro
 
   @ViewChild('label') label: MatLabel;
 
-  constructor(private el: ElementRef) {
+  constructor(protected el: ElementRef) {
     super();
   }
 
