@@ -13,8 +13,17 @@ import { PageBaseComponent } from '../base/page-base.component';
 export class ComponentListComponent extends PageBaseComponent
   implements OnInit {
   form: FormGroup;
-
   usernameIcon = 'access_time';
+  radioGroupItemsSource = [
+    {
+      name: 'Male',
+      value: 0
+    },
+    {
+      name: 'Female',
+      value: 1
+    }
+  ];
 
   constructor(private fb: FormBuilder,
               private messageService: MessageService,
@@ -25,7 +34,8 @@ export class ComponentListComponent extends PageBaseComponent
   ngOnInit(): void {
     this.form = this.fb.group({
       username: ['', [this.validatorService.getInputRequired()]],
-      password: ['']
+      password: [''],
+      gender: [0]
     });
 
     this.form.valueChanges
@@ -35,5 +45,9 @@ export class ComponentListComponent extends PageBaseComponent
       });
 
     console.log(this.messageService.get('100'));
+  }
+
+  onRadioChange(event: any): void {
+    console.log('radio group change', event);
   }
 }

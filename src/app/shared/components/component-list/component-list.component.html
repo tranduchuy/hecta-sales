@@ -1,22 +1,40 @@
 <div class="page-layout blank p-24" fusePerfectScrollbar>
   <form novalidate [formGroup]="form" *ngIf="form">
-    <mat-list role="list">
-      <!--Username-->
+    <div>
+      <h2>Input text</h2>
+      <app-input-text [formControlName]="'username'"
+                      [placeholder]="'Demo'"
+                      [title]="'Username'"
+                      [icon]="usernameIcon"
+                      [errors]="getErrorMessages(form, 'username')"></app-input-text>
+    </div>
+
+    <div>
+      <h2>Input password</h2>
+      <app-input-password [formControlName]="'password'"
+                          [placeholder]="'Demo'"
+                          [title]="'Password'"
+                          [errors]="getErrorMessages(form, 'password')"></app-input-password>
+    </div>
+    <div>
+      <h2>Radio group</h2>
+      <app-radio-group [itemsSource]="radioGroupItemsSource"
+                       [formControlName]="'gender'"
+                       [displayPath]="'name'"
+                       (valueChange)="onRadioChange($event)"
+                       [direction]="'row'"
+                       [valuePath]="'value'"></app-radio-group>
+    </div>
+    <!--<mat-list role="list">
+      &lt;!&ndash;Username&ndash;&gt;
       <mat-list-item role="listitem">
-        <app-input-text [formControlName]="'username'"
-                        [placeholder]="'Demo'"
-                        [title]="'Username'"
-                        [icon]="usernameIcon"
-                        [errors]="getErrorMessages(form, 'username')"></app-input-text>
+
       </mat-list-item>
 
-      <!--Password-->
+      &lt;!&ndash;Password&ndash;&gt;
       <mat-list-item role="listitem">
-        <app-input-password [formControlName]="'password'"
-                            [placeholder]="'Demo'"
-                            [title]="'Password'"
-                            [errors]="getErrorMessages(form, 'password')"></app-input-password>
+
       </mat-list-item>
-    </mat-list>
+    </mat-list>-->
   </form>
 </div>
