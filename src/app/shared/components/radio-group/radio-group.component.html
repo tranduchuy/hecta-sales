@@ -1,6 +1,11 @@
 <mat-radio-group (change)="onSelectRadio($event)"
+                 [disabled]="isDisabled"
                  [ngClass]="{'radio-group-row': direction.toUpperCase() === 'ROW'}"
                  [(ngModel)]="selectedValue">
   <mat-radio-button *ngFor="let o of itemsSource"
-                    [value]="o[valuePath]">{{o[displayPath]}}</mat-radio-button>
+                    [value]="o[valuePath]">{{o[displayPath]}}
+  </mat-radio-button>
 </mat-radio-group>
+<mat-hint>
+  <div *ngFor="let m of errors">{{m}}</div>
+</mat-hint>

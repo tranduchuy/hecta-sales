@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatRadioModule } from '@angular/material';
+import { MatFormFieldModule, MatRadioModule } from '@angular/material';
 import { RadioGroupComponent } from './radio-group.component';
 
 @NgModule({
@@ -10,7 +10,8 @@ import { RadioGroupComponent } from './radio-group.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatFormFieldModule
   ],
   exports: [RadioGroupComponent]
 })
