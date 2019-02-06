@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { MessageService } from '../../services/message/message.service';
 import { ValidatorService } from '../../services/validators/validator.service';
 import { CheckboxGroupModule } from '../checkbox-group/checkbox-group.module';
+import { ComboBoxModule } from '../combo-box/combo-box.module';
 import { InputPasswordModule } from '../input-password/input-password.module';
 import { RadioGroupModule } from '../radio-group/radio-group.module';
 import { ComponentListComponent } from './component-list.component';
@@ -22,6 +23,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       InputPasswordModule,
       RadioGroupModule,
       CheckboxGroupModule,
+      ComboBoxModule,
       MatGridListModule,
       MatListModule
     ],

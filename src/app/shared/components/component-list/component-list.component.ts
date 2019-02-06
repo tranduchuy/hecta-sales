@@ -43,6 +43,17 @@ export class ComponentListComponent extends PageBaseComponent
     }
   ];
 
+  cityItemsSource = [
+    {
+      name: 'Ho Chi Minh',
+      value: 'hcm'
+    },
+    {
+      name: 'Ha Noi',
+      value: 'hn'
+    }
+  ];
+
   constructor(private fb: FormBuilder,
               private messageService: MessageService,
               private validatorService: ValidatorService) {
@@ -54,7 +65,8 @@ export class ComponentListComponent extends PageBaseComponent
       username: ['', [this.validatorService.getInputRequired()]],
       password: [''],
       gender: [0],
-      districts: [['d2'], [this.validatorService.getInputRequired()]]
+      districts: [['d2'], [this.validatorService.getInputRequired()]],
+      city: ['', [this.validatorService.getInputRequired()]]
     });
 
     this.form.valueChanges

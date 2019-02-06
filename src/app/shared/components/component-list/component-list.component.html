@@ -36,5 +36,12 @@
                           [valuePath]="'value'"
                           [displayPath]="'name'"></app-checkbox-group>
     </div>
+    <div>
+      <h2>Combo box</h2>
+      <app-combo-box [itemsSource]="cityItemsSource"
+                     [formControlName]="'city'"
+                     [displayPath]="'name'"
+                     [valuePath]="'value'"></app-combo-box>
+    </div>
   </form>
 </div>
