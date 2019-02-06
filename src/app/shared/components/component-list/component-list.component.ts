@@ -24,6 +24,24 @@ export class ComponentListComponent extends PageBaseComponent
       value: 1
     }
   ];
+  checkboxGroupItemsSource = [
+    {
+      name: 'District 1',
+      value: 'd1'
+    },
+    {
+      name: 'District 2',
+      value: 'd2'
+    },
+    {
+      name: 'District 3',
+      value: 'd3'
+    },
+    {
+      name: 'District 4',
+      value: 'd4'
+    }
+  ];
 
   constructor(private fb: FormBuilder,
               private messageService: MessageService,
@@ -35,7 +53,8 @@ export class ComponentListComponent extends PageBaseComponent
     this.form = this.fb.group({
       username: ['', [this.validatorService.getInputRequired()]],
       password: [''],
-      gender: [0]
+      gender: [0],
+      districts: [['d2'], [this.validatorService.getInputRequired()]]
     });
 
     this.form.valueChanges

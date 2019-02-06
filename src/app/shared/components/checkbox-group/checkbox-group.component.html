@@ -1,0 +1,13 @@
+<div class="checbox-group-contaianer">
+  <div class="checkbox-group"
+       [ngClass]="{'checkbox-group-row': direction.toUpperCase() === 'ROW'}">
+    <mat-checkbox *ngFor="let o of itemsSource"
+                  [(checked)]="selectedObj[o[valuePath]]"
+                  (change)="onSelectCheckbox($event)"
+                  [value]="o[valuePath]">{{o[displayPath]}}
+    </mat-checkbox>
+  </div>
+  <mat-hint>
+    <div *ngFor="let m of errors">{{m}}</div>
+  </mat-hint>
+</div>

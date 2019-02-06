@@ -22,9 +22,19 @@
                        [formControlName]="'gender'"
                        [displayPath]="'name'"
                        (valueChange)="onRadioChange($event)"
+                       [errors]="getErrorMessages(form, 'gender')"
                        [direction]="'row'"
                        [isDisabled]="false"
                        [valuePath]="'value'"></app-radio-group>
+    </div>
+    <div>
+      <h2>Checkbox group</h2>
+      <app-checkbox-group [itemsSource]="checkboxGroupItemsSource"
+                          [direction]="'row'"
+                          [errors]="getErrorMessages(form, 'districts')"
+                          [formControlName]="'districts'"
+                          [valuePath]="'value'"
+                          [displayPath]="'name'"></app-checkbox-group>
     </div>
   </form>
 </div>
