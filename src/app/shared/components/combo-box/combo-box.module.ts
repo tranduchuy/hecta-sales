@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatIconModule, MatSelectModule } from '@angular/material';
 import { ComboBoxComponent } from './combo-box.component';
 
 @NgModule({
@@ -11,7 +11,8 @@ import { ComboBoxComponent } from './combo-box.component';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
   exports: [ComboBoxComponent]
 })

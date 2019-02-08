@@ -39,9 +39,19 @@
     <div>
       <h2>Combo box</h2>
       <app-combo-box [itemsSource]="cityItemsSource"
+                     [title]="'City'"
                      [formControlName]="'city'"
                      [displayPath]="'name'"
                      [valuePath]="'value'"></app-combo-box>
+    </div>
+    <div>
+      <h2>Auto complete</h2>
+      <app-auto-complete [displayPath]="'name'"
+                         [formControlName]="'bike'"
+                         [title]="'Bike'"
+                         [itemsSource]="autoCompleteItemsSource"
+                         [icon]="'account_box'"
+                         [valuePath]="'value'"></app-auto-complete>
     </div>
   </form>
 </div>

@@ -1,11 +1,14 @@
-<mat-form-field>
-  <mat-select [placeholder]="placeholder"
-              [disabled]="isDisabled"
+<mat-form-field appearance="outline">
+  <mat-label>{{title}}</mat-label>
+  <mat-select [disabled]="isDisabled"
               [(ngModel)]="selectedValue"
               (ngModelChange)="onSelectOption($event)">
-    <mat-option>None</mat-option>
-    <mat-option *ngFor="let item of itemsSource" [value]="item[valuePath]">{{item[displayPath]}}</mat-option>
+    <mat-option [value]="null">None</mat-option>
+    <mat-option *ngFor="let item of itemsSource"
+                [disabled]="item.isDisabled === true"
+                [value]="item[valuePath]">{{item[displayPath]}}</mat-option>
   </mat-select>
+  <mat-icon matSuffix *ngIf="icon">{{icon}}</mat-icon>
   <mat-hint>
     <div *ngFor="let m of errors">{{m}}</div>
   </mat-hint>

@@ -54,6 +54,19 @@ export class ComponentListComponent extends PageBaseComponent
     }
   ];
 
+  autoCompleteItemsSource = [
+    {
+      name: 'Honda',
+      value: 'honda'
+    }, {
+      name: 'Suzuki',
+      value: 'suzuki'
+    }, {
+      name: 'Yamaha',
+      value: 'yamaha'
+    }
+  ];
+
   constructor(private fb: FormBuilder,
               private messageService: MessageService,
               private validatorService: ValidatorService) {
@@ -66,7 +79,8 @@ export class ComponentListComponent extends PageBaseComponent
       password: [''],
       gender: [0],
       districts: [['d2'], [this.validatorService.getInputRequired()]],
-      city: ['', [this.validatorService.getInputRequired()]]
+      city: ['', [this.validatorService.getInputRequired()]],
+      bike: ['', [this.validatorService.getInputRequired()]]
     });
 
     this.form.valueChanges

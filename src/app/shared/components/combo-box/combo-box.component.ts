@@ -19,6 +19,7 @@ export class ComboBoxComponent extends BaseComponent implements ControlValueAcce
   @Input() itemsSource: any[] = [];
   @Input() displayPath = '';
   @Input() valuePath = '';
+  @Input() icon = '';
   @Input()
   set value(val: any) {
     this.selectedValue = val;

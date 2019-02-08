@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MessageService } from '../../services/message/message.service';
 import { ValidatorService } from '../../services/validators/validator.service';
+import { AutoCompleteModule } from '../auto-complete/auto-complete.module';
 import { CheckboxGroupModule } from '../checkbox-group/checkbox-group.module';
 import { ComboBoxModule } from '../combo-box/combo-box.module';
 import { InputPasswordModule } from '../input-password/input-password.module';
@@ -24,6 +25,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       RadioGroupModule,
       CheckboxGroupModule,
       ComboBoxModule,
+      AutoCompleteModule,
       MatGridListModule,
       MatListModule
     ],
