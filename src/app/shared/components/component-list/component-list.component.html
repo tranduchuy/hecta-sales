@@ -53,5 +53,13 @@
                          [icon]="'account_box'"
                          [valuePath]="'value'"></app-auto-complete>
     </div>
+    <div>
+      <h2>Date picker</h2>
+      <app-date-picker [title]="'Date picker'"
+                       [formControlName]="'date'"
+                       [maxDay]="inputDate.maxDay"
+                       [errors]="getErrorMessages(form, 'date')"
+                       [minDay]="inputDate.minDay"></app-date-picker>
+    </div>
   </form>
 </div>

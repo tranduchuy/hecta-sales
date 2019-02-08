@@ -67,6 +67,11 @@ export class ComponentListComponent extends PageBaseComponent
     }
   ];
 
+  inputDate = {
+    minDay: new Date(2018, 11, 1),
+    maxDay: new Date(2019, 4, 1)
+  };
+
   constructor(private fb: FormBuilder,
               private messageService: MessageService,
               private validatorService: ValidatorService) {
@@ -80,7 +85,8 @@ export class ComponentListComponent extends PageBaseComponent
       gender: [0],
       districts: [['d2'], [this.validatorService.getInputRequired()]],
       city: ['', [this.validatorService.getInputRequired()]],
-      bike: ['', [this.validatorService.getInputRequired()]]
+      bike: ['', [this.validatorService.getInputRequired()]],
+      date: [null, [this.validatorService.getInputRequired()]]
     });
 
     this.form.valueChanges

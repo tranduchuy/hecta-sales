@@ -1,0 +1,17 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{title}}</mat-label>
+  <input matInput
+         [min]="minDay"
+         [max]="maxDay"
+         (blur)="onLostFocus()"
+         [formControl]="inputControl"
+         [matDatepicker]="picker"
+         (click)="picker.open()"
+         placeholder="Choose a date">
+  <mat-datepicker-toggle matSuffix
+                         [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker touchUi #picker></mat-datepicker>
+  <mat-hint>
+    <div *ngFor="let m of errors">{{m}}</div>
+  </mat-hint>
+</mat-form-field>
