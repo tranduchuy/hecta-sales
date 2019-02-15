@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule, MatIconModule } from '@angular/material';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 
 import { FuseModule } from '@fuse/fuse.module';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseProgressBarModule, FuseSidebarModule, FuseThemeOptionsModule } from '@fuse/components';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { fuseConfig } from 'app/fuse-config';
 
@@ -21,6 +20,8 @@ import { SampleModule } from 'app/main/sample/sample.module';
 import { ComponentListModule } from './shared/components/component-list/component-list.module';
 import { MessageService } from './shared/services/message/message.service';
 import { ValidatorService } from './shared/services/validators/validator.service';
+import { AuthModule } from './main/auth/auth.module';
+import { TokenInterceptor } from './core/interceptors/token.interceptor';
 
 const appRoutes: Routes = [
   {
@@ -61,11 +62,17 @@ const appRoutes: Routes = [
 
     // App modules
     LayoutModule,
-    SampleModule
+    SampleModule,
+    AuthModule
   ],
   providers: [
     MessageService,
-    ValidatorService
+    ValidatorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [
     AppComponent
