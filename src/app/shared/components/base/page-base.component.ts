@@ -1,4 +1,6 @@
 import { FormGroup, AbstractControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+
 export abstract class PageBaseComponent {
   public getErrorMessages(form: FormGroup, ...controlNames: string[]): string[] {
     let errors: string[] = [];
@@ -7,6 +9,18 @@ export abstract class PageBaseComponent {
     });
 
     return errors;
+  }
+
+  protected openWarningDialog(): Observable<any> {
+    return of();
+  }
+
+  protected openInfoDialog(): Observable<any> {
+    return of();
+  }
+
+  protected openConfirmDialog(): Observable<any> {
+    return of();
   }
 
   private getErrorMessagesFromControlName(form: FormGroup, ctrlName: string): string[] {
