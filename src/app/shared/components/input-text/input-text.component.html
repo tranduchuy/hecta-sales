@@ -6,8 +6,8 @@
          [placeholder]="placeholder"
          [(ngModel)]="innerValue"
          (focus)="onFocus($event)"
-         (blur)="onLostFocus($event)"
-         (ngModelChange)="onInputChange($event)">
+         (blur)="onLostFocus()"
+         (ngModelChange)="onInputChange()">
   <mat-icon matSuffix *ngIf="icon">{{icon}}</mat-icon>
   <mat-hint>
     <div *ngFor="let m of errors">{{m}}</div>
