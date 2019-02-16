@@ -9,7 +9,7 @@ import { TokenStorage } from '../../core/auth/token-storage.service';
 
 const routes = [
   {
-    path: 'auth/login',
+    path: 'login',
     component: LoginComponent
   }
 ];

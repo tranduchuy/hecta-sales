@@ -5,6 +5,7 @@ import { TokenStorage } from './token-storage.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AccessData } from './access-data';
 import { Credential } from './credential';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private tokenStorage: TokenStorage
+    private tokenStorage: TokenStorage,
+    private router: Router
   ) {
     this.onCredentialUpdated$ = new Subject();
   }
@@ -68,11 +70,15 @@ export class AuthService {
   public login(credential: Credential): Observable<any> {
     return this.http.post<AccessData>(this.API_URL + this.API_ENDPOINT_LOGIN, credential)
       .pipe(
-        map((res: any) => Object.assign({}, {
+        map((res: any) => Object.assign({},
+          {
             accessToken: res.data.token,
             refreshToken: res.data.refreshToken,
             roles: res.data.role
-          } as AccessData)
+          } as AccessData,
+          {
+            status: res.status
+          })
         ),
         tap(this.saveAccessData.bind(this)),
         catchError(this.handleError('login', []))
@@ -82,11 +88,9 @@ export class AuthService {
   /**
    * Logout
    */
-  public logout(refresh?: boolean): void {
+  public logout(): void {
     this.tokenStorage.clear();
-    if (refresh) {
-      location.reload(true);
-    }
+    this.router.navigate(['login']);
   }
 
   /**

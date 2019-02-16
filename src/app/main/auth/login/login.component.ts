@@ -6,6 +6,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from '../../../core/auth/auth.service';
 import { Credential } from '../../../core/auth/credential';
 import { Router } from '@angular/router';
+import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'login',
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-
+  isSuccess = true;
   /**
    * Constructor
    *
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
    */
   constructor(
     private _fuseConfigService: FuseConfigService,
+    private fuseProgressBarService: FuseProgressBarService,
     private _formBuilder: FormBuilder,
     private authServie: AuthService,
     private router: Router,
@@ -63,15 +65,25 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
+    this.fuseProgressBarService.show();
+
     const credential: Credential = {
       username: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value
     };
+
     this.authServie.login(credential).subscribe(res => {
-      console.log(res);
-      this.router.navigate(['sample']);
+      if (res.status === 1) {
+        this.isSuccess = true;
+        this.router.navigate(['sample']);
+      } else {
+        this.isSuccess = false;
+      }
+      this.fuseProgressBarService.hide();
     }, err => {
       console.error(err);
+      this.isSuccess = false;
+      this.fuseProgressBarService.hide();
     });
   }
 }
