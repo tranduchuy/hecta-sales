@@ -25,7 +25,6 @@ export class SampleComponent {
   ) {
     this._fuseTranslationLoaderService.loadTranslations(english, turkish);
     this.http.get('http://159.89.202.248:3000/api/v1/posts/list?postType=1').subscribe((res: any) => {
-      console.log(res);
       this.itemsSource = res.data.items;
     });
   }

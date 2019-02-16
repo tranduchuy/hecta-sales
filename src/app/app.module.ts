@@ -17,7 +17,6 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
-import { ComponentListModule } from './shared/components/component-list/component-list.module';
 import { MessageService } from './shared/services/message/message.service';
 import { ValidatorService } from './shared/services/validators/validator.service';
 import { AuthModule } from './main/auth/auth.module';
@@ -26,7 +25,11 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
 const appRoutes: Routes = [
   {
     path: 'component-list',
-    loadChildren: () => ComponentListModule
+    loadChildren: './shared/components/component-list/component-list.module#ComponentListModule'
+  },
+  {
+    path: 'auth',
+    loadChildren: './main/auth/auth.module#AuthModule'
   },
   {
     path: '**',

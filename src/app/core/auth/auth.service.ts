@@ -90,7 +90,7 @@ export class AuthService {
    */
   public logout(): void {
     this.tokenStorage.clear();
-    this.router.navigate(['login']);
+    this.router.navigate(['auth/login']);
   }
 
   /**

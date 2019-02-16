@@ -28,14 +28,14 @@ export class TokenInterceptor implements HttpInterceptor {
         event => {
           if (event instanceof HttpResponse) {
             if (event.body.status === 401) {
-              this.router.navigate(['login']);
+              this.router.navigate(['auth/login']);
             }
           }
         },
         error => {
           // http response status code
           if (error.status === 401) {
-            this.router.navigate(['login']);
+            this.router.navigate(['auth/login']);
           }
         }
       )
