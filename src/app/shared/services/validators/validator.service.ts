@@ -22,4 +22,19 @@ export class ValidatorService {
       );
     };
   }
+
+  public getEmailPattern(): ValidatorFn {
+    const EMAIL_PATTERN = '(?=^([A-Za-z0-9!-\\/:-@\\[-`{-~]+)$)(?=^([^ @]+)@(([^ @.]+\\.)+[^ @.]{2,})$)';
+    return (ctl: AbstractControl): ValidationErrors => {
+      const ERR_EMAIL_PATTERN = 'ERRORS.101';
+
+      return this.core.requiredValidator(
+        {
+          validReguEx: {pattern: EMAIL_PATTERN, errCode: ERR_EMAIL_PATTERN}
+        },
+        ctl.value,
+        this.messageService
+      );
+    };
+  }
 }

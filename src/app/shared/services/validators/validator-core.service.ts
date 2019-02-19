@@ -8,13 +8,18 @@ export class ValidatorCore {
     return !this.nullOrEmpty(value);
   }
 
-  public requiredValidator(funcSetting: { validRequired: { errCode: string } },
+  public requiredValidator(funcSetting: { validRequired?: { errCode: string }, validReguEx?: {errCode: string, pattern: string} },
                            value: any,
                            messageService: MessageService): ValidationErrors {
     const response: ValidationErrors = {};
 
     if (funcSetting.validRequired && !this.isRequireValid(value)) {
       response[funcSetting.validRequired.errCode] = messageService.get(funcSetting.validRequired.errCode).content;
+    }
+
+    if (funcSetting.validReguEx
+      && !this.isRegExpValid(value, funcSetting.validReguEx.pattern)) {
+      response[funcSetting.validReguEx.errCode] = messageService.get(funcSetting.validReguEx.errCode).content;
     }
 
     return response;
@@ -41,5 +46,9 @@ export class ValidatorCore {
     }
 
     return false;
+  }
+
+  public isRegExpValid(value: string, pattern: string): boolean {
+    return (new RegExp(pattern).test(value));
   }
 }

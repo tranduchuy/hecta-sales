@@ -83,7 +83,7 @@ export class ComponentListComponent extends PageBaseComponent
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      username: ['', [this.validatorService.getInputRequired()]],
+      username: ['', [this.validatorService.getInputRequired(), this.validatorService.getEmailPattern()]],
       password: [''],
       gender: [0],
       districts: [['d2'], [this.validatorService.getInputRequired()]],
