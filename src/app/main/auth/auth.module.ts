@@ -6,16 +6,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { AuthService } from '../../core/auth/auth.service';
 import { TokenStorage } from '../../core/auth/token-storage.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  }
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
 ];
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, ForgotPasswordComponent],
 
   imports: [
     RouterModule.forChild(routes),
@@ -29,7 +34,7 @@ const routes: Routes = [
   ],
 
   exports: [
-    LoginComponent
+    LoginComponent, ForgotPasswordComponent
   ],
 
   providers: [AuthService, TokenStorage]
