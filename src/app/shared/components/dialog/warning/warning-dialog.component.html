@@ -1,0 +1,17 @@
+<!--<h1 mat-dialog-title></h1>-->
+<div mat-dialog-content>
+  <div style="padding: 10px 0px">
+    {{data.message}}
+  </div>
+</div>
+<div mat-dialog-actions style="text-align: center">
+  <button mat-raised-button
+          color="warn"
+          (click)="onClickBtnCancel()">Cancel
+  </button>
+
+  <button mat-raised-button
+          style="margin-left: 8px;"
+          (click)="onClickBtnOk()">Ok
+  </button>
+</div>

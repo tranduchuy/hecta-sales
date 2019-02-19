@@ -11,7 +11,7 @@ import { ComponentListComponent } from './component-list.component';
 import { CommonModule } from '@angular/common';
 import { ComponentListRoutingModule } from './component-list-routing.module';
 import { InputTextModule } from '../input-text/input-text.module';
-import { MatGridListModule, MatListModule } from '@angular/material';
+import { MatButtonModule, MatGridListModule, MatListModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -29,7 +29,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     AutoCompleteModule,
     DatePickerModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatButtonModule
   ],
   providers: [
     ValidatorService,

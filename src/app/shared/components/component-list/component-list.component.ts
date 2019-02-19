@@ -4,11 +4,13 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { MessageService } from '../../services/message/message.service';
 import { ValidatorService } from '../../services/validators/validator.service';
 import { PageBaseComponent } from '../base/page-base.component';
+import { DialogResult, DialogService } from '../dialog/dialog.service';
 
 @Component({
   selector: 'app-component-list',
   templateUrl: './component-list.component.html',
-  styleUrls: ['./component-list.component.scss']
+  styleUrls: ['./component-list.component.scss'],
+  providers: [DialogService]
 })
 export class ComponentListComponent extends PageBaseComponent
   implements OnInit {
@@ -73,6 +75,7 @@ export class ComponentListComponent extends PageBaseComponent
   };
 
   constructor(private fb: FormBuilder,
+              private dialog: DialogService,
               private messageService: MessageService,
               private validatorService: ValidatorService) {
     super();
@@ -100,5 +103,26 @@ export class ComponentListComponent extends PageBaseComponent
 
   onRadioChange(event: any): void {
     console.log('radio group change', event);
+  }
+
+  openDialogInfo(): void {
+    this.dialog.openInfo('Test message')
+      .subscribe((result: DialogResult) => {
+        console.log('dialog info result', result);
+      });
+  }
+
+  openDialogWarning(): void {
+    this.dialog.openWarning('Test message?')
+      .subscribe((result: DialogResult) => {
+        console.log('dialog info result', result);
+      });
+  }
+
+  openDialogConfirm(): void {
+    this.dialog.openConfirm('Test message?')
+      .subscribe((result: DialogResult) => {
+        console.log('dialog info result', result);
+      });
   }
 }
