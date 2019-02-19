@@ -17,7 +17,9 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
+import { ConfirmDialogComponent } from './shared/components/dialog/confirm/confirm-dialog.component';
 import { InfoDialogComponent } from './shared/components/dialog/info/info-dialog.component';
+import { WarningDialogComponent } from './shared/components/dialog/warning/warning-dialog.component';
 import { MessageService } from './shared/services/message/message.service';
 import { ValidatorService } from './shared/services/validators/validator.service';
 import { AuthModule } from './main/auth/auth.module';
@@ -41,10 +43,14 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    WarningDialogComponent,
+    ConfirmDialogComponent
   ],
   entryComponents: [
-    InfoDialogComponent
+    InfoDialogComponent,
+    WarningDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

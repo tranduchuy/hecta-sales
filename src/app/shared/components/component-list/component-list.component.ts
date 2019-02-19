@@ -111,4 +111,18 @@ export class ComponentListComponent extends PageBaseComponent
         console.log('dialog info result', result);
       });
   }
+
+  openDialogWarning(): void {
+    this.dialog.openWarning('Test message?')
+      .subscribe((result: DialogResult) => {
+        console.log('dialog info result', result);
+      });
+  }
+
+  openDialogConfirm(): void {
+    this.dialog.openConfirm('Test message?')
+      .subscribe((result: DialogResult) => {
+        console.log('dialog info result', result);
+      });
+  }
 }

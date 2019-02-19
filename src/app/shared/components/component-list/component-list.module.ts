@@ -5,7 +5,6 @@ import { AutoCompleteModule } from '../auto-complete/auto-complete.module';
 import { CheckboxGroupModule } from '../checkbox-group/checkbox-group.module';
 import { ComboBoxModule } from '../combo-box/combo-box.module';
 import { DatePickerModule } from '../date-picker/date-picker.module';
-import { DialogModule } from '../dialog/dialog.module';
 import { InputPasswordModule } from '../input-password/input-password.module';
 import { RadioGroupModule } from '../radio-group/radio-group.module';
 import { ComponentListComponent } from './component-list.component';
@@ -35,8 +34,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   ],
   providers: [
     ValidatorService,
-    MessageService,
-    DialogModule
+    MessageService
   ],
   exports: []
 })

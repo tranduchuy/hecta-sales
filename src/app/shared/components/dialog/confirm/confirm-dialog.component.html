@@ -6,8 +6,10 @@
 </div>
 <div mat-dialog-actions style="text-align: center">
   <button mat-raised-button
+          (click)="onClickBtnCancel()">Cancel</button>
+
+  <button mat-raised-button
+          style="margin-left: 8px;"
           color="primary"
-          (click)="onClickBtnOk()">
-    Ok
-  </button>
+          (click)="onClickBtnOk()">Ok</button>
 </div>
