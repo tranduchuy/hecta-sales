@@ -33,7 +33,7 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'component-list'
+    redirectTo: '/auth/login'
   }
 ];
 
