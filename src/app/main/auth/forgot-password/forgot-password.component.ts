@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
@@ -6,15 +6,18 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 import { AuthService } from 'app/core/auth/auth.service';
 import { Router } from '@angular/router';
+import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
+import { ValidatorService } from 'app/shared/services/validators/validator.service';
+import { DialogService, DialogResult } from 'app/shared/components/dialog/dialog.service';
 
 @Component({
   selector: 'forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  animations   : fuseAnimations
+  animations: fuseAnimations
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent extends PageBaseComponent implements OnInit {
 
   forgotPasswordForm: FormGroup;
   isSuccess = true;
@@ -30,19 +33,21 @@ export class ForgotPasswordComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private fuseProgressBarService: FuseProgressBarService,
     private authService: AuthService,
-    private router: Router
-  )
-  {
+    private router: Router,
+    private validatorService: ValidatorService,
+    private dialog: DialogService,
+  ) {
     // Configure the layout
+    super();
     this._fuseConfigService.config = {
       layout: {
-        navbar   : {
+        navbar: {
           hidden: true
         },
-        toolbar  : {
+        toolbar: {
           hidden: true
         },
-        footer   : {
+        footer: {
           hidden: true
         },
         sidepanel: {
@@ -59,27 +64,32 @@ export class ForgotPasswordComponent implements OnInit {
   /**
    * On init
    */
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.forgotPasswordForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [this.validatorService.getInputRequired(), this.validatorService.getEmailPattern()]]
     });
   }
 
-  forgotPassword(): void{
+  forgotPassword(): void {
     this.fuseProgressBarService.show();
 
     let email = this.forgotPasswordForm.controls.email.value;
 
     this.authService.forgotPassword(email).subscribe(
-      (res:any)=>{
+      (res: any) => {
         if (res.status === 1) {
           this.isSuccess = true;
           this.router.navigate(['sample']);
-          alert('Tài khoản của bạn đã được gửi yêu cầu lấy lại. Chờ trong giây lát')
+          this.dialog.openInfo('Tài khoản của bạn đã được gửi yêu cầu lấy lại. Chờ trong giây lát')
+            .subscribe((result: DialogResult) => {
+              console.log('send mail success', result);
+            });
         } else {
           this.isSuccess = false;
-          alert('Tài khoản của bạn cần lấy lại không tồn tại hoặc không đúng. Xin hãy nhập lại')
+          this.dialog.openInfo('Tài khoản của bạn cần lấy lại không tồn tại hoặc không đúng. Xin hãy nhập lại')
+            .subscribe((result: DialogResult) => {
+              console.log('send mail fail', result);
+            });
         }
         this.fuseProgressBarService.hide();
       }, err => {
@@ -87,6 +97,5 @@ export class ForgotPasswordComponent implements OnInit {
         this.isSuccess = false;
         this.fuseProgressBarService.hide();
       });
-    }
   }
-  
+}
