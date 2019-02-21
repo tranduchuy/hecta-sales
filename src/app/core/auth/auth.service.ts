@@ -13,6 +13,7 @@ export class AuthService {
   API_ENDPOINT_LOGIN = '/login';
   API_ENDPOINT_REFRESH = '/refresh';
   API_ENDPOINT_REGISTER = '/register';
+  API_ENDPOINT_FORGOT_PASSWORD = '/forget-password';
 
   public onCredentialUpdated$: Subject<AccessData>;
 
@@ -91,6 +92,18 @@ export class AuthService {
   public logout(): void {
     this.tokenStorage.clear();
     this.router.navigate(['auth/login']);
+  }
+
+  public forgotPassword(data: string): Observable<any> {
+    return this.http.post(this.API_URL + this.API_ENDPOINT_FORGOT_PASSWORD, {email: data})
+      .pipe(
+        map((res: any) => Object.assign({},
+          {
+            status: res.status,
+            message: res.message
+          })),
+        catchError(this.handleError('login',[]))
+      )
   }
 
   /**
