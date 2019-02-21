@@ -6,15 +6,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { AccessData } from './access-data';
 import { Credential } from './credential';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { URLs } from '../../shared/constants/url.constant';
 
 @Injectable()
 export class AuthService {
-  API_URL = 'http://159.89.202.248:3000/api/v1/users';
-  API_ENDPOINT_LOGIN = '/login';
-  API_ENDPOINT_REFRESH = '/refresh';
-  API_ENDPOINT_REGISTER = '/register';
-  API_ENDPOINT_FORGOT_PASSWORD = '/forget-password';
-
   public onCredentialUpdated$: Subject<AccessData>;
 
   constructor(
@@ -69,7 +65,7 @@ export class AuthService {
    * @returns {Observable<any>}
    */
   public login(credential: Credential): Observable<any> {
-    return this.http.post<AccessData>(this.API_URL + this.API_ENDPOINT_LOGIN, credential)
+    return this.http.post<AccessData>(environment.apiEndpoint + URLs.LOGIN, credential)
       .pipe(
         map((res: any) => Object.assign({},
           {
@@ -95,7 +91,7 @@ export class AuthService {
   }
 
   public forgotPassword(data: string): Observable<any> {
-    return this.http.post(this.API_URL + this.API_ENDPOINT_FORGOT_PASSWORD, {email: data})
+    return this.http.post(environment.apiEndpoint + URLs.FORGOT_PASSWORD, {email: data})
       .pipe(
         map((res: any) => Object.assign({},
           {
