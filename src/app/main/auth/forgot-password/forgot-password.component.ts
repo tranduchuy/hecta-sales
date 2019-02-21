@@ -75,7 +75,7 @@ export class ForgotPasswordComponent extends PageBaseComponent implements OnInit
 
     let email = this.forgotPasswordForm.controls.email.value;
 
-    this.authService.forgotPassword(email).subscribe(
+    const sub = this.authService.forgotPassword(email).subscribe(
       (res: any) => {
         if (res.status === 1) {
           this.isSuccess = true;
@@ -97,5 +97,8 @@ export class ForgotPasswordComponent extends PageBaseComponent implements OnInit
         this.isSuccess = false;
         this.fuseProgressBarService.hide();
       });
+
+      this.subscriptions.push(sub);
   }
+
 }

@@ -1,4 +1,4 @@
-// import cityDistrictProject from './cityDistrictProject';
+import cityDistrictProject from './cityDistrictProject.json';
 
 const priceLevel = [
   [{text: 'Thoả thuận', value: -1},
@@ -186,7 +186,7 @@ const result = {
   unitPriceListNew,
   priceLevel,
   areaList,
-  // cityDistrictProject,
+  cityDistrictProject,
   sortPost
 };
 
