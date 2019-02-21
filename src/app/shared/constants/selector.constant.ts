@@ -1,3 +1,4 @@
+// @ts-ignore
 import cityDistrictProject from './cityDistrictProject.json';
 
 const priceLevel = [

@@ -1,0 +1,57 @@
+<div class="page-layout blank p-24" fusePerfectScrollbar>
+  <form novalidate [formGroup]="form" *ngIf="form">
+    <div class="h2 mb-24">Đăng kí nhận lead</div>
+    <div>
+      <app-combo-box [title]="'Hình thức'"
+                     [itemsSource]="formalityConfig.itemSource"
+                     [formControlName]="'formality'"
+                     [valuePath]="'id'"
+                     [displayPath]="'name'"
+                     (valueChange)="onFormalityChange($event)"
+                     [errors]="getErrorMessages(form,'formality')">
+      </app-combo-box>
+
+      <app-combo-box [title]="'Loại hình'"
+                     [itemsSource]="typeConfig.itemSource"
+                     [formControlName]="'type'"
+                     [valuePath]="'id'"
+                     [displayPath]="'name'"
+                     [isDisabled]="typeConfig.isDisabled"
+                     [errors]="getErrorMessages(form,'type')">
+      </app-combo-box>
+
+      <app-combo-box [title]="'Tỉnh/Thành phố'"
+                     [itemsSource]="cityConfig.itemSource"
+                     [formControlName]="'city'"
+                     [displayPath]="'name'"
+                     [valuePath]="'code'"
+                     (valueChange)="onCityChange($event)"
+                     [errors]="getErrorMessages(form,'city')">
+      </app-combo-box>
+
+      <app-combo-box [title]="'Quận/Huyện'"
+                     [itemsSource]="districtConfig.itemSource"
+                     [formControlName]="'district'"
+                     [displayPath]="'name'"
+                     [valuePath]="'id'"
+                     [isDisabled]="districtConfig.isDisabled"
+                     (valueChange)="onDistrictChange($event)"
+                     [errors]="getErrorMessages(form,'district')">
+      </app-combo-box>
+
+      <app-combo-box [title]="'Dự án'"
+                     [itemsSource]="projectConfig.itemSource"
+                     [formControlName]="'project'"
+                     [displayPath]="'name'"
+                     [valuePath]="'_id'"
+                     [isDisabled]="projectConfig.isDisabled"
+                     [errors]="getErrorMessages(form,'project')">
+      </app-combo-box>
+    </div>
+    <div class="center">
+      <button mat-raised-button color="primary" (click)="onClickAddButton()">Add</button>
+      <button mat-raised-button color="basic" (click)="onClickBackButton()">Back</button>
+    </div>
+
+  </form>
+</div>

@@ -4,7 +4,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatIconModule } from '@angular/material';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatDialog, MatIconModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 
@@ -24,6 +24,7 @@ import { MessageService } from './shared/services/message/message.service';
 import { ValidatorService } from './shared/services/validators/validator.service';
 import { AuthModule } from './main/auth/auth.module';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
+import { RuleAlertLeadManagementModule } from './main/rule-alert-lead-management/rule-alert-lead-management.module';
 
 const appRoutes: Routes = [
   {
@@ -33,6 +34,10 @@ const appRoutes: Routes = [
   {
     path: 'auth',
     loadChildren: './main/auth/auth.module#AuthModule'
+  },
+  {
+    path: 'rule-alert-lead',
+    loadChildren: './main/rule-alert-lead-management/rule-alert-lead-management.module#RuleAlertLeadManagementModule'
   },
   {
     path: '**',
@@ -77,7 +82,8 @@ const appRoutes: Routes = [
     // App modules
     LayoutModule,
     SampleModule,
-    AuthModule
+    AuthModule,
+    RuleAlertLeadManagementModule
   ],
   providers: [
     MessageService,
