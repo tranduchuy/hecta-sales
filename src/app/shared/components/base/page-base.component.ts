@@ -1,7 +1,10 @@
 import { FormGroup, AbstractControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import {Observable, of, Subscription} from 'rxjs';
+import {OnDestroy} from '@angular/core';
 
-export abstract class PageBaseComponent {
+export abstract class PageBaseComponent implements OnDestroy {
+  protected subscriptions: Subscription[] = [];
+
   public getErrorMessages(form: FormGroup, ...controlNames: string[]): string[] {
     let errors: string[] = [];
     controlNames.forEach(name => {
@@ -21,6 +24,12 @@ export abstract class PageBaseComponent {
 
   protected openConfirmDialog(): Observable<any> {
     return of();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   private getErrorMessagesFromControlName(form: FormGroup, ctrlName: string): string[] {
