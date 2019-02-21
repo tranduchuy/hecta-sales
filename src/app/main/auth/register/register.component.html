@@ -1,0 +1,130 @@
+<div id="register" fxLayout="column">
+
+  <div id="register-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+    <div id="register-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+      <div class="logo">
+        <img src="assets/images/logos/hecta-logo.png">
+      </div>
+
+      <div class="title">Tạo tài khoản</div>
+
+      <form name="registerForm" [formGroup]="registerForm" novalidate>
+
+        <app-input-text [formControlName]="'username'"
+                        [placeholder]="'Tên đăng nhập của bạn'"
+                        [title]="'Tên đăng nhập'"
+                        [icon]="'account_circle'"
+                        [errors]="getErrorMessages(registerForm, 'username')"></app-input-text>
+
+        <app-input-text [formControlName]="'email'"
+                        [placeholder]="'example@gmail.com'"
+                        [title]="'Địa chỉ email'"
+                        [icon]="'mail'"
+                        [errors]="getErrorMessages(registerForm, 'email')"></app-input-text>
+
+        <app-input-password [formControlName]="'password'"
+                            [placeholder]="'Demo'"
+                            [title]="'Mật khẩu'"
+                            [icon]="'vpn_key'"
+                            [errors]="getErrorMessages(registerForm, 'password')"></app-input-password>
+
+        <app-input-password [formControlName]="'retypePassword'"
+                             [placeholder]="'Demo'"
+                             [title]="'Nhập lại mật khẩu'"
+                             [icon]="'vpn_key'"
+                             [errors]="getErrorMessages(registerForm, 'retypePassword')"></app-input-password>
+
+        <app-input-text [formControlName]="'phone'"
+                        [placeholder]="'0123456789'"
+                        [title]="'Số điện thoại'"
+                        [icon]="'phone'"
+                        [errors]="getErrorMessages(registerForm, 'phone')"></app-input-text>
+
+        <app-input-text [formControlName]="'name'"
+                        [placeholder]="'Nguyễn Văn A'"
+                        [title]="'Họ và tên'"
+                        [icon]="'supervisor_account'"
+                        [errors]="getErrorMessages(registerForm, 'name')"></app-input-text>
+
+        <app-radio-group [itemsSource]="radioGroupItemsSource"
+                         [formControlName]="'gender'"
+                         [displayPath]="'name'"
+                         (valueChange)="onRadioChange($event)"
+                         [errors]="getErrorMessages(registerForm, 'gender')"
+                         [direction]="'row'"
+                         [isDisabled]="false"
+                         [valuePath]="'value'"></app-radio-group>
+
+        <app-combo-box [itemsSource]="cityItemsSource"
+                       [title]="'Tỉnh/Thành'"
+                       [formControlName]="'city'"
+                       [displayPath]="'name'"
+                       [icon]="'language'"
+                       [valuePath]="'value'"></app-combo-box>
+
+        <app-combo-box [itemsSource]="districtsItemsSource"
+                       [title]="'Quận/Huyện'"
+                       [formControlName]="'district'"
+                       [displayPath]="'name'"
+                       [valuePath]="'value'"></app-combo-box>
+
+        <app-combo-box [itemsSource]="wardsItemsSource"
+                       [title]="'Phường/Xã'"
+                       [formControlName]="'ward'"
+                       [displayPath]="'name'"
+                       [valuePath]="'value'"></app-combo-box>
+
+        <app-radio-group [itemsSource]="radioGroupTypeItemsSource"
+                         [formControlName]="'type'"
+                         [displayPath]="'name'"
+                         (valueChange)="onRadioChange($event)"
+                         [errors]="getErrorMessages(registerForm, 'type')"
+                         [direction]="'row'"
+                         [isDisabled]="false"
+                         [valuePath]="'value'"></app-radio-group> 
+
+        <p>
+            Chú ý: Thông tin Tên đăng nhập, Email, Số điện thoại di động không thể thay đổi sau khi đăng ký.
+            Để được trợ giúp vui lòng liên hệ tổng đài CSKH <strong>+84 984 946 946</strong> hoặc thông qua email <strong>cskh.hecta@gmail.com</strong>
+        </p>
+
+        <!-- <div class="terms" fxLayout="row" fxLayoutAlign="center center">
+          <mat-checkbox name="terms" aria-label="I read and accept" required>
+            <span>I read and accept</span>
+          </mat-checkbox>
+          <a href="#">terms and conditions</a>
+        </div> -->
+
+        <div id="capcha_element" 
+            class="g-recaptcha" 
+            data-callback="getResponceCapcha" 
+            [attr.data-sitekey]="siteKeyCaptcha"></div>
+
+        <script>
+        
+        </script>
+
+        <button *ngIf="!isCaptchaCheck" mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT"
+                disabled>
+          Đăng ký tài khoản
+        </button>
+
+         <button *ngIf="isCaptchaCheck" mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT">
+          Đăng ký tài khoản
+        </button>
+
+      </form>
+
+      <div class="register" fxLayout="column" fxLayoutAlign="center center">
+        <span class="text">Bạn đã là thành viên?</span>
+        <a class="link" [routerLink]="'/auth/login'">Đăng nhập</a>
+        <a class="link" [routerLink]="'/auth/forgot-password'">Quên mật khẩu</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
