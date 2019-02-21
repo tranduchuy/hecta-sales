@@ -3,21 +3,21 @@ import { LoginComponent } from './login/login.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '../../../@fuse/shared.module';
 import { RouterModule, Routes } from '@angular/router';
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatDialogModule, MatGridListModule, MatListModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatGridListModule, MatListModule } from '@angular/material';
 import { AuthService } from '../../core/auth/auth.service';
 import { TokenStorage } from '../../core/auth/token-storage.service';
 import { RegisterComponent } from './register/register.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { InputTextModule } from 'app/shared/components/input-text/input-text.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ValidatorService } from 'app/shared/services/validators/validator.service';
-import { MessageService } from 'app/shared/services/message/message.service';
-import { DialogService } from 'app/shared/components/dialog/dialog.service';
 import { InputPasswordModule } from 'app/shared/components/input-password/input-password.module';
 import { RadioGroupModule } from 'app/shared/components/radio-group/radio-group.module';
 import { CheckboxGroupModule } from 'app/shared/components/checkbox-group/checkbox-group.module';
 import { ComboBoxModule } from 'app/shared/components/combo-box/combo-box.module';
 import { AutoCompleteModule } from 'app/shared/components/auto-complete/auto-complete.module';
 import { DatePickerModule } from 'app/shared/components/date-picker/date-picker.module';
+import { ValidatorService } from 'app/shared/services/validators/validator.service';
+import { MessageService } from 'app/shared/services/message/message.service';
+import { DialogService } from 'app/shared/components/dialog/dialog.service';
 
 const routes: Routes = [
   {
@@ -27,11 +27,15 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
-  }
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
 ];
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent],
 
   imports: [
     RouterModule.forChild(routes),
@@ -54,7 +58,7 @@ const routes: Routes = [
   ],
 
   exports: [
-    LoginComponent
+    LoginComponent, ForgotPasswordComponent, RegisterComponent
   ],
 
   providers: [AuthService, TokenStorage, ValidatorService, MessageService, DialogService]
