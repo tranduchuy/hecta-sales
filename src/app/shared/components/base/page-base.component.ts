@@ -1,6 +1,6 @@
-import { FormGroup, AbstractControl } from '@angular/forms';
-import {Observable, of, Subscription} from 'rxjs';
-import {OnDestroy} from '@angular/core';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Observable, of, Subscription } from 'rxjs';
+import { OnDestroy } from '@angular/core';
 
 export abstract class PageBaseComponent implements OnDestroy {
   protected subscriptions: Subscription[] = [];
@@ -12,6 +12,12 @@ export abstract class PageBaseComponent implements OnDestroy {
     });
 
     return errors;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   protected openWarningDialog(): Observable<any> {
@@ -26,9 +32,54 @@ export abstract class PageBaseComponent implements OnDestroy {
     return of();
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
+  protected markAsTouchedForAll(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {
+        this.markAsTouchedForAll(control);
+      } else if (control instanceof FormArray) {
+        control.controls.forEach(innerFormGroup => {
+          if (innerFormGroup instanceof FormGroup) {
+            this.markAsTouchedForAll(innerFormGroup);
+          }
+        });
+      }
+    });
+  }
+
+  protected markAsUntouchedForAll(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsUntouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {
+        this.markAsUntouchedForAll(control);
+      } else if (control instanceof FormArray) {
+        control.controls.forEach(innerFormGroup => {
+          if (innerFormGroup instanceof FormGroup) {
+            this.markAsUntouchedForAll(innerFormGroup);
+          }
+        });
+      }
+    });
+  }
+
+  protected markAsPristineForAll(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsPristine({onlySelf: true});
+      } else if (control instanceof FormGroup) {
+        this.markAsPristineForAll(control);
+      } else if (control instanceof FormArray) {
+        control.controls.forEach(innerFormGroup => {
+          if (innerFormGroup instanceof FormGroup) {
+            this.markAsPristineForAll(innerFormGroup);
+          }
+        });
+      }
     });
   }
 

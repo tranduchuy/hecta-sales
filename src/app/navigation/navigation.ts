@@ -28,6 +28,14 @@ export const navigation: FuseNavigation[] = [
                 type: 'item',
                 icon: '',
                 url: '/component-list'
+            },
+            {
+                id: 'rule-alert-lead',
+                title: 'Rule alert lead',
+                translate: 'RULE_ALERT_LEAD.TITLE',
+                type: 'item',
+                icon: '',
+                url: '/rule-alert-lead/list'
             }
         ]
     }
