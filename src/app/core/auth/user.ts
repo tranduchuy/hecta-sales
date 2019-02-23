@@ -3,7 +3,7 @@ export interface User {
     email: string;
     password: string;
     retypePassword: string;
-    birth: Date;
+    // birth: Date;
     phone: number;
     name: string;
     gender: string;
@@ -11,5 +11,4 @@ export interface User {
     district: number;
     ward: number;
     type: number;
-    captchaToken?: string;
 }

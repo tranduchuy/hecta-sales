@@ -8,6 +8,7 @@ import { Credential } from './credential';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { URLs } from '../../shared/constants/url.constant';
+import { User } from './user';
 
 @Injectable()
 export class AuthService {
@@ -79,6 +80,19 @@ export class AuthService {
         ),
         tap(this.saveAccessData.bind(this)),
         catchError(this.handleError('login', []))
+      );
+  }
+
+  public register(user: User): Observable<any> {
+    // user = Object.assign({}, user, {
+    //   accessToken: 'access-token-' + Math.random(),
+    //   refreshToken: 'access-token-' + Math.random(),
+    //   roles: ['USER']
+    // });
+    return this.http
+      .post<User>(environment.apiEndpoint + URLs.REGISTER, user)
+      .pipe(
+        catchError(this.handleError('register', []))
       );
   }
 

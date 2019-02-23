@@ -48,7 +48,8 @@
                         [icon]="'supervisor_account'"
                         [errors]="getErrorMessages(registerForm, 'name')"></app-input-text>
 
-        <app-radio-group [itemsSource]="radioGroupItemsSource"
+        <h3>Chọn giới tính</h3>
+        <app-radio-group [itemsSource]="genderItemsSource"
                          [formControlName]="'gender'"
                          [displayPath]="'name'"
                          (valueChange)="onRadioChange($event)"
@@ -60,23 +61,27 @@
         <app-combo-box [itemsSource]="cityItemsSource"
                        [title]="'Tỉnh/Thành'"
                        [formControlName]="'city'"
+                       (valueChange)="onChangeCity($event)"
                        [displayPath]="'name'"
                        [icon]="'language'"
-                       [valuePath]="'value'"></app-combo-box>
+                       [valuePath]="'code'"></app-combo-box>
+                       
 
-        <app-combo-box [itemsSource]="districtsItemsSource"
+        <app-combo-box [itemsSource]="district"
                        [title]="'Quận/Huyện'"
                        [formControlName]="'district'"
+                       (valueChange)="onChangeWard($event)"
                        [displayPath]="'name'"
-                       [valuePath]="'value'"></app-combo-box>
+                       [valuePath]="'id'"></app-combo-box>
 
-        <app-combo-box [itemsSource]="wardsItemsSource"
+        <app-combo-box [itemsSource]="ward"
                        [title]="'Phường/Xã'"
                        [formControlName]="'ward'"
                        [displayPath]="'name'"
-                       [valuePath]="'value'"></app-combo-box>
-
-        <app-radio-group [itemsSource]="radioGroupTypeItemsSource"
+                       [valuePath]="'id'"></app-combo-box>
+        
+        <h3>Chọn loại khách hàng</h3>
+        <app-radio-group [itemsSource]="typeItemsSource"
                          [formControlName]="'type'"
                          [displayPath]="'name'"
                          (valueChange)="onRadioChange($event)"
@@ -111,7 +116,11 @@
           Đăng ký tài khoản
         </button>
 
-         <button *ngIf="isCaptchaCheck" mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT">
+         <button *ngIf="isCaptchaCheck" 
+                  mat-raised-button color="accent" 
+                  class="submit-button" 
+                  aria-label="CREATE AN ACCOUNT"
+                  (click)="register()">
           Đăng ký tài khoản
         </button>
 
