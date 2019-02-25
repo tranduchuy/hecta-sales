@@ -8,6 +8,7 @@ import { Credential } from './credential';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { URLs } from '../../shared/constants/url.constant';
+import { Password } from './password';
 
 @Injectable()
 export class AuthService {
@@ -100,6 +101,18 @@ export class AuthService {
           })),
         catchError(this.handleError('login',[]))
       )
+  }
+
+  public resetPassword(password: Password): Observable<any>{
+    return this.http.post<any>(environment.apiEndpoint + URLs.RESET_PASSWORD, password)
+    .pipe(
+      map((res: any) => Object.assign({},
+        {
+          status: res.status,
+          message: res.message
+        })),
+      catchError(this.handleError('login',[]))
+    )
   }
 
   /**

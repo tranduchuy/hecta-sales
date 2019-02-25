@@ -10,7 +10,8 @@ import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-b
 import { AuthService } from 'app/core/auth/auth.service';
 import { Router } from '@angular/router';
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
-import { DialogService } from 'app/shared/components/dialog/dialog.service';
+import { DialogService, DialogResult } from 'app/shared/components/dialog/dialog.service';
+import { Password } from 'app/core/auth/password';
 
 @Component({
     selector     : 'reset-password',
@@ -22,6 +23,7 @@ import { DialogService } from 'app/shared/components/dialog/dialog.service';
 export class ResetPasswordComponent extends PageBaseComponent implements OnInit, OnDestroy
 {
     resetPasswordForm: FormGroup;
+    isSuccess = true;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -70,7 +72,7 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit,
     {
         this.resetPasswordForm = this._formBuilder.group({
             password       : ['', [this.validatorService.getInputRequired()]],
-            retypePassword: ['', [this.validatorService.getInputRequired(), confirmPasswordValidator]]
+            confirmedPassword: ['', [this.validatorService.getInputRequired(), confirmPasswordValidator]]
         });
 
         // Update the validity of the 'passwordConfirm' field
@@ -80,6 +82,47 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit,
             .subscribe(() => {
                 this.resetPasswordForm.get('retypePassword').updateValueAndValidity();
             });
+    }
+
+    resetPassword(): void
+    {
+      this.fuseProgressBarService.show();
+
+      const password: Password = {
+        password: this.resetPasswordForm.controls.password.value,
+        confirmedPassword: this.resetPasswordForm.controls.confirmedPassword.value
+      };
+  
+      const subHttp = this.authService.resetPassword(password).subscribe(
+        (res: any) => {
+          if (res.status === 1) {
+            this.isSuccess = true;
+            this.router.navigate(['login']);
+            console.log(res);
+            const subDialog = this.dialog.openInfo('Tài khoản của bạn đã được thay đổi thành công. Chuyển đến trang đăng nhập trong giây lát')
+              .subscribe((result: DialogResult) => {
+                console.log('send mail success', result);
+              });
+              this.subscriptions.push(subDialog);
+
+          } else {
+            this.isSuccess = false;
+            console.log(res);
+            const subDialog = this.dialog.openInfo('Mật khẩu của bạn không đúng. Xin nhập lại')
+              .subscribe((result: DialogResult) => {
+                console.log('send mail fail', result);
+              });
+              this.subscriptions.push(subDialog);
+          }
+          this.subscriptions.push(subHttp);
+          this.fuseProgressBarService.hide();
+        }, err => {
+          console.error(err);
+          this.isSuccess = false;
+          this.fuseProgressBarService.hide();
+        });
+  
+        this.subscriptions.push(subHttp);
     }
 
     /**
@@ -106,19 +149,19 @@ export const confirmPasswordValidator: ValidatorFn = (control: AbstractControl):
   }
 
   const password = control.parent.get('password');
-  const retypePassword = control.parent.get('retypePassword');
+  const confirmedPassword = control.parent.get('confirmedPassword');
 
-  if ( !password || !retypePassword )
+  if ( !password || !confirmedPassword )
   {
       return null;
   }
 
-  if ( retypePassword.value === '' )
+  if ( confirmedPassword.value === '' )
   {
       return null;
   }
 
-  if ( password.value === retypePassword.value )
+  if ( password.value === confirmedPassword.value )
   {
       return null;
   }
