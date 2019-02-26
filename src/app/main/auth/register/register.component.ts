@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation, Inject, EventEmitter } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil, distinctUntilChanged } from 'rxjs/internal/operators';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { distinctUntilChanged } from 'rxjs/internal/operators';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
@@ -11,9 +10,9 @@ import { DialogService, DialogResult } from 'app/shared/components/dialog/dialog
 import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { AuthService } from 'app/core/auth/auth.service';
-import { User } from 'app/core/auth/user';
 import { General } from 'app/shared/constants/general.constant';
 import result from 'app/shared/constants/selector.constant';
+import { RegisterConstants } from 'app/shared/constants/register.constant';
 
 declare var grecaptcha: any;
 
@@ -24,7 +23,7 @@ declare var grecaptcha: any;
     encapsulation: ViewEncapsulation.None,
     animations   : fuseAnimations
 })
-export class RegisterComponent extends PageBaseComponent implements OnInit, OnDestroy
+export class RegisterComponent extends PageBaseComponent implements OnInit
 {
     registerForm: FormGroup;
     isCaptchaCheck: Boolean = false;
@@ -35,7 +34,7 @@ export class RegisterComponent extends PageBaseComponent implements OnInit, OnDe
     district: Array<any>;
     ward: Array<any>;
 
-    siteKeyCaptcha: string = "6LeyxX8UAAAAAOIGTpptvlMs6prD9zY7iSCxYEBb";
+    siteKeyCaptcha = RegisterConstants.siteKeyCaptcha;
 
     genderItemsSource = [
       {
@@ -57,10 +56,12 @@ export class RegisterComponent extends PageBaseComponent implements OnInit, OnDe
         name: 'Doanh nghiệp',
         value: General.Type.TYPE_BUSINESS
       }
-    ]
+    ];
 
-    // Private
-    private _unsubscribeAll: Subject<any>;
+    inputDate = {
+      minDay: new Date(1960, 1, 1).getTime(),
+      maxDay: new Date(2005, 1, 1).getTime()
+    };
 
     constructor(
       private _fuseConfigService: FuseConfigService,
@@ -90,9 +91,6 @@ export class RegisterComponent extends PageBaseComponent implements OnInit, OnDe
               }
           }
       };
-
-      // Set the private defaults
-      this._unsubscribeAll = new Subject();
   }
 
     // -----------------------------------------------------------------------------------------------------
@@ -110,19 +108,13 @@ export class RegisterComponent extends PageBaseComponent implements OnInit, OnDe
         password: ['', [this.validatorService.getInputRequired()]],
         phone: ['',[this.validatorService.getInputRequired()]],
         name: ['',[this.validatorService.getInputRequired()]],
-        retypePassword: ['',[this.validatorService.getInputRequired()]],
-        gender: [0],
+        retypePassword: ['',[this.validatorService.getInputRequired(), confirmPasswordValidator]],
+        gender: [1],
         district: ['', [this.validatorService.getInputRequired()]],
         ward: ['',[this.validatorService.getInputRequired()]],
         city: ['', [this.validatorService.getInputRequired()]],
-        // birth: [null, [this.validatorService.getInputRequired()]],
+        birth: ['', [this.validatorService.getInputRequired()]],
         type: [1]
-      });
-
-      this.registerForm.valueChanges
-      .pipe(distinctUntilChanged())
-      .subscribe((value: any) => {
-        console.log('form value', value);
       });
 
       grecaptcha.render('capcha_element', {
@@ -130,47 +122,39 @@ export class RegisterComponent extends PageBaseComponent implements OnInit, OnDe
       });
       window['getResponceCapcha'] = this.getResponceCapcha.bind(this);
       
+      const sub = this.registerForm.valueChanges
+      .pipe(distinctUntilChanged())
+      .subscribe((value: any) => {
+        console.log('form value', value);
+      });
+      
+      this.subscriptions.push(sub)
+
     }
 
     onRadioChange(event: any): void {
       console.log('radio group change', event);
     }
-
+  
     register(): void {
       this.fuseProgressBarService.show();
   
-      const user: User = {
-        username: this.registerForm.controls.username.value,
-        email: this.registerForm.controls.email.value,
-        password: this.registerForm.controls.password.value,
-        retypePassword: this.registerForm.controls.retypePassword.value,
-        // birth: Date;
-        phone: this.registerForm.controls.phone.value,
-        name: this.registerForm.controls.name.value,
-        gender: this.registerForm.controls.gender.value,
-        city: this.registerForm.controls.city.value,
-        district: this.registerForm.controls.district.value,
-        ward: this.registerForm.controls.ward.value,
-        type: this.registerForm.controls.type.value,
-      };
-
-      console.log(user);
-  
-      const sub = this.authService.register(user).subscribe(res => {
+      const sub = this.authService.register(this.registerForm.value).subscribe(res => {
         if (res.status === 1) {
           this.isSuccess = true;
-          this.dialog.openInfo('Tài khoản của bạn đã đăng ký thành công. Vui lòng xác nhận email')
+          const subDialog = this.dialog.openInfo('Tài khoản của bạn đã đăng ký thành công. Vui lòng xác nhận email')
             .subscribe((result: DialogResult) => {
               console.log('send mail success', result);
             });
           this.router.navigate(['login']);
+          this.subscriptions.push(subDialog);
         } else {
           this.isSuccess = false;
-          this.dialog.openInfo('Tài khoản của bạn không được đăng ký. Vui lòng kiểm tra lại các thông tin chưa đúng')
+          const subDialog = this.dialog.openInfo('Tài khoản của bạn không được đăng ký. Vui lòng kiểm tra lại các thông tin chưa đúng')
             .subscribe((result: DialogResult) => {
               console.log('send mail success', result);
             });
-          console.log(res);
+          this.subscriptions.push(subDialog);
         }
         this.fuseProgressBarService.hide();
       }, err => {
@@ -186,23 +170,11 @@ export class RegisterComponent extends PageBaseComponent implements OnInit, OnDe
     {
       this.ward = [];
       this.district = result.cityDistrictProject.find(city => city.code == code).district
-      console.log(this.district);
     }
 
     onChangeWard(id): void
     {
       this.ward = this.district.find(ward => ward.id == id).ward;
-      console.log(this.ward);
-    }
-
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
     }
 
     getResponceCapcha(captchaResponse: string) {

@@ -37,4 +37,29 @@ export class ValidatorService {
       );
     };
   }
+
+  public confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+
+    if (!control.parent || !control) {
+        return null;
+    }
+
+    const password = control.parent.get('password');
+    const retypePassword = control.parent.get('retypePassword');
+
+    if (!password || !retypePassword) {
+        return null;
+    }
+
+    if (retypePassword.value === '') {
+        return null;
+    }
+
+    if (password.value === retypePassword.value) {
+        return null;
+    }
+
+    return { 'passwordsNotMatching': true };
+
+};
 }

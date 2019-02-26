@@ -84,11 +84,6 @@ export class AuthService {
   }
 
   public register(user: User): Observable<any> {
-    // user = Object.assign({}, user, {
-    //   accessToken: 'access-token-' + Math.random(),
-    //   refreshToken: 'access-token-' + Math.random(),
-    //   roles: ['USER']
-    // });
     return this.http
       .post<User>(environment.apiEndpoint + URLs.REGISTER, user)
       .pipe(

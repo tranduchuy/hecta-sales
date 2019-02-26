@@ -48,6 +48,12 @@
                         [icon]="'supervisor_account'"
                         [errors]="getErrorMessages(registerForm, 'name')"></app-input-text>
 
+        <app-date-picker [title]="'Sinh nhật'"
+                         [formControlName]="'birth'"
+                         [maxDay]="inputDate.maxDay"
+                         [minDay]="inputDate.minDay"
+                         [errors]="getErrorMessages(registerForm, 'birth')"></app-date-picker>                
+
         <h3>Chọn giới tính</h3>
         <app-radio-group [itemsSource]="genderItemsSource"
                          [formControlName]="'gender'"
@@ -111,12 +117,15 @@
         
         </script>
 
-        <button *ngIf="!isCaptchaCheck" mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT"
+        <button *ngIf="!isCaptchaCheck||registerForm.invalid" 
+                mat-raised-button color="accent" 
+                class="submit-button" 
+                aria-label="CREATE AN ACCOUNT"
                 disabled>
           Đăng ký tài khoản
         </button>
 
-         <button *ngIf="isCaptchaCheck" 
+         <button *ngIf="isCaptchaCheck&&!registerForm.invalid" 
                   mat-raised-button color="accent" 
                   class="submit-button" 
                   aria-label="CREATE AN ACCOUNT"
