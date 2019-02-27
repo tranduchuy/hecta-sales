@@ -5,7 +5,7 @@ import { ValidatorService } from '../../../shared/services/validators/validator.
 import { DialogResult, DialogService } from '../../../shared/components/dialog/dialog.service';
 import { Router } from '@angular/router';
 import { RuleAlertLeadService } from '../shared/service/rule-alert-lead.service';
-import { RuleAlertLead } from '../shared/model/rule-alert-lead';
+import { RuleAlertLeadRequest } from '../shared/model/rule-alert-lead-request';
 
 @Component({
   selector: 'app-add-rule-alert-lead',
@@ -61,7 +61,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
   }
 
   onClickAddButton(): void {
-    const rule: RuleAlertLead = this.getFormValue();
+    const rule: RuleAlertLeadRequest = this.getFormValue();
     this.markAsTouchedForAll(this.form);
     if (this.form.invalid) {
       console.log('form invalid', this.form);
@@ -152,7 +152,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
     };
   }
 
-  private getFormValue(): RuleAlertLead {
+  private getFormValue(): RuleAlertLeadRequest {
     return {
       formality: this.form.value.formality,
       type: this.form.value.type,

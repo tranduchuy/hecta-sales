@@ -1,3 +1,25 @@
-<div class="page-layout blank p-24" fusePerfectScrollbar>
-  <button mat-raised-button color="primary" class="center" (click)="onClickAddRule()">Add</button>
+<div id="rule-list" class="page-layout simple p-24">
+  <div class="h2 mb-12">Quản lý nhận lead</div>
+  <div>
+    <button mat-raised-button color="primary" (click)="onClickAddRule()">Đăng kí nhận lead</button>
+  </div>
+
+  <div class="content">
+    <div class="results">
+      <div class="result-item" *ngFor="let rule of ruleAlertLeadDetailsList">
+        <div class="title blue-800-fg">{{rule.projectName}}</div>
+        <div class="excerpt">Hình thức: {{rule.formalityName}}</div>
+        <div class="excerpt">Loại hình: {{rule.typeName}}</div>
+        <div class="excerpt">Thành phố: {{rule.cityName}}</div>
+        <div class="excerpt">Quận/Huyện: {{rule.districtName}}</div>
+        <div class="actions">
+          <button mat-raised-button color="warn" (click)="onClickDeleteRule(rule)">Xóa</button>
+          <button mat-raised-button color="primary" (click)="onClickEditRule(rule)">Sửa</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+
