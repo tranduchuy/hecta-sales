@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { URLs } from '../../../../shared/constants/url.constant';
-import { RuleAlertLead } from '../model/rule-alert-lead';
+import { RuleAlertLeadRequest } from '../model/rule-alert-lead-request';
+import { RuleAlertLeadResponse } from '../model/rule-alert-lead-response';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,12 @@ export class RuleAlertLeadService {
   constructor(private httpClient: HttpClient) {
   }
 
-  addRuleAlertLead(rule: RuleAlertLead): Observable<any> {
+  addRuleAlertLead(rule: RuleAlertLeadRequest): Observable<any> {
     return this.httpClient.post(environment.apiEndpoint + URLs.RULE_ALERT_LEAD, rule);
   }
 
-  updateRuleAlertLead(rule: RuleAlertLead): Observable<any> {
-    return this.httpClient.put(environment.apiEndpoint + URLs.RULE_ALERT_LEAD + `/${rule.id}`, rule);
+  updateRuleAlertLead(rule: RuleAlertLeadRequest): Observable<any> {
+    return this.httpClient.put(environment.apiEndpoint + URLs.RULE_ALERT_LEAD + `/${rule._id}`, rule);
   }
 
   deleteRuleAlertLead(ruleId: string): Observable<any> {
@@ -34,14 +35,26 @@ export class RuleAlertLeadService {
     });
   }
 
-  getRuleAlertLeadDetails(rule: RuleAlertLead): any {
+  getRuleAlertLeadFullDetails(rule: RuleAlertLeadResponse): any {
     return {
-      id: rule.id,
-      cate: this.getFormalityById(rule.formality),
-      cateType: this.getTypeByFormalityIdAndTypeId(rule.formality, rule.type),
-      city: this.getCityByCode(rule.city),
-      district: this.getDistrictByCityCodeAndDistrictId(rule.city, rule.district),
-      project: this.getProjectByCityCodeAndDistrictIdAndProjectId(rule.city, rule.district, rule.project)
+      id: rule._id,
+      formality: this.getFormalityById(rule.formality) || {},
+      type: this.getTypeByFormalityIdAndTypeId(rule.formality, rule.type) || {},
+      city: this.getCityByCode(rule.city) || {},
+      district: this.getDistrictByCityCodeAndDistrictId(rule.city, rule.district) || {},
+      project: this.getProjectByCityCodeAndDistrictIdAndProjectId(rule.city, rule.district, rule.project._id) || {}
+    };
+  }
+
+  getRuleAlertLeadLiteDetails(rule: RuleAlertLeadResponse): any {
+    const ruleFullDetails = this.getRuleAlertLeadFullDetails(rule);
+    return {
+      id: rule._id,
+      formalityName: ruleFullDetails.formality.name,
+      typeName: ruleFullDetails.type.name,
+      cityName: ruleFullDetails.city.name,
+      districtName: ruleFullDetails.district.name,
+      projectName: ruleFullDetails.project.name
     };
   }
 

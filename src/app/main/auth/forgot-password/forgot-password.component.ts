@@ -79,7 +79,7 @@ export class ForgotPasswordComponent extends PageBaseComponent implements OnInit
       (res: any) => {
         if (res.status === 1) {
           this.isSuccess = true;
-          this.router.navigate(['sample']);
+          this.router.navigate(['login']);
           this.dialog.openInfo('Tài khoản của bạn đã được gửi yêu cầu lấy lại. Chờ trong giây lát')
             .subscribe((result: DialogResult) => {
               console.log('send mail success', result);

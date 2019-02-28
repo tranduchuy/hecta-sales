@@ -4,7 +4,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatDialog, MatIconModule } from '@angular/material';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatIconModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 

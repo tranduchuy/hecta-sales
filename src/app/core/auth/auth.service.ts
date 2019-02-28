@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { URLs } from '../../shared/constants/url.constant';
 import { Password } from './password';
+import { User } from './user';
 
 @Injectable()
 export class AuthService {
@@ -83,6 +84,14 @@ export class AuthService {
       );
   }
 
+  public register(user: User): Observable<any> {
+    return this.http
+      .post<User>(environment.apiEndpoint + URLs.REGISTER, user)
+      .pipe(
+        catchError(this.handleError('register', []))
+      );
+  }
+
   /**
    * Logout
    */
@@ -92,7 +101,7 @@ export class AuthService {
   }
 
   public forgotPassword(data: string): Observable<any> {
-    return this.http.post(environment.apiEndpoint + URLs.FORGOT_PASSWORD, {email: data})
+    return this.http.post(environment.apiEndpoint + URLs.FORGOT_PASSWORD, {email: data, type: 'APP'})
       .pipe(
         map((res: any) => Object.assign({},
           {

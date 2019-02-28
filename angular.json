@@ -29,7 +29,9 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": [],
+                        "scripts": [
+                            "src/assets/js/api.js"
+                        ],
                         "showCircularDependencies": false
                     },
                     "configurations": {

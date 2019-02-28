@@ -8,7 +8,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { AuthService } from 'app/core/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
 import { DialogService, DialogResult } from 'app/shared/components/dialog/dialog.service';
 import { Password } from 'app/core/auth/password';
@@ -36,6 +36,7 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit,
       private router: Router,
       private validatorService: ValidatorService,
       private dialog: DialogService,
+      private activatedRoute: ActivatedRoute
     )
     {
         super();
@@ -89,8 +90,10 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit,
       this.fuseProgressBarService.show();
 
       const password: Password = {
+        resetToken: this.activatedRoute.snapshot.paramMap.get('token'),
         password: this.resetPasswordForm.controls.password.value,
-        confirmedPassword: this.resetPasswordForm.controls.confirmedPassword.value
+        confirmedPassword: this.resetPasswordForm.controls.confirmedPassword.value,
+        type: 'APP'
       };
   
       const subHttp = this.authService.resetPassword(password).subscribe(
@@ -98,7 +101,6 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit,
           if (res.status === 1) {
             this.isSuccess = true;
             this.router.navigate(['login']);
-            console.log(res);
             const subDialog = this.dialog.openInfo('Tài khoản của bạn đã được thay đổi thành công. Chuyển đến trang đăng nhập trong giây lát')
               .subscribe((result: DialogResult) => {
                 console.log('send mail success', result);
@@ -107,7 +109,6 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit,
 
           } else {
             this.isSuccess = false;
-            console.log(res);
             const subDialog = this.dialog.openInfo('Mật khẩu của bạn không đúng. Xin nhập lại')
               .subscribe((result: DialogResult) => {
                 console.log('send mail fail', result);
