@@ -1,7 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
@@ -20,13 +18,10 @@ import { Password } from 'app/core/auth/password';
     encapsulation: ViewEncapsulation.None,
     animations   : fuseAnimations
 })
-export class ResetPasswordComponent extends PageBaseComponent implements OnInit, OnDestroy
+export class ResetPasswordComponent extends PageBaseComponent implements OnInit
 {
     resetPasswordForm: FormGroup;
     isSuccess = true;
-
-    // Private
-    private _unsubscribeAll: Subject<any>;
 
     constructor(
       private _fuseConfigService: FuseConfigService,
@@ -57,9 +52,6 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit,
                 }
             }
         };
-
-        // Set the private defaults
-        this._unsubscribeAll = new Subject();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -78,11 +70,11 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit,
 
         // Update the validity of the 'passwordConfirm' field
         // when the 'password' field changes
-        this.resetPasswordForm.get('password').valueChanges
-            .pipe(takeUntil(this._unsubscribeAll))
+        const sub = this.resetPasswordForm.get('password').valueChanges
             .subscribe(() => {
-                this.resetPasswordForm.get('retypePassword').updateValueAndValidity();
+                this.resetPasswordForm.get('confirmedPassword').updateValueAndValidity();
             });
+        this.subscriptions.push(sub);
     }
 
     resetPassword(): void
@@ -124,16 +116,6 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit,
         });
   
         this.subscriptions.push(subHttp);
-    }
-
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
     }
 }
 /**
