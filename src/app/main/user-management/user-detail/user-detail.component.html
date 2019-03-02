@@ -1,0 +1,48 @@
+<div id="rule-list" class="page-layout simple p-24">
+  <div class="h2 mb-12">Quản lý tài khoản</div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <strong>Thay đổi thông tin cá nhân</strong> 
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <!-- <form name="userForm" [formGroup]="userForm" novalidate>
+      <app-input-text [formControlName]="'username'"
+                      [placeholder]="'Demo'"
+                      [title]="'Username'"
+                      [icon]="usernameIcon"
+                      ></app-input-text>    
+      </form> -->
+      <h3>Hi! I'm feature/WS0009</h3>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <br>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <strong>Thay đổi mật khẩu</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form name="passwordForm" [formGroup]="passwordForm" novalidate>
+        <app-input-password [formControlName]="'oldPassword'"
+                            [placeholder]="'Demo'"
+                            [title]="'Mật khẩu cũ'"
+                            [icon]="'vpn_key'"
+                            ></app-input-password>
+        <app-input-password [formControlName]="'password'"
+                            [placeholder]="'Demo'"
+                            [title]="'Mật khẩu mới'"
+                            [icon]="'vpn_key'"
+                            ></app-input-password>
+        <app-input-password [formControlName]="'confirmedPassword'"
+                            [placeholder]="'Demo'"
+                            [title]="'Nhập lại mật khẩu mới'"
+                            [icon]="'vpn_key'"
+                            ></app-input-password>
+        <button mat-raised-button color="primary" (click)="updatePassword()">Lưu lại</button>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
