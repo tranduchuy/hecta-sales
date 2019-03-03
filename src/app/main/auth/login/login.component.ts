@@ -7,6 +7,8 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { Credential } from '../../../core/auth/credential';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
+import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
+import { ValidatorService } from 'app/shared/services/validators/validator.service';
 
 @Component({
   selector: 'login',
@@ -15,7 +17,7 @@ import { FuseProgressBarService } from '../../../../@fuse/components/progress-ba
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends PageBaseComponent implements OnInit {
   loginForm: FormGroup;
   isSuccess = true;
   /**
@@ -29,8 +31,10 @@ export class LoginComponent implements OnInit {
     private fuseProgressBarService: FuseProgressBarService,
     private _formBuilder: FormBuilder,
     private authServie: AuthService,
+    private validatorService: ValidatorService,
     private router: Router,
   ) {
+    super();
     // Configure the layout
     this._fuseConfigService.config = {
       layout: {
@@ -59,8 +63,8 @@ export class LoginComponent implements OnInit {
    */
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      username: ['', this.validatorService.getInputRequired()],
+      password: ['', this.validatorService.getInputRequired()]
     });
   }
 
@@ -68,11 +72,11 @@ export class LoginComponent implements OnInit {
     this.fuseProgressBarService.show();
 
     const credential: Credential = {
-      username: this.loginForm.controls.email.value,
+      username: this.loginForm.controls.username.value,
       password: this.loginForm.controls.password.value
     };
 
-    this.authServie.login(credential).subscribe(res => {
+    const sub = this.authServie.login(credential).subscribe(res => {
       if (res.status === 1) {
         this.isSuccess = true;
         this.router.navigate(['sample']);
@@ -85,5 +89,6 @@ export class LoginComponent implements OnInit {
       this.isSuccess = false;
       this.fuseProgressBarService.hide();
     });
+    this.subscriptions.push(sub);
   }
 }
