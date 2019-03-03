@@ -1,0 +1,47 @@
+@import "src/@fuse/scss/fuse";
+
+#rule-list {
+
+  .content {
+
+    .result-info {
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .results {
+      display: flex;
+      flex-direction: column;
+
+      .result-item {
+        margin-top: 24px;
+        padding: 16px;
+        border-radius: 4px;
+        @include mat-elevation(1);
+        background: #fff;
+
+        .title {
+          font-size: 17px;
+          font-weight: 600;
+        }
+
+        .excerpt {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .actions {
+          text-align: right;
+          button {
+            margin-left: 4px;
+          }
+        }
+
+        &:last-child {
+          margin-bottom: 32px;
+        }
+      }
+    }
+  }
+}
