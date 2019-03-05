@@ -933,6 +933,8 @@ THE SOFTWARE.
 
 @angular/material/core
 
+@angular/material/card
+
 @angular/router
 MIT
 
