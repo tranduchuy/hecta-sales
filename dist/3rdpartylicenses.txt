@@ -940,11 +940,11 @@ MIT
 
 @angular/material/tooltip
 
-@angular/material/menu
-
 @angular/material/toolbar
 
 @angular/material/list
+
+@angular/material/menu
 
 @angular/material/divider
 
