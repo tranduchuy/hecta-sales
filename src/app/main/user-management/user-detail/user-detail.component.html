@@ -1,0 +1,39 @@
+<mat-card>
+    <form name="userForm" [formGroup]="userForm" novalidate>
+        <h2>Thông tin cá nhân</h2>
+        <app-input-text [formControlName]="'name'"
+                        [placeholder]="'Demo'"
+                        [title]="'Họ và tên'"
+                        [icon]="'supervisor_account'"
+                        ></app-input-text>
+        <app-date-picker [title]="'Ngày sinh'"
+                         [formControlName]="'birth'"
+                         ></app-date-picker>
+        <h4>Giới tính</h4>
+        <app-radio-group [itemsSource]="genderItemsSource"
+                         [formControlName]="'gender'"
+                         [displayPath]="'name'"
+                         (valueChange)="onRadioChange($event)"
+                         [direction]="'row'"
+                         [isDisabled]="false"
+                         [valuePath]="'value'"></app-radio-group>
+        <hr>
+        <h2>Thông tin liên hệ</h2>
+        <app-input-text [formControlName]="'phone'"
+                        [placeholder]="'Demo'"
+                        [title]="'Số điện thoại'"
+                        [icon]="'phone'"
+                        [isDisabled]="true"
+                        ></app-input-text>
+        <app-input-text [formControlName]="'email'"
+                        [placeholder]="'Demo'"
+                        [title]="'Email'"
+                        [icon]="'mail'"
+                        [isDisabled]="true"
+                        ></app-input-text>
+        <hr>
+        <h2>Ảnh đại diện</h2>
+        <img src="assets/images/logos/hecta-logo.png">
+        <button mat-raised-button color="primary">Lưu lại</button>
+        </form>
+</mat-card>
