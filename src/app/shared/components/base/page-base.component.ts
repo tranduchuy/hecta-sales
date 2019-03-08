@@ -16,7 +16,9 @@ export abstract class PageBaseComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
+      if (subscription) {
+        subscription.unsubscribe();
+      }
     });
   }
 

@@ -7,6 +7,9 @@ const routes: Routes = [
   {
     path: 'add',
     component: AddRuleAlertLeadComponent
+  }, {
+    path: 'update/:id',
+    component: AddRuleAlertLeadComponent
   },
   {
     path: 'list',
