@@ -22,6 +22,14 @@ export const navigation: FuseNavigation[] = [
         type: 'item',
         icon: '',
         url: '/rule-alert-lead/list'
+      },
+      {
+        id: 'user',
+        title: 'User detail',
+        translate: 'USER.TITLE',
+        type: 'item',
+        icon: '',
+        url: '/user/me'
       }
     ]
   }
