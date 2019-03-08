@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, AsyncValidatorFn, Validators} from '@angular/forms';
 import { distinctUntilChanged } from 'rxjs/internal/operators';
-
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { Router } from '@angular/router';
@@ -25,6 +24,7 @@ declare var grecaptcha: any;
 })
 export class RegisterComponent extends PageBaseComponent implements OnInit
 {
+    form: FormGroup;
     registerForm: FormGroup;
     isCaptchaCheck: Boolean = false;
     isSuccess = true;
@@ -70,7 +70,7 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
       private router: Router,
       private validatorService: ValidatorService,
       private dialog: DialogService,
-      private authService: AuthService
+      private authService: AuthService,
   )
   {
       super();
@@ -103,8 +103,12 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
     ngOnInit(): void
     {
       this.registerForm = this.fb.group({
-        username: ['', [this.validatorService.getInputRequired()]],
-        email: ['', [this.validatorService.getInputRequired(), this.validatorService.getEmailPattern()]],
+        username: [null, Validators.compose(
+          [this.validatorService.getInputRequired()],
+        ), this.validatorService.getUsernameCheck()],
+        email: [null, Validators.compose(
+          [this.validatorService.getInputRequired(), this.validatorService.getEmailPattern()],
+        ), this.validatorService.getEmailCheck()],
         password: ['', [this.validatorService.getInputRequired()]],
         phone: ['',[this.validatorService.getInputRequired()]],
         name: ['',[this.validatorService.getInputRequired()]],
@@ -132,8 +136,21 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
 
     }
 
+    
+
     onRadioChange(event: any): void {
       console.log('radio group change', event);
+    }
+
+    check(): void {
+      const sub = this.authService.check(this.registerForm.controls.username.value)
+        .subscribe(res => {
+          if(res.data == false){
+            this.isSuccess = false
+            console.log(res);
+          }
+        })
+      this.subscriptions.push(sub);
     }
   
     register(): void {
@@ -188,7 +205,9 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
               console.log('send mail success', result);
             });
     }
+
 }
+
 
 /**
  * Confirm password validator

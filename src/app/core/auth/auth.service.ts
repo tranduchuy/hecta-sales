@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, Subject } from 'rxjs';
+import { from, Observable, Subject, timer } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { TokenStorage } from './token-storage.service';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, delay, switchMap } from 'rxjs/operators';
 import { AccessData } from './access-data';
 import { Credential } from './credential';
 import { Router } from '@angular/router';
@@ -89,6 +89,16 @@ export class AuthService {
       .post<User>(environment.apiEndpoint + URLs.REGISTER, user)
       .pipe(
         catchError(this.handleError('register', []))
+      );
+  }
+
+  public check(data: string): Observable<any> {
+    return timer(1000)
+      .pipe(
+        switchMap(() => {
+          // Check if username is available
+          return this.http.post<any>(environment.apiEndpoint + URLs.CHECK, {username: data})
+        })
       );
   }
 
