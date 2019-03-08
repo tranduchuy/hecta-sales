@@ -933,16 +933,23 @@ THE SOFTWARE.
 
 @angular/material/radio
 
+<<<<<<< HEAD
+=======
+@angular/material/core
+
+@angular/material/card
+
+>>>>>>> develop
 @angular/router
 MIT
 
 @angular/material/tooltip
 
-@angular/material/menu
-
 @angular/material/toolbar
 
 @angular/material/list
+
+@angular/material/menu
 
 @angular/material/divider
 

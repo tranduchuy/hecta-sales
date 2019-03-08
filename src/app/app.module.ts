@@ -25,6 +25,7 @@ import { ValidatorService } from './shared/services/validators/validator.service
 import { AuthModule } from './main/auth/auth.module';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { RuleAlertLeadManagementModule } from './main/rule-alert-lead-management/rule-alert-lead-management.module';
+import { UserManagementModule } from './main/user-management/user-management.module';
 
 const appRoutes: Routes = [
   {
@@ -40,9 +41,13 @@ const appRoutes: Routes = [
     loadChildren: './main/rule-alert-lead-management/rule-alert-lead-management.module#RuleAlertLeadManagementModule'
   },
   {
+    path: 'user',
+    loadChildren: './main/user-management/user-management.module#UserManagementModule'
+  },
+  {
     path: '**',
     redirectTo: '/auth/login'
-  }
+  },
 ];
 
 @NgModule({
@@ -50,7 +55,7 @@ const appRoutes: Routes = [
     AppComponent,
     InfoDialogComponent,
     WarningDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
   ],
   entryComponents: [
     InfoDialogComponent,
@@ -83,7 +88,8 @@ const appRoutes: Routes = [
     LayoutModule,
     SampleModule,
     AuthModule,
-    RuleAlertLeadManagementModule
+    RuleAlertLeadManagementModule,
+    UserManagementModule
   ],
   providers: [
     MessageService,

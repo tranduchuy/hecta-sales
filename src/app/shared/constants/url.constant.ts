@@ -5,4 +5,5 @@ export namespace URLs {
   export const RULE_ALERT_LEAD = '/api/v1/rule-alert-lead';
   export const REGISTER = '/api/v1/users/register';
   export const CHECK = '/api/v1/users/check';
+  export const USER = '/api/v1/users/update';
 }
