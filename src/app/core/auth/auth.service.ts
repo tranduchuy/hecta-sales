@@ -124,6 +124,17 @@ export class AuthService {
     )
   }
 
+  public resendEmail(data: string): Observable<any>{
+    return this.http.post<any>(environment.apiEndpoint + URLs.RESEND, {email: data})
+    .pipe(
+      map((res: any) => Object.assign({},
+        {
+          status: res.status,
+          message: res.message
+        }))
+    )
+  }
+
   /**
    * Submit registration request
    * @param {Credential} credential

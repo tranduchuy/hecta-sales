@@ -7,6 +7,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { Credential } from '../../../core/auth/credential';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'login',
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private authServie: AuthService,
     private router: Router,
+    private cookieService: CookieService
   ) {
     // Configure the layout
     this._fuseConfigService.config = {

@@ -12,11 +12,15 @@
 
           <div class="subtitle">
               <p>
-                  Email xác nhận tài khoản đã được gửi đến Email của bạn <b>example@mymail.com</b>.
+                  Email xác nhận tài khoản đã được gửi đến <b>{{email}}</b>. Vui lòng kiểm tra hộp thư và nhấn vào liên kết để xác nhận tài khoản đó thực sự là của bạn.
               </p>
               <p>
-                  Vui lòng kiểm tra hộp thư và nhấn vào liên kết để xác nhận tài khoản đó thực sự là của bạn.
+                  Trong trường hợp bạn không nhận được email. Hãy nhấn vào nút gửi lại bên dưới
               </p>
+          </div>
+
+          <div class="message">
+              <button mat-raised-button color="primary" (click)="resend()">Gửi lại</button>
           </div>
 
           <div class="message">

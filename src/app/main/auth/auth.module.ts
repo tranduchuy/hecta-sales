@@ -39,7 +39,7 @@ const routes: Routes = [
     component: ResetPasswordComponent
   },
   {
-    path: 'confirm-password',
+    path: 'confirm',
     component: MailConfirmComponent
   }
 ];

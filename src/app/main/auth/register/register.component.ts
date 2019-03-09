@@ -13,6 +13,7 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { General } from 'app/shared/constants/general.constant';
 import result from 'app/shared/constants/selector.constant';
 import { RegisterConstants } from 'app/shared/constants/register.constant';
+import { CookieService } from 'ngx-cookie-service';
 
 declare var grecaptcha: any;
 
@@ -70,7 +71,8 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
       private router: Router,
       private validatorService: ValidatorService,
       private dialog: DialogService,
-      private authService: AuthService
+      private authService: AuthService,
+      private cookieService: CookieService
   )
   {
       super();
@@ -127,7 +129,6 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
       .subscribe((value: any) => {
         console.log('form value', value);
       });
-      
       this.subscriptions.push(sub)
 
     }
@@ -142,12 +143,7 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
       const sub = this.authService.register(this.registerForm.value).subscribe(res => {
         if (res.status === 1) {
           this.isSuccess = true;
-          const subDialog = this.dialog.openInfo('Tài khoản của bạn đã đăng ký thành công. Vui lòng xác nhận email')
-            .subscribe((result: DialogResult) => {
-              console.log('send mail success', result);
-            });
-          this.router.navigate(['login']);
-          this.subscriptions.push(subDialog);
+          this.router.navigate(['confirm']);
         } else {
           this.isSuccess = false;
           const subDialog = this.dialog.openInfo('Tài khoản của bạn không được đăng ký. Vui lòng kiểm tra lại các thông tin chưa đúng')
@@ -163,6 +159,8 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
         this.fuseProgressBarService.hide();
       });
 
+      //Get cookie for email user
+      this.cookieService.set('email',this.registerForm.controls.email.value);
       this.subscriptions.push(sub);
     }
 
