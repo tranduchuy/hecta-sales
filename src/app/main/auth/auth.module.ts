@@ -19,6 +19,7 @@ import { ValidatorService } from 'app/shared/services/validators/validator.servi
 import { MessageService } from 'app/shared/services/message/message.service';
 import { DialogService } from 'app/shared/components/dialog/dialog.service';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { MailConfirmComponent } from './mail-confirm/mail-confirm.component';
 
 const routes: Routes = [
   {
@@ -36,11 +37,15 @@ const routes: Routes = [
   {
     path: 'reset-password/:token',
     component: ResetPasswordComponent
+  },
+  {
+    path: 'confirm-password',
+    component: MailConfirmComponent
   }
 ];
 
 @NgModule({
-  declarations: [LoginComponent, ForgotPasswordComponent, RegisterComponent, ResetPasswordComponent],
+  declarations: [LoginComponent, ForgotPasswordComponent, RegisterComponent, ResetPasswordComponent, MailConfirmComponent],
 
   imports: [
     RouterModule.forChild(routes),
@@ -62,7 +67,7 @@ const routes: Routes = [
   ],
 
   exports: [
-    LoginComponent, ForgotPasswordComponent, RegisterComponent, ResetPasswordComponent
+    LoginComponent, ForgotPasswordComponent, RegisterComponent, ResetPasswordComponent, MailConfirmComponent
   ],
 
   providers: [AuthService, TokenStorage, ValidatorService, MessageService, DialogService]
