@@ -5,6 +5,7 @@
                         [placeholder]="'Demo'"
                         [title]="'Họ và tên'"
                         [icon]="'supervisor_account'"
+                        [ngModel]="user?.name"
                         ></app-input-text>
         <app-date-picker [title]="'Ngày sinh'"
                          [formControlName]="'birth'"
@@ -24,16 +25,19 @@
                         [title]="'Số điện thoại'"
                         [icon]="'phone'"
                         [isDisabled]="true"
+                        [ngModel]="user?.phone"
                         ></app-input-text>
         <app-input-text [formControlName]="'email'"
-                        [placeholder]="'Demo'"
+                        [placeholder]="'Demo'"  
                         [title]="'Email'"
                         [icon]="'mail'"
                         [isDisabled]="true"
+                        [ngModel]="user?.email"
                         ></app-input-text>
         <hr>
         <h2>Ảnh đại diện</h2>
-        <img src="assets/images/logos/hecta-logo.png">
+        <img [src]="url" height="200"><br/>
+        <div><p>asdasdasdasdasd</p><input accept="image/*" multiple="multiple" name="file" type="file" (change)="onUploadImage($event)"></div>
         <button mat-raised-button color="primary">Lưu lại</button>
         </form>
 </mat-card>

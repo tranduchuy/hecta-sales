@@ -7,6 +7,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { UserService } from '../shared/service/user.service';
 import { General } from 'app/shared/constants/general.constant';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user-detail',
@@ -17,6 +18,7 @@ import { General } from 'app/shared/constants/general.constant';
 })
 export class UserDetailComponent extends PageBaseComponent implements OnInit {
 
+  user;
   isSuccess: Boolean = true;
 
   userForm: FormGroup;
@@ -37,22 +39,39 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
     private fb: FormBuilder,
     private dialog: DialogService,
     private validatorService: ValidatorService,
-    private userService: UserService
+    private userService: UserService,
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.userService.getUser().subscribe(res => {
+      this.user = res.data.user;
+      console.log(this.user)
+    })
     this.userForm = this.fb.group({
-      name: ['', this.validatorService.getInputRequired()],
+      name: ['', [this.validatorService.getInputRequired()]],
       birth: ['', this.validatorService.getInputRequired()],
       gender: [1],
       phone: ['0123456789'],
       email: ['huyphong@gmail.com'],
     })
+    
   }
 
   onRadioChange(event: any): void {
     console.log('radio group change', event);
   }
+
+  // onUploadImage(event): void {
+  //   if (event.target.files && event.target.files[0]) {
+  //     let reader = new FileReader();
+
+  //     reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+  //     reader.onload = (event) => { // called once readAsDataURL is completed
+  //       this.url = event.target.result;
+  //     }
+  //   }
+  // }
 }

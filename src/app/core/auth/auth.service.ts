@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, Observable, Subject } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { TokenStorage } from './token-storage.service';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, delay } from 'rxjs/operators';
 import { AccessData } from './access-data';
 import { Credential } from './credential';
 import { Router } from '@angular/router';
@@ -90,6 +90,13 @@ export class AuthService {
       .pipe(
         catchError(this.handleError('register', []))
       );
+  }
+
+  public check(data: string): Observable<any> {
+    return this.http.post<any>(environment.apiEndpoint + URLs.CHECK, data)
+                    .pipe(
+                      delay(1000)
+                    )
   }
 
   /**

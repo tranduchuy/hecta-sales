@@ -103,7 +103,7 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
     ngOnInit(): void
     {
       this.registerForm = this.fb.group({
-        username: ['', [this.validatorService.getInputRequired()]],
+        username: ['aaa', [this.validatorService.getInputRequired()]],
         email: ['', [this.validatorService.getInputRequired(), this.validatorService.getEmailPattern()]],
         password: ['', [this.validatorService.getInputRequired()]],
         phone: ['',[this.validatorService.getInputRequired()]],
@@ -116,6 +116,8 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
         birth: ['', [this.validatorService.getInputRequired()]],
         type: [1]
       });
+
+      // console.log(this.registerForm.controls.username.value);
 
       grecaptcha.render('capcha_element', {
         'sitekey': this.siteKeyCaptcha
@@ -134,6 +136,17 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
 
     onRadioChange(event: any): void {
       console.log('radio group change', event);
+    }
+
+    check(): void {
+      const sub = this.authService.check(this.registerForm.controls.username.value)
+        .subscribe(res => {
+          if(res.data == false){
+            this.isSuccess = false
+            console.log(res);
+          }
+        })
+      this.subscriptions.push(sub);
     }
   
     register(): void {
