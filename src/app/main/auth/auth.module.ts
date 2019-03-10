@@ -18,7 +18,6 @@ import { DatePickerModule } from 'app/shared/components/date-picker/date-picker.
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
 import { MessageService } from 'app/shared/services/message/message.service';
 import { DialogService } from 'app/shared/components/dialog/dialog.service';
-import { CheckValidatorService } from 'app/core/auth/check.service';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { 
   FormsModule, ReactiveFormsModule
@@ -73,7 +72,7 @@ const routes: Routes = [
     LoginComponent, ForgotPasswordComponent, RegisterComponent, ResetPasswordComponent
   ],
 
-  providers: [AuthService, TokenStorage, ValidatorService, MessageService, DialogService, CheckValidatorService]
+  providers: [AuthService, TokenStorage, ValidatorService, MessageService, DialogService]
 })
 
 export class AuthModule {}

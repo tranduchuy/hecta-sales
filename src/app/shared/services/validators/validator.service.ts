@@ -5,14 +5,12 @@ import { ValidatorCore } from './validator-core.service';
 import { AuthService } from 'app/core/auth/auth.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, timer } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { CheckValidatorService } from 'app/core/auth/check.service';
 
 @Injectable()
 export class ValidatorService {
   constructor(
     private messageService: MessageService, 
-    private checkService: CheckValidatorService) {}
+    private authService: AuthService) {}
 
   private core: ValidatorCore = new ValidatorCore();
 
@@ -32,7 +30,7 @@ export class ValidatorService {
 
   public getUsernameCheck(): AsyncValidatorFn {
     return (ctl: AbstractControl): Observable<{ [key: string]: any } | null> => {
-      return this.checkService.checkUser(ctl.value)
+      return this.authService.checkUser(ctl.value)
       .pipe(
         map(res => {
           if(!res.data) {
@@ -45,7 +43,7 @@ export class ValidatorService {
 
   public getEmailCheck(): AsyncValidatorFn {
     return (ctl: AbstractControl): Observable<{ [key: string]: any} | null> => {
-      return this.checkService.checkEmail(ctl.value)
+      return this.authService.checkEmail(ctl.value)
       .pipe(
         map(res => {
           if(!res.data){

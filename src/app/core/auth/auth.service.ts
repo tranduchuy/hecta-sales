@@ -67,7 +67,7 @@ export class AuthService {
    * @returns {Observable<any>}
    */
   public login(credential: Credential): Observable<any> {
-    return this.http.post<AccessData>(environment.apiEndpoint + URLs.LOGIN, credential)
+    return this.http.post<AccessData>(URLs.LOGIN, credential)
       .pipe(
         map((res: any) => Object.assign({},
           {
@@ -86,20 +86,27 @@ export class AuthService {
 
   public register(user: User): Observable<any> {
     return this.http
-      .post<User>(environment.apiEndpoint + URLs.REGISTER, user)
+      .post<User>(URLs.REGISTER, user)
       .pipe(
         catchError(this.handleError('register', []))
       );
   }
 
-  public check(data: string): Observable<any> {
+  public checkUser(username: string): Observable<any> {
+    return this._checkEmailOrUsernameValidator({ username: username });
+  }
+
+  public checkEmail(email: string): Observable<any> {
+    return this._checkEmailOrUsernameValidator({ email: email });
+  }
+
+  private _checkEmailOrUsernameValidator(data: any): Observable<any> {
     return timer(1000)
       .pipe(
         switchMap(() => {
-          // Check if username is available
-          return this.http.post<any>(environment.apiEndpoint + URLs.CHECK, {username: data})
+          return this.http.post<any>(URLs.CHECK, data)
         })
-      );
+      )
   }
 
   /**
@@ -111,27 +118,27 @@ export class AuthService {
   }
 
   public forgotPassword(data: string): Observable<any> {
-    return this.http.post(environment.apiEndpoint + URLs.FORGOT_PASSWORD, {email: data, type: 'APP'})
+    return this.http.post(URLs.FORGOT_PASSWORD, { email: data, type: 'APP' })
       .pipe(
         map((res: any) => Object.assign({},
           {
             status: res.status,
             message: res.message
           })),
-        catchError(this.handleError('login',[]))
+        catchError(this.handleError('login', []))
       )
   }
 
-  public resetPassword(password: Password): Observable<any>{
-    return this.http.post<any>(environment.apiEndpoint + URLs.RESET_PASSWORD, password)
-    .pipe(
-      map((res: any) => Object.assign({},
-        {
-          status: res.status,
-          message: res.message
-        })),
-      catchError(this.handleError('login',[]))
-    )
+  public resetPassword(password: Password): Observable<any> {
+    return this.http.post<any>(URLs.RESET_PASSWORD, password)
+      .pipe(
+        map((res: any) => Object.assign({},
+          {
+            status: res.status,
+            message: res.message
+          })),
+        catchError(this.handleError('login', []))
+      )
   }
 
   /**
