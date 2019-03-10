@@ -3,9 +3,10 @@ import { PageBaseComponent } from '../../../shared/components/base/page-base.com
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidatorService } from '../../../shared/services/validators/validator.service';
 import { DialogResult, DialogService } from '../../../shared/components/dialog/dialog.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RuleAlertLeadService } from '../shared/service/rule-alert-lead.service';
 import { RuleAlertLeadRequest } from '../shared/model/rule-alert-lead-request';
+import { RuleAlertLeadResponse } from '../shared/model/rule-alert-lead-response';
 
 @Component({
   selector: 'app-add-rule-alert-lead',
@@ -42,29 +43,70 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
     isDisabled: true
   };
 
+  ruleAlertLeadModel: RuleAlertLeadResponse;
+  isAddMode = true; // if false -> edit mode
+  pageTitle = '';
+
   constructor(private fb: FormBuilder,
               private validatorService: ValidatorService,
               private dialog: DialogService,
               private router: Router,
+              private activatedRoute: ActivatedRoute,
               private ruleAlertLeadService: RuleAlertLeadService) {
     super();
-    this.initFormGroup();
   }
 
   ngOnInit(): void {
     this.formalityConfig.itemSource = this.ruleAlertLeadService.getFormalityList();
     this.cityConfig.itemSource = this.ruleAlertLeadService.getCityList();
+    this.initFormGroup();
+
+    this.activatedRoute.params.subscribe(params => {
+      const id = params.id;
+      if (id) {
+        this.isAddMode = false;
+        const subHttp = this.ruleAlertLeadService.getRuleAlertLeadById(id)
+          .subscribe((res: any) => {
+            if (res.status === 1) {
+              this.ruleAlertLeadModel = res.data;
+              this.initEditMode();
+            } else {
+              const subDialog = this.dialog.openWarning(res.message)
+                .subscribe((result: DialogResult) => {
+                  this.goBack();
+                });
+              this.subscriptions.push(subDialog);
+            }
+          });
+        this.subscriptions.push(subHttp);
+      } else {
+        this.isAddMode = true;
+        this.initAddMode();
+      }
+    });
+  }
+
+  initAddMode(): void {
+    this.pageTitle = 'Đăng kí nhận lead';
+  }
+
+  initEditMode(): void {
+    this.pageTitle = 'Chỉnh sửa nhận lead';
+    this.onFormalityChange(this.ruleAlertLeadModel.formality);
+    this.onCityChange(this.ruleAlertLeadModel.city);
+    this.onDistrictChange(this.ruleAlertLeadModel.district);
+
+    this.form.patchValue(Object.assign({}, this.ruleAlertLeadModel, {project: this.ruleAlertLeadModel.project._id}));
   }
 
   onClickBackButton(): void {
-    this.router.navigate(['/rule-alert-lead/list']);
+    this.goBack();
   }
 
   onClickAddButton(): void {
     const rule: RuleAlertLeadRequest = this.getFormValue();
     this.markAsTouchedForAll(this.form);
     if (this.form.invalid) {
-      console.log('form invalid', this.form);
       return;
     }
 
@@ -73,7 +115,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
         if (res.status === 1) {
           const subDialog = this.dialog.openInfo('Bạn đã đăng kí nhận thông tin lead thành công!')
             .subscribe((result: DialogResult) => {
-              this.router.navigate(['/rule-alert-lead/list']);
+              this.goBack();
             });
           this.subscriptions.push(subDialog);
         }
@@ -82,6 +124,35 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
           .subscribe((result: DialogResult) => {
             console.log(result);
           });
+        this.subscriptions.push(subDialog);
+      });
+
+    this.subscriptions.push(subHttp);
+  }
+
+  onClickEditButton(): void {
+    const rule: RuleAlertLeadRequest = this.getFormValue();
+    rule.ruleId = this.ruleAlertLeadModel._id;
+
+    this.markAsTouchedForAll(this.form);
+    if (this.form.invalid) {
+      return;
+    }
+
+    const subHttp = this.ruleAlertLeadService.updateRuleAlertLead(rule)
+      .subscribe(res => {
+        let subDialog;
+        if (res.status === 1) {
+          subDialog = this.dialog.openInfo('Bạn đã cập nhật nhận lead thành công!')
+            .subscribe((result: DialogResult) => {
+              this.goBack();
+            });
+        } else {
+          subDialog = this.dialog.openWarning(res.message)
+            .subscribe((result: DialogResult) => {
+              this.goBack();
+            });
+        }
         this.subscriptions.push(subDialog);
       });
 
@@ -170,5 +241,9 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
       district: [null, this.validatorService.getInputRequired()],
       project: [null, this.validatorService.getInputRequired()]
     });
+  }
+
+  private goBack(): void {
+    this.router.navigate(['/rule-alert-lead/list']);
   }
 }

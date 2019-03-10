@@ -8,6 +8,8 @@ import { Credential } from '../../../core/auth/credential';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 import { CookieService } from 'ngx-cookie-service';
+import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
+import { ValidatorService } from 'app/shared/services/validators/validator.service';
 
 @Component({
   selector: 'login',
@@ -16,7 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends PageBaseComponent implements OnInit {
   loginForm: FormGroup;
   isSuccess = true;
   /**
@@ -29,10 +31,12 @@ export class LoginComponent implements OnInit {
     private _fuseConfigService: FuseConfigService,
     private fuseProgressBarService: FuseProgressBarService,
     private _formBuilder: FormBuilder,
-    private authServie: AuthService,
-    private router: Router,
-    private cookieService: CookieService
+    private _authServie: AuthService,
+    private _validatorService: ValidatorService,
+    private _router: Router,
+    private _cookieService: CookieService
   ) {
+    super();
     // Configure the layout
     this._fuseConfigService.config = {
       layout: {
@@ -61,8 +65,8 @@ export class LoginComponent implements OnInit {
    */
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      username: ['', this._validatorService.getInputRequired()],
+      password: ['', this._validatorService.getInputRequired()]
     });
   }
 
@@ -71,14 +75,14 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
 
     const credential: Credential = {
-      username: this.loginForm.controls.email.value,
+      username: this.loginForm.controls.username.value,
       password: this.loginForm.controls.password.value
     };
 
-    this.authServie.login(credential).subscribe(res => {
+    const sub = this._authServie.login(credential).subscribe(res => {
       if (res.status === 1) {
         this.isSuccess = true;
-        this.router.navigate(['sample']);
+        this._router.navigate(['sample']);
       } else {
         this.isSuccess = false;
       }
@@ -88,5 +92,6 @@ export class LoginComponent implements OnInit {
       this.isSuccess = false;
       this.fuseProgressBarService.hide();
     });
+    this.subscriptions.push(sub);
   }
 }

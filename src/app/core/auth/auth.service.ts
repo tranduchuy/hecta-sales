@@ -102,37 +102,14 @@ export class AuthService {
 
   public forgotPassword(data: string): Observable<any> {
     return this.http.post(environment.apiEndpoint + URLs.FORGOT_PASSWORD, {email: data, type: 'APP'})
-      .pipe(
-        map((res: any) => Object.assign({},
-          {
-            status: res.status,
-            message: res.message
-          })),
-        catchError(this.handleError('login',[]))
-      )
   }
 
   public resetPassword(password: Password): Observable<any>{
     return this.http.post<any>(environment.apiEndpoint + URLs.RESET_PASSWORD, password)
-    .pipe(
-      map((res: any) => Object.assign({},
-        {
-          status: res.status,
-          message: res.message
-        })),
-      catchError(this.handleError('login',[]))
-    )
   }
 
   public resendEmail(data: string): Observable<any>{
-    return this.http.post<any>(environment.apiEndpoint + URLs.RESEND, {email: data})
-    .pipe(
-      map((res: any) => Object.assign({},
-        {
-          status: res.status,
-          message: res.message
-        }))
-    )
+    return this.http.post<any>(URLs.RESEND, {email: data})
   }
 
   /**
