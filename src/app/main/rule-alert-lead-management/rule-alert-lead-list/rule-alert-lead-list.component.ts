@@ -33,6 +33,7 @@ export class RuleAlertLeadListComponent extends PageBaseComponent implements OnI
 
   onClickEditRule(rule?: any): void {
     console.log(rule);
+    this.router.navigate(['/rule-alert-lead/update/' + rule.id]);
   }
 
   onClickDeleteRule(rule?: any): void {
