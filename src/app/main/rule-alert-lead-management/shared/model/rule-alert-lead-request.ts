@@ -1,5 +1,5 @@
 export interface RuleAlertLeadRequest {
-  _id?: string;
+  ruleId?: string;
   formality?: number;
   type?: number;
   city?: string;

@@ -17,12 +17,16 @@ export class RuleAlertLeadService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getRuleAlertLeadById(id: string): Observable<RuleAlertLeadResponse> {
+    return this.httpClient.get(environment.apiEndpoint + URLs.RULE_ALERT_LEAD + `/${id}`);
+  }
+
   addRuleAlertLead(rule: RuleAlertLeadRequest): Observable<any> {
     return this.httpClient.post(environment.apiEndpoint + URLs.RULE_ALERT_LEAD, rule);
   }
 
   updateRuleAlertLead(rule: RuleAlertLeadRequest): Observable<any> {
-    return this.httpClient.put(environment.apiEndpoint + URLs.RULE_ALERT_LEAD + `/${rule._id}`, rule);
+    return this.httpClient.put(environment.apiEndpoint + URLs.RULE_ALERT_LEAD, rule);
   }
 
   deleteRuleAlertLead(ruleId: string): Observable<any> {
