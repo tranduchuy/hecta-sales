@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { ValidatorFn, AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 import { MessageService } from '../message/message.service';
 import { ValidatorCore } from './validator-core.service';
+import { AuthService } from 'app/core/auth/auth.service';
+import { map, switchMap } from 'rxjs/operators';
+import { Observable, timer } from 'rxjs';
 
 @Injectable()
 export class ValidatorService {
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService, 
+    private authService: AuthService) {}
 
   private core: ValidatorCore = new ValidatorCore();
 
@@ -21,6 +26,32 @@ export class ValidatorService {
         this.messageService
       );
     };
+  }
+
+  public getUsernameCheck(): AsyncValidatorFn {
+    return (ctl: AbstractControl): Observable<{ [key: string]: any } | null> => {
+      return this.authService.checkUser(ctl.value)
+      .pipe(
+        map(res => {
+          if(!res.data) {
+            return { 'exists': true }
+          }
+        })
+      )
+    }
+  }
+
+  public getEmailCheck(): AsyncValidatorFn {
+    return (ctl: AbstractControl): Observable<{ [key: string]: any} | null> => {
+      return this.authService.checkEmail(ctl.value)
+      .pipe(
+        map(res => {
+          if(!res.data){
+            return { 'exists': true}
+          }
+        })
+      )
+    }
   }
 
   public getEmailPattern(): ValidatorFn {

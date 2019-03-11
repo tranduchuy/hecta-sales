@@ -30,10 +30,10 @@ export class MailConfirmComponent extends PageBaseComponent implements OnInit {
     private _fuseConfigService: FuseConfigService,
     private _fb: FormBuilder,
     private _validatorService: ValidatorService,
-    private authService: AuthService,
-    private router: Router,
-    private fuseProgressBarService: FuseProgressBarService,
-    private dialog: DialogService,
+    private _authService: AuthService,
+    private _router: Router,
+    private _fuseProgressBarService: FuseProgressBarService,
+    private _dialog: DialogService,
   ) {
     super();
     // Configure the layout
@@ -64,35 +64,27 @@ export class MailConfirmComponent extends PageBaseComponent implements OnInit {
   }
 
   resend(): void {
-    this.fuseProgressBarService.show();
-    const sub = this.authService.resendEmail(this.mailConfirmForm.controls.email.value).subscribe(res => {
-      if(res.status == 1 ){
-        const subDialog = this.dialog.openInfo('Tài khoản của bạn đã được gửi lại email xác nhận. Vui lòng kiểm tra lại hộp thư')
+    this._fuseProgressBarService.show();
+    const sub = this._authService.resendEmail(this.mailConfirmForm.controls.email.value).subscribe(res => {
+      if(res.status == 1 || res.message === "User have already been active"){
+        const subDialog = this._dialog.openInfo('Tài khoản của bạn đã được gửi lại email xác nhận. Vui lòng kiểm tra lại hộp thư')
         .subscribe((result: DialogResult) => {
           console.log('send mail success', result);
         });
-        this.router.navigate(['/auth/login']);
+        this._router.navigate(['/auth/login']);
         this.subscriptions.push(subDialog);
-      }
-      else if(res.message === "User have already been active"){
-        const subDialog = this.dialog.openInfo('Tài khoản của bạn đã được gửi lại email xác nhận. Vui lòng kiểm tra lại hộp thư')
-        .subscribe((result: DialogResult) => {
-          console.log('send mail success', result);
-        });
-        this.router.navigate(['/auth/login']);
-        this.subscriptions.push(subDialog);
-      }
+      } 
       else{
-        const subDialog = this.dialog.openInfo('Vui lòng nhập đúng thông tin')
+        const subDialog = this._dialog.openInfo('Vui lòng nhập đúng thông tin')
         .subscribe((result: DialogResult) => {
           console.log('send mail success', result);
         });
         this.subscriptions.push(subDialog);
       }
-      this.fuseProgressBarService.hide();
+      this._fuseProgressBarService.hide();
     }, err => {
       console.error(err);
-      this.fuseProgressBarService.hide();
+      this._fuseProgressBarService.hide();
     });
     this.subscriptions.push(sub);
   }

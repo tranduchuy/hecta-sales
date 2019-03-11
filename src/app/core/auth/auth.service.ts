@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, Subject } from 'rxjs';
+import { from, Observable, Subject, timer } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { TokenStorage } from './token-storage.service';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, delay, switchMap } from 'rxjs/operators';
 import { AccessData } from './access-data';
 import { Credential } from './credential';
 import { Router } from '@angular/router';
@@ -67,7 +67,7 @@ export class AuthService {
    * @returns {Observable<any>}
    */
   public login(credential: Credential): Observable<any> {
-    return this.http.post<AccessData>(environment.apiEndpoint + URLs.LOGIN, credential)
+    return this.http.post<AccessData>(URLs.LOGIN, credential)
       .pipe(
         map((res: any) => Object.assign({},
           {
@@ -86,10 +86,27 @@ export class AuthService {
 
   public register(user: User): Observable<any> {
     return this.http
-      .post<User>(environment.apiEndpoint + URLs.REGISTER, user)
+      .post<User>(URLs.REGISTER, user)
       .pipe(
         catchError(this.handleError('register', []))
       );
+  }
+
+  public checkUser(username: string): Observable<any> {
+    return this._checkEmailOrUsernameValidator({ username: username });
+  }
+
+  public checkEmail(email: string): Observable<any> {
+    return this._checkEmailOrUsernameValidator({ email: email });
+  }
+
+  private _checkEmailOrUsernameValidator(data: any): Observable<any> {
+    return timer(1000)
+      .pipe(
+        switchMap(() => {
+          return this.http.post<any>(URLs.CHECK, data)
+        })
+      )
   }
 
   /**
@@ -101,6 +118,7 @@ export class AuthService {
   }
 
   public forgotPassword(data: string): Observable<any> {
+<<<<<<< HEAD
     return this.http.post(environment.apiEndpoint + URLs.FORGOT_PASSWORD, {email: data, type: 'APP'})
   }
 
@@ -110,6 +128,29 @@ export class AuthService {
 
   public resendEmail(data: string): Observable<any>{
     return this.http.post<any>(URLs.RESEND, {email: data})
+=======
+    return this.http.post(URLs.FORGOT_PASSWORD, { email: data, type: 'APP' })
+      .pipe(
+        map((res: any) => Object.assign({},
+          {
+            status: res.status,
+            message: res.message
+          })),
+        catchError(this.handleError('login', []))
+      )
+  }
+
+  public resetPassword(password: Password): Observable<any> {
+    return this.http.post<any>(URLs.RESET_PASSWORD, password)
+      .pipe(
+        map((res: any) => Object.assign({},
+          {
+            status: res.status,
+            message: res.message
+          })),
+        catchError(this.handleError('login', []))
+      )
+>>>>>>> develop
   }
 
   /**
