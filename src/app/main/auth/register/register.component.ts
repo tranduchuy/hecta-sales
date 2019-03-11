@@ -13,7 +13,6 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { General } from 'app/shared/constants/general.constant';
 import result from 'app/shared/constants/selector.constant';
 import { RegisterConstants } from 'app/shared/constants/register.constant';
-import { CookieService } from 'ngx-cookie-service';
 
 declare var grecaptcha: any;
 
@@ -72,7 +71,6 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
       private validatorService: ValidatorService,
       private dialog: DialogService,
       private authService: AuthService,
-      private cookieService: CookieService
   )
   {
       super();
@@ -160,7 +158,6 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
       });
 
       //Get cookie for email user
-      this.cookieService.set('email',this.registerForm.controls.email.value);
       this.subscriptions.push(sub);
     }
 
