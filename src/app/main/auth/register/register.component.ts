@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, AsyncValidatorFn, Validators} from '@angular/forms';
 import { distinctUntilChanged } from 'rxjs/internal/operators';
-
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { Router } from '@angular/router';
@@ -25,6 +24,7 @@ declare var grecaptcha: any;
 })
 export class RegisterComponent extends PageBaseComponent implements OnInit
 {
+    form: FormGroup;
     registerForm: FormGroup;
     isCaptchaCheck: Boolean = false;
     isSuccess = true;
@@ -65,12 +65,12 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
 
     constructor(
       private _fuseConfigService: FuseConfigService,
-      private fb: FormBuilder,
-      private fuseProgressBarService: FuseProgressBarService,
-      private router: Router,
-      private validatorService: ValidatorService,
-      private dialog: DialogService,
-      private authService: AuthService
+      private _fb: FormBuilder,
+      private _fuseProgressBarService: FuseProgressBarService,
+      private _router: Router,
+      private _validatorService: ValidatorService,
+      private _dialog: DialogService,
+      private _authService: AuthService,
   )
   {
       super();
@@ -102,18 +102,22 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
      */
     ngOnInit(): void
     {
-      this.registerForm = this.fb.group({
-        username: ['', [this.validatorService.getInputRequired()]],
-        email: ['', [this.validatorService.getInputRequired(), this.validatorService.getEmailPattern()]],
-        password: ['', [this.validatorService.getInputRequired()]],
-        phone: ['',[this.validatorService.getInputRequired()]],
-        name: ['',[this.validatorService.getInputRequired()]],
-        retypePassword: ['',[this.validatorService.getInputRequired(), confirmPasswordValidator]],
+      this.registerForm = this._fb.group({
+        username: [null, Validators.compose(
+          [this._validatorService.getInputRequired()],
+        ), this._validatorService.getUsernameCheck()],
+        email: [null, Validators.compose(
+          [this._validatorService.getInputRequired(), this._validatorService.getEmailPattern()],
+        ), this._validatorService.getEmailCheck()],
+        password: ['', [this._validatorService.getInputRequired()]],
+        phone: ['',[this._validatorService.getInputRequired()]],
+        name: ['',[this._validatorService.getInputRequired()]],
+        retypePassword: ['',[this._validatorService.getInputRequired(), confirmPasswordValidator]],
         gender: [1],
-        district: ['', [this.validatorService.getInputRequired()]],
-        ward: ['',[this.validatorService.getInputRequired()]],
-        city: ['', [this.validatorService.getInputRequired()]],
-        birth: ['', [this.validatorService.getInputRequired()]],
+        district: ['', [this._validatorService.getInputRequired()]],
+        ward: ['',[this._validatorService.getInputRequired()]],
+        city: ['', [this._validatorService.getInputRequired()]],
+        birth: ['', [this._validatorService.getInputRequired()]],
         type: [1]
       });
 
@@ -137,30 +141,30 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
     }
   
     register(): void {
-      this.fuseProgressBarService.show();
+      this._fuseProgressBarService.show();
   
-      const sub = this.authService.register(this.registerForm.value).subscribe(res => {
+      const sub = this._authService.register(this.registerForm.value).subscribe(res => {
         if (res.status === 1) {
           this.isSuccess = true;
-          const subDialog = this.dialog.openInfo('Tài khoản của bạn đã đăng ký thành công. Vui lòng xác nhận email')
+          const subDialog = this._dialog.openInfo('Tài khoản của bạn đã đăng ký thành công. Vui lòng xác nhận email')
             .subscribe((result: DialogResult) => {
               console.log('send mail success', result);
             });
-          this.router.navigate(['login']);
+          this._router.navigate(['login']);
           this.subscriptions.push(subDialog);
         } else {
           this.isSuccess = false;
-          const subDialog = this.dialog.openInfo('Tài khoản của bạn không được đăng ký. Vui lòng kiểm tra lại các thông tin chưa đúng')
+          const subDialog = this._dialog.openInfo('Tài khoản của bạn không được đăng ký. Vui lòng kiểm tra lại các thông tin chưa đúng')
             .subscribe((result: DialogResult) => {
               console.log('send mail success', result);
             });
           this.subscriptions.push(subDialog);
         }
-        this.fuseProgressBarService.hide();
+        this._fuseProgressBarService.hide();
       }, err => {
         console.error(err);
         this.isSuccess = false;
-        this.fuseProgressBarService.hide();
+        this._fuseProgressBarService.hide();
       });
 
       this.subscriptions.push(sub);
@@ -183,12 +187,14 @@ export class RegisterComponent extends PageBaseComponent implements OnInit
     
     verifyCaptcha(captchaResponse: string) {
       this.isCaptchaCheck = true;
-      this.dialog.openInfo(captchaResponse)
+      this._dialog.openInfo(captchaResponse)
             .subscribe((result: DialogResult) => {
               console.log('send mail success', result);
             });
     }
+
 }
+
 
 /**
  * Confirm password validator

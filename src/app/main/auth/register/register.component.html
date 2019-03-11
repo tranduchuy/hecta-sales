@@ -9,7 +9,6 @@
       </div>
 
       <div class="title">Tạo tài khoản</div>
-
       <form name="registerForm" [formGroup]="registerForm" novalidate>
 
         <app-input-text [formControlName]="'username'"
@@ -18,11 +17,17 @@
                         [icon]="'account_circle'"
                         [errors]="getErrorMessages(registerForm, 'username')"></app-input-text>
 
+        <p style="color: red"
+          *ngIf="registerForm.get('username').errors?.exists">Tài khoản đã có người tạo</p>
+
         <app-input-text [formControlName]="'email'"
                         [placeholder]="'example@gmail.com'"
                         [title]="'Địa chỉ email'"
                         [icon]="'mail'"
                         [errors]="getErrorMessages(registerForm, 'email')"></app-input-text>
+
+         <p style="color: red"
+          *ngIf="registerForm.get('email').errors?.exists">Email đã có người tạo</p>
 
         <app-input-password [formControlName]="'password'"
                             [placeholder]="'Demo'"

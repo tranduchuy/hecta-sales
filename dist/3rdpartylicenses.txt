@@ -1,3 +1,5 @@
+@angular/material/core
+
 @angularclass/hmr
 Apache-2.0
                                  Apache License
@@ -931,10 +933,13 @@ THE SOFTWARE.
 
 @angular/material/radio
 
+<<<<<<< HEAD
+=======
 @angular/material/core
 
 @angular/material/card
 
+>>>>>>> develop
 @angular/router
 MIT
 
