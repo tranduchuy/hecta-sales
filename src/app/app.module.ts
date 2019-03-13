@@ -2,18 +2,15 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatIconModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
-
 import { FuseModule } from '@fuse/fuse.module';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseProgressBarModule, FuseSidebarModule, FuseThemeOptionsModule } from '@fuse/components';
-
 import { fuseConfig } from 'app/fuse-config';
-
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
@@ -26,33 +23,7 @@ import { AuthModule } from './main/auth/auth.module';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { RuleAlertLeadManagementModule } from './main/rule-alert-lead-management/rule-alert-lead-management.module';
 import { UserManagementModule } from './main/user-management/user-management.module';
-
-const appRoutes: Routes = [
-  {
-    path: 'component-list',
-    loadChildren: './shared/components/component-list/component-list.module#ComponentListModule'
-  },
-  {
-    path: 'auth',
-    loadChildren: './main/auth/auth.module#AuthModule'
-  },
-  {
-    path: 'rule-alert-lead',
-    loadChildren: './main/rule-alert-lead-management/rule-alert-lead-management.module#RuleAlertLeadManagementModule'
-  },
-  {
-    path: 'user',
-    loadChildren: './main/user-management/user-management.module#UserManagementModule'
-  },
-  {
-    path: 'khach-hang-tiem-nang',
-    loadChildren: './main/lead/lead.module#LeadModule'
-  },
-  {
-    path: '**',
-    redirectTo: '/auth/login'
-  },
-];
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -71,23 +42,20 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-
     TranslateModule.forRoot(),
+    AppRoutingModule,
 
     // Material moment date module
     MatMomentDateModule,
-
     // Material
     MatButtonModule,
     MatIconModule,
-
     // Fuse modules
     FuseModule.forRoot(fuseConfig),
     FuseProgressBarModule,
     FuseSharedModule,
     FuseSidebarModule,
     FuseThemeOptionsModule,
-
     // App modules
     LayoutModule,
     SampleModule,

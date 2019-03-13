@@ -4,6 +4,7 @@ import { RuleAlertLeadService } from '../shared/service/rule-alert-lead.service'
 import { PageBaseComponent } from '../../../shared/components/base/page-base.component';
 import { DialogResult, DialogService } from '../../../shared/components/dialog/dialog.service';
 import { RuleAlertLeadResponse } from '../shared/model/rule-alert-lead-response';
+import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 
 @Component({
   selector: 'app-rule-alert-lead-list',
@@ -44,7 +45,7 @@ export class RuleAlertLeadListComponent extends PageBaseComponent implements OnI
         if (result === DialogResult.OK) {
           const subHttp = self.service.deleteRuleAlertLead(rule.id)
             .subscribe((res: any) => {
-              if (res.status === 1) {
+              if (res.status === HTTP_CODES.SUCCESS) {
                 self.ngOnInit();
                 const successMessage = `Bạn đã xóa nhận lead dự án ${rule.projectName}, ${rule.districtName}, ${rule.cityName} thành công!`;
                 self.dialog.openInfo(successMessage).subscribe().unsubscribe();
