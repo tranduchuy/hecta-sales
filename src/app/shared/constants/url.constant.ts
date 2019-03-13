@@ -8,5 +8,5 @@ export namespace URLs {
   export const REGISTER = environment.apiEndpoint + '/api/v1/users/register';
   export const CHECK = environment.apiEndpoint + '/api/v1/users/check';
   export const USER = '/api/v1/users/update';
-  export const RESEND = environment.apiEndpoint + '/api/v1/users/confirm/resend';
+  export const RESEND_EMAIL = environment.apiEndpoint + '/api/v1/users/confirm/resend';
 }

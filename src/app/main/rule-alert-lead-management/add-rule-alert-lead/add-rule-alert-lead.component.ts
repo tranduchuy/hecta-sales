@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RuleAlertLeadService } from '../shared/service/rule-alert-lead.service';
 import { RuleAlertLeadRequest } from '../shared/model/rule-alert-lead-request';
 import { RuleAlertLeadResponse } from '../shared/model/rule-alert-lead-response';
+import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 
 @Component({
   selector: 'app-add-rule-alert-lead',
@@ -67,7 +68,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
         this.isAddMode = false;
         const subHttp = this.ruleAlertLeadService.getRuleAlertLeadById(id)
           .subscribe((res: any) => {
-            if (res.status === 1) {
+            if (res.status === HTTP_CODES.SUCCESS) {
               this.ruleAlertLeadModel = res.data;
               this.initEditMode();
             } else {
@@ -112,7 +113,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
 
     const subHttp = this.ruleAlertLeadService.addRuleAlertLead(rule)
       .subscribe(res => {
-        if (res.status === 1) {
+        if (res.status === HTTP_CODES.SUCCESS) {
           const subDialog = this.dialog.openInfo('Bạn đã đăng kí nhận thông tin lead thành công!')
             .subscribe((result: DialogResult) => {
               this.goBack();
@@ -142,7 +143,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
     const subHttp = this.ruleAlertLeadService.updateRuleAlertLead(rule)
       .subscribe(res => {
         let subDialog;
-        if (res.status === 1) {
+        if (res.status === HTTP_CODES.SUCCESS) {
           subDialog = this.dialog.openInfo('Bạn đã cập nhật nhận lead thành công!')
             .subscribe((result: DialogResult) => {
               this.goBack();

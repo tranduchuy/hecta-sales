@@ -10,6 +10,7 @@ import { FuseProgressBarService } from '../../../../@fuse/components/progress-ba
 import { CookieService } from 'ngx-cookie-service';
 import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
+import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 
 @Component({
   selector: 'login',
@@ -31,10 +32,9 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
     private _fuseConfigService: FuseConfigService,
     private fuseProgressBarService: FuseProgressBarService,
     private _formBuilder: FormBuilder,
-    private _authServie: AuthService,
+    private _authService: AuthService,
     private _validatorService: ValidatorService,
     private _router: Router,
-    private _cookieService: CookieService
   ) {
     super();
     // Configure the layout
@@ -79,10 +79,10 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
       password: this.loginForm.controls.password.value
     };
 
-    const sub = this._authServie.login(credential).subscribe(res => {
-      if (res.status === 1) {
+    const sub = this._authService.login(credential).subscribe(res => {
+      if (res.status === HTTP_CODES.SUCCESS) {
         this.isSuccess = true;
-        this._router.navigate(['sample']);
+        this._router.navigate(['home']);
       } else {
         this.isSuccess = false;
       }
