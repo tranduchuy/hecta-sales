@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { HTTP_CODES } from '../../shared/constants/http-code.constant';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -27,14 +28,14 @@ export class TokenInterceptor implements HttpInterceptor {
       tap(
         event => {
           if (event instanceof HttpResponse) {
-            if (event.body.status === 401) {
+            if (event.body.status === HTTP_CODES.ERROR_AUTHORIZED) {
               this.router.navigate(['auth/login']);
             }
           }
         },
         error => {
           // http response status code
-          if (error.status === 401) {
+          if (error.status === HTTP_CODES.ERROR_AUTHORIZED) {
             this.router.navigate(['auth/login']);
           }
         }

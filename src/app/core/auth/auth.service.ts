@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { from, Observable, Subject, timer } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { TokenStorage } from './token-storage.service';
-import { catchError, map, tap, delay, switchMap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { AccessData } from './access-data';
 import { Credential } from './credential';
 import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
 import { URLs } from '../../shared/constants/url.constant';
 import { Password } from './password';
 import { User } from './user';
+import { HTTP_CODES } from '../../shared/constants/http-code.constant';
 
 @Injectable()
 export class AuthService {
@@ -58,7 +58,7 @@ export class AuthService {
    * @returns {boolean}
    */
   public refreshShouldHappen(response: HttpErrorResponse): boolean {
-    return response.status === 401;
+    return response.status === HTTP_CODES.ERROR_AUTHORIZED;
   }
 
   /**
@@ -93,20 +93,20 @@ export class AuthService {
   }
 
   public checkUser(username: string): Observable<any> {
-    return this._checkEmailOrUsernameValidator({ username: username });
+    return this._checkEmailOrUsernameValidator({username: username});
   }
 
   public checkEmail(email: string): Observable<any> {
-    return this._checkEmailOrUsernameValidator({ email: email });
+    return this._checkEmailOrUsernameValidator({email: email});
   }
 
   private _checkEmailOrUsernameValidator(data: any): Observable<any> {
     return timer(1000)
       .pipe(
         switchMap(() => {
-          return this.http.post<any>(URLs.CHECK, data)
+          return this.http.post<any>(URLs.CHECK, data);
         })
-      )
+      );
   }
 
   /**
@@ -118,7 +118,7 @@ export class AuthService {
   }
 
   public forgotPassword(data: string): Observable<any> {
-    return this.http.post(URLs.FORGOT_PASSWORD, { email: data, type: 'APP' })
+    return this.http.post(URLs.FORGOT_PASSWORD, {email: data, type: 'APP'})
       .pipe(
         map((res: any) => Object.assign({},
           {
@@ -126,7 +126,7 @@ export class AuthService {
             message: res.message
           })),
         catchError(this.handleError('login', []))
-      )
+      );
   }
 
   public resetPassword(password: Password): Observable<any> {
@@ -138,7 +138,7 @@ export class AuthService {
             message: res.message
           })),
         catchError(this.handleError('login', []))
-      )
+      );
   }
 
   /**

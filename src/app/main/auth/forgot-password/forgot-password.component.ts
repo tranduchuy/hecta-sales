@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
 import { DialogService, DialogResult } from 'app/shared/components/dialog/dialog.service';
+import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 
 @Component({
   selector: 'forgot-password',
@@ -73,11 +74,11 @@ export class ForgotPasswordComponent extends PageBaseComponent implements OnInit
   forgotPassword(): void {
     this.fuseProgressBarService.show();
 
-    let email = this.forgotPasswordForm.controls.email.value;
+    const email = this.forgotPasswordForm.controls.email.value;
 
     const sub = this.authService.forgotPassword(email).subscribe(
       (res: any) => {
-        if (res.status === 1) {
+        if (res.status === HTTP_CODES.SUCCESS) {
           this.isSuccess = true;
           this.router.navigate(['login']);
           this.dialog.openInfo('Tài khoản của bạn đã được gửi yêu cầu lấy lại. Chờ trong giây lát')
