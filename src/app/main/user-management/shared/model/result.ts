@@ -1,1 +1,1 @@
-interface EventTarget { result: any; }
+// interface EventTarget { result: any; }

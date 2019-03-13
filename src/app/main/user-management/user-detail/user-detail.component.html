@@ -9,6 +9,7 @@
                         ></app-input-text>
         <app-date-picker [title]="'Ngày sinh'"
                          [formControlName]="'birth'"
+                         [ngModel]="user?.birthday"
                          ></app-date-picker>
         <h4>Giới tính</h4>
         <app-radio-group [itemsSource]="genderItemsSource"
@@ -17,7 +18,8 @@
                          (valueChange)="onRadioChange($event)"
                          [direction]="'row'"
                          [isDisabled]="false"
-                         [valuePath]="'value'"></app-radio-group>
+                         [valuePath]="'value'"
+                         [ngModel]="user?.gender"></app-radio-group>
         <hr>
         <h2>Thông tin liên hệ</h2>
         <app-input-text [formControlName]="'phone'"
@@ -36,8 +38,15 @@
                         ></app-input-text>
         <hr>
         <h2>Ảnh đại diện</h2>
-        <img [src]="url" height="200"><br/>
-        <div><p>asdasdasdasdasd</p><input accept="image/*" multiple="multiple" name="file" type="file" (change)="onUploadImage($event)"></div>
-        <button mat-raised-button color="primary">Lưu lại</button>
+        <input accept="image/*" multiple="multiple" id="imgupload" type='file' (change)="onUploadImage($event);" style="display:none;"/>
+        <button mat-raised-button color="accent" (click)="onBrowser($event)"><i class="material-icons">
+            add_photo_alternate
+            </i></button>
+        <button mat-button (click)="onRemove()"><i class="material-icons">
+            clear
+            </i></button><br><br>
+        <img id="avatar" [src]="url || 'http://placehold.it/200'" alt="your image" (click)="onBrowser($event)"/> <br><br>
+        <button mat-raised-button color="primary" (click)="onUpdateProfile()">Lưu lại</button>
         </form>
 </mat-card>
+
