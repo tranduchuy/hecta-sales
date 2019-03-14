@@ -6,6 +6,7 @@ import { DialogService, DialogResult } from 'app/shared/components/dialog/dialog
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
 import { UserService } from '../shared/service/user.service';
 import { Router } from '@angular/router';
+import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 
 @Component({
   selector: 'app-user-update-password',
@@ -29,19 +30,19 @@ export class UserUpdatePasswordComponent extends PageBaseComponent implements On
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.passwordForm = this.fb.group({
       oldPassword: ['', [this.validatorService.getInputRequired()]],
       password: ['', this.validatorService.getInputRequired()],
       confirmedPassword: ['', this.validatorService.getInputRequired()]
-    })
+    });
   }
 
   updatePassword(): void {
     this.fuseProgressBarService.show();
     const subHttp = this.userService.updatePassword(this.passwordForm.value).subscribe(
       res => {
-        if (res.status === 1) {
+        if (res.status === HTTP_CODES.SUCCESS) {
           this.isSuccess = true;
           const subDialog = this.dialog.openInfo('Cập nhật tài khoản thành công')
             .subscribe((result: DialogResult) => {

@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
 import { DialogService, DialogResult } from 'app/shared/components/dialog/dialog.service';
 import { Password } from 'app/core/auth/password';
+import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 
 @Component({
     selector     : 'reset-password',
@@ -90,7 +91,7 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit
   
       const subHttp = this.authService.resetPassword(password).subscribe(
         (res: any) => {
-          if (res.status === 1) {
+          if (res.status === HTTP_CODES.SUCCESS) {
             this.isSuccess = true;
             this.router.navigate(['login']);
             const subDialog = this.dialog.openInfo('Tài khoản của bạn đã được thay đổi thành công. Chuyển đến trang đăng nhập trong giây lát')

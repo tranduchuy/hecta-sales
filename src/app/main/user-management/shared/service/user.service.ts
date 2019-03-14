@@ -30,8 +30,11 @@ export class UserService {
 
   public uploadImage(image: File): Observable<any>{
     const formData = new FormData();
-    formData.append('image', image);
-    return this._httpClient.post(URLs.IMAGE_UPLOAD, formData);
+    formData.append('image',image);
+    return this._httpClient.post(URLs.IMAGE_UPLOAD, formData,{
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 
   /**

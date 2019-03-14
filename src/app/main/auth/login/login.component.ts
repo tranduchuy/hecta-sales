@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
+import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 
 @Component({
   selector: 'login',
@@ -78,7 +79,7 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
     };
 
     const sub = this.authServie.login(credential).subscribe(res => {
-      if (res.status === 1) {
+      if (res.status === HTTP_CODES.SUCCESS) {
         this.isSuccess = true;
         this.router.navigate(['sample']);
       } else {

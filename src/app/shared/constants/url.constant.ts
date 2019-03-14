@@ -1,4 +1,4 @@
-import { environment } from "environments/environment.prod";
+import { environment } from "environments/environment";
 
 export namespace URLs {
   export const LOGIN = environment.apiEndpoint + '/api/v1/users/login';

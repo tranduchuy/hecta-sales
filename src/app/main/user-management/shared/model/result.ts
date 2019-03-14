@@ -1,1 +1,0 @@
-// interface EventTarget { result: any; }

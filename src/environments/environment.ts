@@ -5,7 +5,8 @@
 export const environment = {
     production: false,
     hmr       : false,
-    apiEndpoint: 'https://api.hecta.vn'
+    apiEndpoint: 'https://api.hecta.vn',
+    apiStatic: 'https://static.hecta.vn'
 };
 
 /*
