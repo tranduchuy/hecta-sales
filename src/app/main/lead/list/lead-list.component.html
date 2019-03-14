@@ -1,9 +1,28 @@
 <div class="container">
-  <h2 class="page-header">Danh sách lead</h2>
-  <mat-tab-group>
-    <mat-tab label="{{t.header}}"
-             *ngFor="let t of tabs">
-      Content 1
-    </mat-tab>
-  </mat-tab-group>
+  <div>
+    <h2 class="page-header">Danh sách lead</h2>
+  </div>
+  <div>
+    <mat-tab-group (selectedTabChange)="onChangedTab($event)"
+                   (animationDone)="onFinishedAnimation()">
+      <mat-tab label="{{t.header}}"
+               [aria-label]="t.type"
+               *ngFor="let t of tabs">
+        <div>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item></app-lead-list-item>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

@@ -6,3 +6,9 @@
 .page-header {
   text-align: center;
 }
+
+md-tab-group {
+  .mat-tab-body-wrapper {
+    height: 100%;
+  }
+}

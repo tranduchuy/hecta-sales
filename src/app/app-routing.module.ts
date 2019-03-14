@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
 
-const appRoutes: Routes = [
+const appRoutes: Route[] = [
   {
     path: 'component-list',
     loadChildren: './shared/components/component-list/component-list.module#ComponentListModule'
@@ -19,13 +19,19 @@ const appRoutes: Routes = [
     loadChildren: './main/user-management/user-management.module#UserManagementModule'
   },
   {
+    path: 'khach-hang-tiem-nang',
+    loadChildren: './main/lead/lead.module#LeadModule'
+  },
+  {
     path: '**',
     redirectTo: '/auth/login'
   },
 ];
 
 @NgModule({
-  import: [RouterModule.forRoot(appRoutes)],
+  imports: [
+    RouterModule.forRoot(appRoutes)
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
