@@ -12,15 +12,15 @@
 
           <div class="subtitle">
               <p>
-                  Email xác nhận tài khoản đã được gửi. Vui lòng kiểm tra hộp thư và nhấn vào liên kết để xác nhận tài khoản đó thực sự là của bạn.
+                Email xác nhận tài khoản đã được gửi. Vui lòng kiểm tra hộp thư và nhấn vào liên kết để xác nhận tài khoản đó thực sự là của bạn.
               </p>
               <p>
-                  Trong trường hợp bạn không nhận được email. Hãy điền email và gửi lại ở phía dưới
+                  <strong>Trường hợp bạn không nhận được Email.</strong> Hãy điền email và gửi lại ở phía dưới.
               </p>
           </div>
           <form name="mailConfirmForm" [formGroup]="mailConfirmForm" novalidate>
             <app-input-text [formControlName]="'email'"
-                            [placeholder]="'Demo'"
+                            [placeholder]="'example@gmail.com'"
                             [title]="'Email'"
                             [icon]="'mail'"
                             [errors]="getErrorMessages(mailConfirmForm, 'email')"></app-input-text>

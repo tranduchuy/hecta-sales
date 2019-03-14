@@ -66,7 +66,7 @@ export class MailConfirmComponent extends PageBaseComponent implements OnInit {
   resend(): void {
     this._fuseProgressBarService.show();
     const sub = this._authService.resendEmail(this.mailConfirmForm.controls.email.value).subscribe(res => {
-      if(res.status == 1 || res.message === "User have already been active"){
+      if(res.status == 1){
         const subDialog = this._dialog.openInfo('Tài khoản của bạn đã được gửi lại email xác nhận. Vui lòng kiểm tra lại hộp thư')
         .subscribe((result: DialogResult) => {
           console.log('send mail success', result);
@@ -75,7 +75,7 @@ export class MailConfirmComponent extends PageBaseComponent implements OnInit {
         this.subscriptions.push(subDialog);
       } 
       else{
-        const subDialog = this._dialog.openInfo('Vui lòng nhập đúng thông tin')
+        const subDialog = this._dialog.openInfo('Vui lòng nhập đúng thông tin hoặc kiểm tra lại hộp thư nếu bạn đã hoàn tất đăng ký')
         .subscribe((result: DialogResult) => {
           console.log('send mail success', result);
         });
