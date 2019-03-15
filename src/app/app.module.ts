@@ -41,7 +41,6 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot(),
     AppRoutingModule,
 
