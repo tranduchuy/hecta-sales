@@ -71,7 +71,6 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
 
   login(): void {
     this.fuseProgressBarService.show();
-    console.log(this.loginForm.value);
 
     const credential: Credential = {
       username: this.loginForm.controls.username.value,
