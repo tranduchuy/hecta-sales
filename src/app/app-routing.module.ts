@@ -1,10 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import { AuthGuard } from './core/auth/auth.guard';
 
 const appRoutes: Routes = [
   {
     path: 'component-list',
-    loadChildren: './shared/components/component-list/component-list.module#ComponentListModule'
+    loadChildren: './shared/components/component-list/component-list.module#ComponentListModule',
+    canLoad: [AuthGuard]
   },
   {
     path: 'auth',

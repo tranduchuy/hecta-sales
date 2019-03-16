@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, isDevMode } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 
 import { navigation } from 'app/navigation/navigation';
+import { navigationProd } from 'app/navigation/navigation.prod';
 import { locale as localeEN } from 'app/locale/en';
 import { locale as localeVN } from 'app/locale/vi';
 
@@ -49,7 +50,12 @@ export class AppComponent implements OnInit, OnDestroy {
               private _translateService: TranslateService,
               private _platform: Platform) {
     // Get default navigation
-    this.navigation = navigation;
+    if(isDevMode()){
+      this.navigation = navigation;
+    }
+    else{
+      this.navigation = navigationProd;
+    }
 
     // Register the navigation to the service
     this._fuseNavigationService.register('main', this.navigation);
