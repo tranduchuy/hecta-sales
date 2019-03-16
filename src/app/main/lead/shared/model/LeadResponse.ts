@@ -6,5 +6,6 @@ export interface LeadResponse {
   timeToDownPriceInMMss?: string;
   phone: string;
   createAt: string;
+  reason: string;
   price: number;
 }

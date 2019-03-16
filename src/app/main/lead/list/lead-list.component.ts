@@ -80,7 +80,7 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
 
     this.leadList.page = 1;
     this.leadList.totalItems = 0;
-    this.leadList.itemsSource = [];
+    // this.leadList.itemsSource = [];
 
     this._loadLeads(this._generateParamGetLeads());
   }
