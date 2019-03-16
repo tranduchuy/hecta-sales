@@ -9,18 +9,13 @@
                [aria-label]="t.type"
                *ngFor="let t of tabs">
         <div>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
-          <app-lead-list-item></app-lead-list-item>
+          <app-lead-list-item *ngFor="let lead of leadList.itemsSource" [lead]="lead"></app-lead-list-item>
+        </div>
+        <div class="actions">
+          <button mat-raised-button
+                  (click)="loadMore()"
+                  *ngIf="isShowLoadMoreButton()">Xem thêm
+          </button>
         </div>
       </mat-tab>
     </mat-tab-group>

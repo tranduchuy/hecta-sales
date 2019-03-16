@@ -3,8 +3,9 @@ import { LeadListComponent } from './list/lead-list.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LeadRoutingModule } from './lead-routing.module';
-import { MatTabsModule } from '@angular/material';
+import { MatButtonModule, MatTabsModule } from '@angular/material';
 import { ListItemComponent } from './list-item/list-item.component';
+import { FuseSharedModule } from '../../../@fuse/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { ListItemComponent } from './list-item/list-item.component';
     CommonModule,
     ReactiveFormsModule,
     LeadRoutingModule,
-    MatTabsModule
+    FuseSharedModule,
+    MatTabsModule,
+    MatButtonModule,
   ],
   exports: []
 })

@@ -5,8 +5,8 @@ import {LeadListComponent} from './list/lead-list.component';
 const routes: Route[] = [
   {
     path: '',
-    pathMatch: 'full',
-    component: LeadListComponent
+    component: LeadListComponent,
+    pathMatch: 'full'
   }
 ];
 

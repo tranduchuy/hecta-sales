@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PageBaseComponent } from '../../../shared/components/base/page-base.component';
+import { LeadResponse } from '../shared/model/LeadResponse';
 
 @Component({
   selector: 'app-lead-list-item',
-  templateUrl: './list-item.component.html'
+  templateUrl: './list-item.component.html',
+  styleUrls: ['./list-item.component.scss']
 })
 export class ListItemComponent extends PageBaseComponent {
+  @Input() lead: LeadResponse;
 
+  onClickRegisterAlertLead(): void {
+  }
+
+  onClickLeadDetails(): void {
+  }
 }

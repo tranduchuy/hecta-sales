@@ -1,3 +1,36 @@
-<div>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad aliquam animi cum cupiditate dolor fugiat ipsam iste libero necessitatibus neque nisi quas, recusandae sapiente voluptates? Cumque ratione repellat soluta?
+<div class="content">
+
+  <div class="row">
+    <div class="key">Loại:</div>
+    <div class="value">{{lead?.type}}</div>
+  </div>
+
+  <div class="row">
+    <div class="key">Khu vực:</div>
+    <div class="value">{{lead?.location}}</div>
+  </div>
+
+  <div class="row">
+    <div class="key">Giá hiện tại:</div>
+    <div class="value">{{lead?.price | currency: 'VND'}}</div>
+  </div>
+
+  <div class="row">
+    <div class="key">Giảm sau:</div>
+    <div class="value">{{lead?.timeToDownPriceInMMss}}</div>
+  </div>
+
+  <div class="row">
+    <div class="key">Ngày đăng:</div>
+    <div class="value">{{lead?.createAt | date : 'dd-MM-yyyy'}}</div>
+  </div>
+
+  <div class="actions">
+    <div class="left">
+      <button mat-raised-button color="accent" (click)="onClickRegisterAlertLead()">Nhận thông tin lead</button>
+    </div>
+    <div class="right">
+      <button mat-raised-button color="primary" (click)="onClickLeadDetails()">Xem chi tiết</button>
+    </div>
+  </div>
 </div>

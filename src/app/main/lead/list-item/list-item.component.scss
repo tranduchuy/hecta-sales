@@ -1,0 +1,50 @@
+@import "src/@fuse/scss/fuse";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 16px;
+  border-radius: 4px;
+  @include mat-elevation(1);
+  background: #fff;
+
+  .row {
+    //display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: row;
+
+    .key {
+      //flex-direction: column;
+      flex-basis: calc(30%);
+      text-align: left;
+    }
+
+    .value {
+      //flex-direction: column;
+      flex-basis: calc(70%);
+      text-align: left;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    margin-top: 6px;
+
+    .left {
+      flex-direction: column;
+      flex-basis: calc(50%);
+      text-align: left;
+    }
+
+    .right {
+      flex-direction: column;
+      flex-basis: calc(50%);
+      text-align: right;
+    }
+  }
+}
