@@ -81,7 +81,7 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
     const sub = this.authServie.login(credential).subscribe(res => {
       if (res.status === HTTP_CODES.SUCCESS) {
         this.isSuccess = true;
-        this.router.navigate(['sample']);
+        this.router.navigate(['home']);
       } else {
         this.isSuccess = false;
       }
