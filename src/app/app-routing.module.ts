@@ -3,6 +3,10 @@ import {RouterModule, Routes} from '@angular/router';
 
 const appRoutes: Routes = [
   {
+    path: 'home',
+    loadChildren: './main/homepage/homepage.module#HomepageModule'
+  },
+  {
     path: 'component-list',
     loadChildren: './shared/components/component-list/component-list.module#ComponentListModule'
   },
