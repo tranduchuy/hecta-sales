@@ -1,4 +1,17 @@
 import {FuseNavigation} from '@fuse/types';
+import { environment } from 'environments/environment.prod';
+
+export const componentList: FuseNavigation[] = [
+  {
+    id: 'component-list',
+    title: 'Component list',
+    translate: 'COMPONENT_LIST.TITLE',
+    type: 'item',
+    icon: '',
+    url: '/component-list'
+  }
+]
+
 
 export const navigation: FuseNavigation[] = [
   {
@@ -248,35 +261,6 @@ export const navigation: FuseNavigation[] = [
     translate: 'NAV.APPLICATIONS',
     type: 'group',
     children: [
-      //   {
-      //     id       : 'dashboards',
-      //     title    : 'Dashboards',
-      //     translate: 'NAV.DASHBOARDS',
-      //     type     : 'collapsable',
-      //     icon     : 'dashboard',
-      //     children : [
-      //         {
-      //             id   : 'analytics',
-      //             title: 'Analytics',
-      //             type : 'item',
-      //             url  : '/apps/dashboards/analytics'
-      //         },
-      //         {
-      //             id   : 'project',
-      //             title: 'Project',
-      //             type : 'item',
-      //             url  : '/apps/dashboards/project'
-      //         }
-      //     ]
-      // },
-      {
-        id: 'component-list',
-        title: 'Component list',
-        translate: 'COMPONENT_LIST.TITLE',
-        type: 'item',
-        icon: '',
-        url: '/component-list'
-      },
       {
         id: 'rule-alert-lead',
         title: 'Rule alert lead',
@@ -288,3 +272,7 @@ export const navigation: FuseNavigation[] = [
     ]
   }
 ];
+
+if(!environment.production){
+  navigation.push(...componentList)
+}

@@ -1,13 +1,15 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import { AuthGuard } from './core/auth/auth.guard';
+import { environment } from 'environments/environment.prod';
 
-const appRoutes: Routes = [
+const appDev: Routes = [
   {
     path: 'component-list',
     loadChildren: './shared/components/component-list/component-list.module#ComponentListModule',
-    canLoad: [AuthGuard]
-  },
+  }
+]
+
+const appRoutes: Routes = [
   {
     path: 'auth',
     loadChildren: './main/auth/auth.module#AuthModule'
@@ -25,6 +27,10 @@ const appRoutes: Routes = [
     redirectTo: '/auth/login'
   },
 ];
+
+if(!environment.production){
+  appRoutes.unshift(...appDev);
+}
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

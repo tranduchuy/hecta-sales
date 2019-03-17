@@ -12,7 +12,6 @@ import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 
 import { navigation } from 'app/navigation/navigation';
-import { navigationProd } from 'app/navigation/navigation.prod';
 import { locale as localeEN } from 'app/locale/en';
 import { locale as localeVN } from 'app/locale/vi';
 
@@ -50,12 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
               private _translateService: TranslateService,
               private _platform: Platform) {
     // Get default navigation
-    if(isDevMode()){
-      this.navigation = navigation;
-    }
-    else{
-      this.navigation = navigationProd;
-    }
+    this.navigation = navigation;
 
     // Register the navigation to the service
     this._fuseNavigationService.register('main', this.navigation);
