@@ -10,10 +10,12 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
-
+import { Router } from '@angular/router';
 import { navigation } from 'app/navigation/navigation';
 import { locale as localeEN } from 'app/locale/en';
 import { locale as localeVN } from 'app/locale/vi';
+import {CookieService} from 'ngx-cookie-service';
+import {TokenStorage} from './core/auth/token-storage.service';
 
 @Component({
   selector: 'app',
@@ -47,7 +49,12 @@ export class AppComponent implements OnInit, OnDestroy {
               private _fuseSplashScreenService: FuseSplashScreenService,
               private _fuseTranslationLoaderService: FuseTranslationLoaderService,
               private _translateService: TranslateService,
-              private _platform: Platform) {
+              private _platform: Platform,
+              private cookieService: CookieService,
+              private router: Router,
+              private tokenStorage: TokenStorage) {
+   this.initCookie();
+
     // Get default navigation
     this.navigation = navigation;
 
@@ -167,5 +174,18 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   toggleSidebarOpen(key): void {
     this._fuseSidebarService.getSidebar(key).toggleOpen();
+  }
+
+  initCookie(): void {
+    const accessToken = this.cookieService.get('accessToken');
+    const userRoles = this.cookieService.get('userRoles');
+
+    if (accessToken && userRoles) {
+      this.tokenStorage.setAccessToken(accessToken);
+      this.tokenStorage.setUserRoles(userRoles);
+    } else {
+      this.tokenStorage.clear();
+      this.router.navigate(['auth/login']);
+    }
   }
 }

@@ -7,7 +7,6 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { Credential } from '../../../core/auth/credential';
 import { Router } from '@angular/router';
 import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
-import { CookieService } from 'ngx-cookie-service';
 import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
