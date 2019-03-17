@@ -6,7 +6,7 @@ const appDev: Routes = [
     path: 'component-list',
     loadChildren: './shared/components/component-list/component-list.module#ComponentListModule',
   }
-]
+];
 
 const appRoutes: Routes = [
   {

@@ -10,7 +10,7 @@ export const componentList: FuseNavigation[] = [
     icon: '',
     url: '/component-list'
   }
-]
+];
 
 
 export const navigation: FuseNavigation[] = [
