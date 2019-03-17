@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { environment as environmentDev } from 'environments/environment';
+
 const appDev: Routes = [
-  {
-    path: 'home',
-    loadChildren: './main/homepage/homepage.module#HomepageModule'
-  },
   {
     path: 'component-list',
     loadChildren: './shared/components/component-list/component-list.module#ComponentListModule',
@@ -13,6 +10,10 @@ const appDev: Routes = [
 ];
 
 const appRoutes: Routes = [
+  {
+    path: 'home',
+    loadChildren: './main/homepage/homepage.module#HomepageModule'
+  },
   {
     path: 'auth',
     loadChildren: './main/auth/auth.module#AuthModule'
@@ -31,7 +32,7 @@ const appRoutes: Routes = [
   },
 ];
 
-if(!environmentDev.production){
+if (!environmentDev.production) {
   appRoutes.unshift(...appDev);
 }
 

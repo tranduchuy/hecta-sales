@@ -92,7 +92,9 @@ export class DatePickerComponent extends BaseComponent implements OnInit, Contro
     this.onModelTouched = fn;
   }
 
-  private onModelChange = (_: any) => {};
+  private onModelChange = (_: any) => {
+  };
 
-  private onModelTouched = () => {};
+  private onModelTouched = () => {
+  };
 }

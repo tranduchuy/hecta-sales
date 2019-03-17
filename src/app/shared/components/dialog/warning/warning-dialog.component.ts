@@ -9,7 +9,8 @@ import { DialogResult } from '../dialog.service';
 export class WarningDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<WarningDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
   onClickBtnOk() {
     this.dialogRef.close(DialogResult.OK);
