@@ -4,7 +4,9 @@ export interface LeadResponse {
   type: string;
   timeToDownPrice: string;
   timeToDownPriceInMMss?: string;
-  phone: string;
+  phone?: string;
+  email?: string;
+  address?: string;
   createAt: string;
   reason: string;
   price: number;

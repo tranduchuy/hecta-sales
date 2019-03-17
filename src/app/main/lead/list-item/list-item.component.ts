@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PageBaseComponent } from '../../../shared/components/base/page-base.component';
 import { LeadResponse } from '../shared/model/LeadResponse';
 import { LeadType } from '../shared/lead.type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lead-list-item',
@@ -13,10 +14,14 @@ export class ListItemComponent extends PageBaseComponent {
   @Input() leadType: number;
   LEAD_TYPE = LeadType;
 
-  onClickRegisterAlertLead(): void {
+  constructor(private router: Router) {
+    super();
   }
 
+  onClickRegisterAlertLead(): void {}
+
   onClickLeadDetails(): void {
+    this.router.navigate(['/khach-hang-tiem-nang/' + this.lead._id]);
   }
 
   onClickReturnLead(): void {
