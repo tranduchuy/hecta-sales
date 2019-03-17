@@ -1,15 +1,18 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-
-const appRoutes: Routes = [
+import { environment as environmentDev } from 'environments/environment';
+const appDev: Routes = [
   {
     path: 'home',
     loadChildren: './main/homepage/homepage.module#HomepageModule'
   },
   {
     path: 'component-list',
-    loadChildren: './shared/components/component-list/component-list.module#ComponentListModule'
-  },
+    loadChildren: './shared/components/component-list/component-list.module#ComponentListModule',
+  }
+];
+
+const appRoutes: Routes = [
   {
     path: 'auth',
     loadChildren: './main/auth/auth.module#AuthModule'
@@ -27,6 +30,10 @@ const appRoutes: Routes = [
     redirectTo: 'home'
   },
 ];
+
+if(!environmentDev.production){
+  appRoutes.unshift(...appDev);
+}
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
