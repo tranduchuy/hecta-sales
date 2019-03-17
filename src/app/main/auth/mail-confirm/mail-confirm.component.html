@@ -1,0 +1,40 @@
+<div id="mail-confirm" fxLayout="column">
+
+  <div id="mail-confirm-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+      <div id="mail-confirm-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+          <div class="logo">
+              <mat-icon class="mat-accent s-96" style="color: #990505">email</mat-icon>
+          </div>
+
+          <div class="title">Chỉ còn 1 bước nữa!</div>
+
+          <div class="subtitle">
+              <p>
+                Email xác nhận tài khoản đã được gửi. Vui lòng kiểm tra hộp thư và nhấn vào liên kết để xác nhận tài khoản đó thực sự là của bạn.
+              </p>
+              <p>
+                  <strong>Trường hợp bạn không nhận được Email.</strong> Hãy điền email và gửi lại ở phía dưới.
+              </p>
+          </div>
+          <form name="mailConfirmForm" [formGroup]="mailConfirmForm" novalidate>
+            <app-input-text [formControlName]="'email'"
+                            [placeholder]="'example@gmail.com'"
+                            [title]="'Email'"
+                            [icon]="'mail'"
+                            [errors]="getErrorMessages(mailConfirmForm, 'email')"></app-input-text>
+            <div class="message">
+                <button mat-raised-button color="primary" (click)="resend()">Gửi lại</button>
+            </div>
+          </form>
+          
+          <div class="message">
+              <a class="link" [routerLink]="'/auth/login'">Quay lại trang đăng nhập</a>
+          </div>
+
+      </div>
+
+  </div>
+
+</div>
