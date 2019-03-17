@@ -1,5 +1,5 @@
 import {FuseNavigation} from '@fuse/types';
-import { environment } from 'environments/environment.prod';
+import { environment as environmentDev } from 'environments/environment';
 
 export const componentList: FuseNavigation[] = [
   {
@@ -273,6 +273,6 @@ export const navigation: FuseNavigation[] = [
   }
 ];
 
-if(!environment.production){
+if(!environmentDev.production){
   navigation.push(...componentList)
 }

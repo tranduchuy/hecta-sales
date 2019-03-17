@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import { environment } from 'environments/environment.prod';
-
+import { environment as environmentDev } from 'environments/environment';
 const appDev: Routes = [
   {
     path: 'component-list',
@@ -28,7 +27,7 @@ const appRoutes: Routes = [
   },
 ];
 
-if(!environment.production){
+if(!environmentDev.production){
   appRoutes.unshift(...appDev);
 }
 
