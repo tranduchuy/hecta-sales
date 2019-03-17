@@ -7,15 +7,24 @@ import { UserListComponent } from './user-list/user-list.component';
 const routes: Routes = [
   {
     path: 'me',
-    component: UserListComponent
+    component: UserListComponent,
+    data: {
+      level: 1
+    }
   },
   {
     path: 'update',
-    component: UserDetailComponent
+    component: UserDetailComponent,
+    data: {
+      level: 2
+    }
   },
   {
     path: 'update-password',
-    component: UserUpdatePasswordComponent
+    component: UserUpdatePasswordComponent,
+    data: {
+      level: 2
+    }
   }
 ];
 
