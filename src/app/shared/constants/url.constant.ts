@@ -1,4 +1,4 @@
-import { environment } from "environments/environment";
+import { environment } from "environments/environment.hmr";
 
 export namespace URLs {
   export const LOGIN = environment.apiEndpoint + '/api/v1/users/login';
@@ -8,4 +8,5 @@ export namespace URLs {
   export const REGISTER = environment.apiEndpoint + '/api/v1/users/register';
   export const CHECK = environment.apiEndpoint + '/api/v1/users/check';
   export const USER = '/api/v1/users/update';
+  export const RESEND_EMAIL = environment.apiEndpoint + '/api/v1/users/confirm/resend';
 }
