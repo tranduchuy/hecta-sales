@@ -1,0 +1,60 @@
+<div class="content">
+  <div class="row">
+    <div class="key">Loại:</div>
+    <div class="value">{{lead?.type}}</div>
+  </div>
+
+  <div class="row">
+    <div class="key">Khu vực:</div>
+    <div class="value">{{lead?.location}}</div>
+  </div>
+
+  <ng-container *ngIf="leadType === LEAD_TYPE.NEW">
+    <div class="row">
+      <div class="key">Giá hiện tại:</div>
+      <div class="value">{{lead?.price | currency: 'VND'}}</div>
+    </div>
+
+    <div class="row">
+      <div class="key">Giảm sau:</div>
+      <div class="value">{{lead?.timeToDownPriceInMMss}}</div>
+    </div>
+
+    <div class="row">
+      <div class="key">Ngày đăng:</div>
+      <div class="value">{{lead?.createAt | date : 'dd-MM-yyyy'}}</div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="leadType !== LEAD_TYPE.NEW">
+    <div class="row">
+      <div class="key">Giá</div>
+      <div class="value">{{lead?.price | currency: 'VND'}}</div>
+    </div>
+
+    <div class="row">
+      <div class="key">Thời gian nhận lead:</div>
+      <div class="value">{{lead?.createAt | date : 'dd-MM-yyyy hh:mm:ss'}}</div>
+    </div>
+
+    <div class="row" *ngIf="leadType === LEAD_TYPE.RETURNING">
+      <div class="key">Lý do:</div>
+      <div class="value">{{lead?.reason}}</div>
+    </div>
+  </ng-container>
+
+  <div class="actions">
+    <div class="left">
+      <button mat-raised-button color="accent"
+              *ngIf="leadType === LEAD_TYPE.NEW"
+              (click)="onClickRegisterAlertLead()">Nhận thông tin lead</button>
+
+      <button mat-raised-button color="warn"
+              *ngIf="leadType === LEAD_TYPE.SOLD"
+              (click)="onClickReturnLead()">Trả lead</button>
+    </div>
+    <div class="right">
+      <button mat-raised-button color="primary" (click)="onClickLeadDetails()">Xem chi tiết</button>
+    </div>
+  </div>
+</div>

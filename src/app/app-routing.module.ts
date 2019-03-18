@@ -27,6 +27,10 @@ const appRoutes: Routes = [
     loadChildren: './main/user-management/user-management.module#UserManagementModule'
   },
   {
+    path: 'khach-hang-tiem-nang',
+    loadChildren: './main/lead/lead.module#LeadModule'
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },
