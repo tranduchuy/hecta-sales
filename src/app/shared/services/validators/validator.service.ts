@@ -9,8 +9,9 @@ import { Observable, timer } from 'rxjs';
 @Injectable()
 export class ValidatorService {
   constructor(
-    private messageService: MessageService, 
-    private authService: AuthService) {}
+    private messageService: MessageService,
+    private authService: AuthService) {
+  }
 
   private core: ValidatorCore = new ValidatorCore();
 
@@ -31,26 +32,26 @@ export class ValidatorService {
   public getUsernameCheck(): AsyncValidatorFn {
     return (ctl: AbstractControl): Observable<{ [key: string]: any } | null> => {
       return this.authService.checkUser(ctl.value)
-      .pipe(
-        map(res => {
-          if(!res.data) {
-            return { 'exists': true }
-          }
-        })
-      )
+        .pipe(
+          map(res => {
+            if (!res.data) {
+              return {'exists': true}
+            }
+          })
+        )
     }
   }
 
   public getEmailCheck(): AsyncValidatorFn {
-    return (ctl: AbstractControl): Observable<{ [key: string]: any} | null> => {
+    return (ctl: AbstractControl): Observable<{ [key: string]: any } | null> => {
       return this.authService.checkEmail(ctl.value)
-      .pipe(
-        map(res => {
-          if(!res.data){
-            return { 'exists': true}
-          }
-        })
-      )
+        .pipe(
+          map(res => {
+            if (!res.data) {
+              return {'exists': true}
+            }
+          })
+        )
     }
   }
 
@@ -72,25 +73,25 @@ export class ValidatorService {
   public confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
 
     if (!control.parent || !control) {
-        return null;
+      return null;
     }
 
     const password = control.parent.get('password');
     const retypePassword = control.parent.get('retypePassword');
 
     if (!password || !retypePassword) {
-        return null;
+      return null;
     }
 
     if (retypePassword.value === '') {
-        return null;
+      return null;
     }
 
     if (password.value === retypePassword.value) {
-        return null;
+      return null;
     }
 
-    return { 'passwordsNotMatching': true };
+    return {'passwordsNotMatching': true};
 
-};
+  };
 }

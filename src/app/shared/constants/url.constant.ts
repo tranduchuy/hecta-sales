@@ -12,4 +12,5 @@ export namespace URLs {
   export namespace Lead {
     export const List = `${environment.apiEndpoint}/api/v1/leads`;
   }
+  export const RESEND_EMAIL = environment.apiEndpoint + '/api/v1/users/confirm/resend';
 }

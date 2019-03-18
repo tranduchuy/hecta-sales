@@ -13,4 +13,5 @@ const routes: Route[] = [{
   exports: [RouterModule]
 })
 
-export class ComponentListRoutingModule {}
+export class ComponentListRoutingModule {
+}

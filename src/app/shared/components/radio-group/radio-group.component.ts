@@ -21,6 +21,7 @@ export class RadioGroupComponent extends BaseComponent implements ControlValueAc
   @Input() itemsSource: any[] = [];
   @Input() displayPath = '';
   @Input() valuePath = '';
+
   @Input()
   set value(val: any) {
     const item: any = this.findItemByValue(val);
@@ -57,9 +58,11 @@ export class RadioGroupComponent extends BaseComponent implements ControlValueAc
     this.onModelTouched = fn;
   }
 
-  private onModelChange = (_: any) => {};
+  private onModelChange = (_: any) => {
+  };
 
-  private onModelTouched = () => {};
+  private onModelTouched = () => {
+  };
 
   private findItemByValue(value: any): any {
     return this.itemsSource.find(i => i[this.valuePath] === value);
