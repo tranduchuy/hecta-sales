@@ -16,7 +16,7 @@ export class LeadService {
   convertTimeToDownPriceToMMss(leads: LeadResponse[] = []): void {
     leads.forEach((lead: LeadResponse) => {
       // @ts-ignore
-      const diffTime: any = new Date() - new Date(lead.timeToDownPrice);
+      const diffTime: any = new Date(lead.timeToDownPrice) - new Date();
       if (diffTime > 0) {
         lead.timeToDownPriceInMMss = `${Math.floor(diffTime / 1000 / 60)}'${Math.floor(diffTime / 1000 % 60)}''`;
       } else {

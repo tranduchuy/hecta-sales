@@ -8,7 +8,8 @@
       <mat-tab label="{{t.header}}"
                [aria-label]="t.type"
                *ngFor="let t of tabs">
-        <div>
+        <div class="empty-list-message" *ngIf="leadList.itemsSource.length === 0">Danh sách trống</div>
+        <div *ngIf="leadList.itemsSource.length > 0">
           <app-lead-list-item *ngFor="let lead of leadList.itemsSource"
                               [leadType]="t.type"
                               [lead]="lead">
