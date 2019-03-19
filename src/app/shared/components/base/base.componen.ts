@@ -6,7 +6,7 @@ export abstract class BaseComponent implements OnDestroy {
   @Input()
   @HostBinding('attr.data-id')
   id = '';
-  
+
   @Input() isDisabled = false;
   @Input() isReadonly = false;
   @Input() placeholder = '';
@@ -23,11 +23,11 @@ export abstract class BaseComponent implements OnDestroy {
   }
 
   onFocus(event: any): void {
-    this.gotFocus.emit( event);
+    this.gotFocus.emit(event);
   }
 
   ngOnDestroy(): void {
-    this.unsubscribeAllSubscriptions(); 
+    this.unsubscribeAllSubscriptions();
   }
 
   private unsubscribeAllSubscriptions(): void {

@@ -20,6 +20,7 @@ export class ComboBoxComponent extends BaseComponent implements ControlValueAcce
   @Input() displayPath = '';
   @Input() valuePath = '';
   @Input() icon = '';
+
   @Input()
   set value(val: any) {
     this.selectedValue = val;
@@ -54,7 +55,9 @@ export class ComboBoxComponent extends BaseComponent implements ControlValueAcce
     this.onModelTouched = fn;
   }
 
-  private onModelChange = (_: any) => {};
+  private onModelChange = (_: any) => {
+  };
 
-  private onModelTouched = () => {};
+  private onModelTouched = () => {
+  };
 }

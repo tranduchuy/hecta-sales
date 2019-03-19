@@ -4,6 +4,7 @@ import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/m
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { BaseComponent } from '../base/base.componen';
+
 const AUTO_COMPLETE_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => AutoCompleteComponent),
@@ -58,7 +59,7 @@ export class AutoCompleteComponent extends BaseComponent implements ControlValue
 
   @Output() valueChange = new EventEmitter<any>();
 
-  @ViewChild('matAutoCompleteTrigger', { read: MatAutocompleteTrigger }) triggerAutocompleteInput: MatAutocompleteTrigger;
+  @ViewChild('matAutoCompleteTrigger', {read: MatAutocompleteTrigger}) triggerAutocompleteInput: MatAutocompleteTrigger;
 
   constructor() {
     super();
@@ -107,9 +108,11 @@ export class AutoCompleteComponent extends BaseComponent implements ControlValue
     this.onModelTouched = fn;
   }
 
-  private onModelChange = (_: any) => {};
+  private onModelChange = (_: any) => {
+  }
 
-  private onModelTouched = () => {};
+  private onModelTouched = () => {
+  }
 
   displayFn(): Function {
     const displayPath = this.displayPath;

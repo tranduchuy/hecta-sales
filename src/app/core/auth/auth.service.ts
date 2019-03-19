@@ -117,28 +117,16 @@ export class AuthService {
     this.router.navigate(['auth/login']);
   }
 
-  public forgotPassword(data: string): Observable<any> {
-    return this.http.post(URLs.FORGOT_PASSWORD, {email: data, type: 'APP'})
-      .pipe(
-        map((res: any) => Object.assign({},
-          {
-            status: res.status,
-            message: res.message
-          })),
-        catchError(this.handleError('login', []))
-      );
+  public forgotPassword(data: string): Observable<any>{
+    return this.http.post(URLs.FORGOT_PASSWORD, {email: data, type: 'APP'});
   }
 
-  public resetPassword(password: Password): Observable<any> {
-    return this.http.post<any>(URLs.RESET_PASSWORD, password)
-      .pipe(
-        map((res: any) => Object.assign({},
-          {
-            status: res.status,
-            message: res.message
-          })),
-        catchError(this.handleError('login', []))
-      );
+  public resendEmail(data: string): Observable<any>{
+    return this.http.post<any>(URLs.RESEND_EMAIL, {email: data});
+  }
+
+  public resetPassword(password: Password): Observable<any>{
+    return this.http.post<any>(URLs.RESET_PASSWORD, password);
   }
 
   /**

@@ -8,7 +8,7 @@ export class ValidatorCore {
     return !this.nullOrEmpty(value);
   }
 
-  public requiredValidator(funcSetting: { validRequired?: { errCode: string }, validReguEx?: {errCode: string, pattern: string} },
+  public requiredValidator(funcSetting: { validRequired?: { errCode: string }, validReguEx?: { errCode: string, pattern: string } },
                            value: any,
                            messageService: MessageService): ValidationErrors {
     const response: ValidationErrors = {};

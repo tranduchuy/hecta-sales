@@ -18,10 +18,8 @@ import { InputPasswordComponent } from './input-password.component';
   exports: [
     InputPasswordComponent
   ],
-  providers: [
-    
-  ]
+  providers: []
 })
 export class InputPasswordModule {
-  
+
 }

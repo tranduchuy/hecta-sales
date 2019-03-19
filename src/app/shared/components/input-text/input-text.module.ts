@@ -18,10 +18,8 @@ import { FormsModule } from '@angular/forms';
   exports: [
     InputTextComponent
   ],
-  providers: [
-    
-  ]
+  providers: []
 })
 export class InputTextModule {
-  
+
 }

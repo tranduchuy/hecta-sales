@@ -11,22 +11,20 @@
   background: #fff;
 
   .row {
-    //display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     display: flex;
     flex-direction: row;
 
     .key {
-      //flex-direction: column;
       flex-basis: calc(30%);
       text-align: left;
     }
 
     .value {
-      //flex-direction: column;
       flex-basis: calc(70%);
       text-align: left;
+      font-weight: bold;
     }
   }
 
