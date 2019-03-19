@@ -53,8 +53,20 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
       header: 'Đang trả lead',
       type: LeadType.RETURNING,
       filterCondition: {}
+    },
+    {
+      header: 'Không được trả lead',
+      type: LeadType.NO_RETURN,
+      filterCondition: {}
+    },
+    {
+      header: 'Trả lead/Hoàn tiền',
+      type: LeadType.RETURN_AND_REFUND,
+      filterCondition: {}
     }
   ];
+
+  LEAD_TYPE = LeadType;
 
   leadList = {
     limit: 10,
@@ -77,6 +89,11 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
       index: event.index,
       tab: this.tabs[event.index]
     };
+
+    if (this.selectedTab.tab.type === LeadType.NO_RETURN
+      || this.selectedTab.tab.type === LeadType.RETURN_AND_REFUND) {
+      return;
+    }
 
     this.leadList.page = 1;
     this.leadList.totalItems = 0;

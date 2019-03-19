@@ -28,13 +28,22 @@
 
   <ng-container *ngIf="leadType !== LEAD_TYPE.NEW">
     <div class="row">
-      <div class="key">Giá</div>
+      <div class="key">Giá:</div>
       <div class="value">{{lead?.price | currency: 'VND'}}</div>
     </div>
 
     <div class="row">
       <div class="key">Thời gian nhận lead:</div>
-      <div class="value">{{lead?.createAt | date : 'dd-MM-yyyy hh:mm:ss'}}</div>
+      <div class="value">{{lead?.createAt | date : 'dd-MM-yyyy HH:mm:ss'}}</div>
+    </div>
+
+    <div class="row">
+      <div class="key">Số điện thoại:</div>
+      <div class="value">{{lead?.phone}}</div>
+    </div>
+    <div class="row">
+      <div class="key">Email:</div>
+      <div class="value">{{lead?.email}}</div>
     </div>
 
     <div class="row" *ngIf="leadType === LEAD_TYPE.RETURNING">
@@ -47,11 +56,13 @@
     <div class="left">
       <button mat-raised-button color="accent"
               *ngIf="leadType === LEAD_TYPE.NEW"
-              (click)="onClickRegisterAlertLead()">Nhận thông tin lead</button>
+              (click)="onClickRegisterAlertLead()">Nhận thông tin lead
+      </button>
 
       <button mat-raised-button color="warn"
               *ngIf="leadType === LEAD_TYPE.SOLD"
-              (click)="onClickReturnLead()">Trả lead</button>
+              (click)="onClickReturnLead()">Trả lead
+      </button>
     </div>
     <div class="right">
       <button mat-raised-button color="primary" (click)="onClickLeadDetails()">Xem chi tiết</button>
