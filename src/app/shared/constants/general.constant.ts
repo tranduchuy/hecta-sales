@@ -8,4 +8,16 @@ export namespace General {
     export const TYPE_PERSONAL = 1;
     export const TYPE_BUSINESS = 2;
   }
+
+  export namespace SizeImage {
+    export const S120x90 ='120x90';
+    export const S200x200 ='200x200';
+    export const S82x82 ='82x82';
+    export const S150x150 ='150x150';
+    export const S745x510 ='745x510';
+    export const S255x180 ='255x180';
+    export const S640x430 ='640x430';
+    export const S164x170 ='164x170';
+  }
+
 }

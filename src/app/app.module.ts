@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,6 +25,7 @@ import { RuleAlertLeadManagementModule } from './main/rule-alert-lead-management
 import { UserManagementModule } from './main/user-management/user-management.module';
 import { AppRoutingModule } from './app-routing.module';
 
+import { ServiceLocator } from './shared/services/service-locator';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,4 +79,7 @@ import { AppRoutingModule } from './app-routing.module';
   ]
 })
 export class AppModule {
+  constructor(private injector: Injector) {
+    ServiceLocator.injector = this.injector;
+  }
 }

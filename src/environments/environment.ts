@@ -5,7 +5,10 @@
 export const environment = {
     production: false,
     hmr       : false,
-    apiEndpoint: 'https://api.hecta.vn'
+    apiEndpoint: 'https://api.hecta.vn',
+  serverImage: 'http://178.128.105.93:3100/',
+  staticImageSize: 'http://178.128.105.93:3100/images/using/',
+  staticImageDemo: 'http://178.128.105.93:3100/images/temps/demo/',
 };
 
 /*

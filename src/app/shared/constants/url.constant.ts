@@ -1,6 +1,8 @@
 import {environment} from 'environments/environment';
 
 export namespace URLs {
+  export const uploadImage = environment.serverImage + 'images';
+  export const getImage = environment.apiEndpoint + 'api/v1/images/get/{id}';
   export const LOGIN = environment.apiEndpoint + '/api/v1/users/login';
   export const FORGOT_PASSWORD = environment.apiEndpoint + '/api/v1/users/forget-password';
   export const RESET_PASSWORD = environment.apiEndpoint + '/api/v1/users/reset-password';
