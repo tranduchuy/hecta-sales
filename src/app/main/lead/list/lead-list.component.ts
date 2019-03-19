@@ -6,6 +6,7 @@ import { LeadType } from '../shared/lead.type';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 import { DialogService } from '../../../shared/components/dialog/dialog.service';
 import { ListLeadResponse } from '../shared/model/LeadListResponse';
+import { ActivatedRoute } from '@angular/router';
 
 interface ITabConfig {
   header: string;
@@ -63,13 +64,24 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
     itemsSource: []
   };
 
+  initTabIndex = 0;
+
   constructor(private leadService: LeadService,
+              private route: ActivatedRoute,
               private dialog: DialogService) {
     super();
+    const self = this;
+    const subRoute = this.route.queryParams.subscribe(params => {
+      if (params.type) {
+        const index = self.tabs.findIndex(tab => tab.type === +params.type);
+        self.initTabIndex = index > -1 ? index : 0;
+      }
+    });
+    this.subscriptions.push(subRoute);
   }
 
   ngOnInit(): void {
-    this.onChangedTab({index: 0} as any);
+    this.onChangedTab({index: this.initTabIndex});
   }
 
   onChangedTab(event: MatTabChangeEvent): void {
