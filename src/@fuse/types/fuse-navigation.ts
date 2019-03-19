@@ -7,6 +7,7 @@ export interface FuseNavigationItem
     icon?: string;
     hidden?: boolean;
     url?: string;
+    queryParams?: any;
     classes?: string;
     exactMatch?: boolean;
     externalUrl?: boolean;

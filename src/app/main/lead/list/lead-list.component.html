@@ -4,6 +4,7 @@
   </div>
   <div>
     <mat-tab-group (selectedTabChange)="onChangedTab($event)"
+                   [selectedIndex]="initTabIndex"
                    (animationDone)="onFinishedAnimation()">
       <mat-tab label="{{t.header}}"
                [aria-label]="t.type"
