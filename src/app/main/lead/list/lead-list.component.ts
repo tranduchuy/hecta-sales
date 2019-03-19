@@ -6,6 +6,7 @@ import { LeadType } from '../shared/lead.type';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 import { DialogService } from '../../../shared/components/dialog/dialog.service';
 import { ListLeadResponse } from '../shared/model/LeadListResponse';
+import { ActivatedRoute } from '@angular/router';
 
 interface ITabConfig {
   header: string;
@@ -53,8 +54,20 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
       header: 'Đang trả lead',
       type: LeadType.RETURNING,
       filterCondition: {}
+    },
+    {
+      header: 'Không được trả lead',
+      type: LeadType.NO_RETURN,
+      filterCondition: {}
+    },
+    {
+      header: 'Trả lead/Hoàn tiền',
+      type: LeadType.RETURN_AND_REFUND,
+      filterCondition: {}
     }
   ];
+
+  LEAD_TYPE = LeadType;
 
   leadList = {
     limit: 10,
@@ -63,13 +76,24 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
     itemsSource: []
   };
 
+  initTabIndex = 0;
+
   constructor(private leadService: LeadService,
+              private route: ActivatedRoute,
               private dialog: DialogService) {
     super();
+    const self = this;
+    const subRoute = this.route.queryParams.subscribe(params => {
+      if (params.type) {
+        const index = self.tabs.findIndex(tab => tab.type === +params.type);
+        self.initTabIndex = index > -1 ? index : 0;
+      }
+    });
+    this.subscriptions.push(subRoute);
   }
 
   ngOnInit(): void {
-    this.onChangedTab({index: 0} as any);
+    this.onChangedTab({index: this.initTabIndex} as any);
   }
 
   onChangedTab(event: MatTabChangeEvent): void {
@@ -77,6 +101,11 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
       index: event.index,
       tab: this.tabs[event.index]
     };
+
+    if (this.selectedTab.tab.type === LeadType.NO_RETURN
+      || this.selectedTab.tab.type === LeadType.RETURN_AND_REFUND) {
+      return;
+    }
 
     this.leadList.page = 1;
     this.leadList.totalItems = 0;

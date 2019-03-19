@@ -4,23 +4,35 @@
   </div>
   <div>
     <mat-tab-group (selectedTabChange)="onChangedTab($event)"
+                   [selectedIndex]="initTabIndex"
                    (animationDone)="onFinishedAnimation()">
       <mat-tab label="{{t.header}}"
                [aria-label]="t.type"
                *ngFor="let t of tabs">
-        <div class="empty-list-message" *ngIf="leadList.itemsSource.length === 0">Danh sách trống</div>
-        <div *ngIf="leadList.itemsSource.length > 0">
-          <app-lead-list-item *ngFor="let lead of leadList.itemsSource"
-                              [leadType]="t.type"
-                              [lead]="lead">
-          </app-lead-list-item>
-        </div>
-        <div class="actions">
-          <button mat-raised-button
-                  (click)="loadMore()"
-                  *ngIf="isShowLoadMoreButton()">Xem thêm
-          </button>
-        </div>
+
+        <ng-container *ngIf="t.type !== LEAD_TYPE.NO_RETURN && t.type !== LEAD_TYPE.RETURN_AND_REFUND">
+          <div class="empty-list-message" *ngIf="leadList.itemsSource.length === 0">Danh sách trống</div>
+          <div *ngIf="leadList.itemsSource.length > 0">
+            <app-lead-list-item *ngFor="let lead of leadList.itemsSource"
+                                [leadType]="t.type"
+                                [lead]="lead">
+            </app-lead-list-item>
+          </div>
+          <div class="actions">
+            <button mat-raised-button
+                    (click)="loadMore()"
+                    *ngIf="isShowLoadMoreButton()">Xem thêm
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="t.type === LEAD_TYPE.NO_RETURN">
+          <p class="empty-list-message"> Không được trả lead....</p>
+        </ng-container>
+
+        <ng-container *ngIf="t.type === LEAD_TYPE.RETURN_AND_REFUND">
+          <p class="empty-list-message">Trả lead và hoàn tiền ....</p>
+        </ng-container>
       </mat-tab>
     </mat-tab-group>
   </div>
