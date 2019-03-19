@@ -1,5 +1,6 @@
-import {FuseNavigation} from '@fuse/types';
+import { FuseNavigation } from '@fuse/types';
 import { environment as environmentDev } from 'environments/environment';
+import { LeadType } from '../main/lead/shared/lead.type';
 
 export const componentList: FuseNavigation[] = [
   {
@@ -12,7 +13,6 @@ export const componentList: FuseNavigation[] = [
   }
 ];
 
-
 export const navigation: FuseNavigation[] = [
   {
     id: 'main-account-1',
@@ -21,11 +21,11 @@ export const navigation: FuseNavigation[] = [
     type: 'item',
     icon: 'label',
     url: '/sample',
-    badge    : {
+    badge: {
       title: '150.000',
-      bg   : '#525e8a',
-      fg   : '#FFFFFF'
-      }
+      bg: '#525e8a',
+      fg: '#FFFFFF'
+    }
   },
   {
     id: 'main-account-2',
@@ -34,11 +34,11 @@ export const navigation: FuseNavigation[] = [
     type: 'item',
     icon: 'label',
     url: '/sample',
-    badge    : {
+    badge: {
       title: '50.000',
-      bg   : '#525e8a',
-      fg   : '#FFFFFF'
-      }
+      bg: '#525e8a',
+      fg: '#FFFFFF'
+    }
   },
   {
     id: 'promotion-account',
@@ -47,11 +47,11 @@ export const navigation: FuseNavigation[] = [
     type: 'item',
     icon: 'label',
     url: '/sample',
-    badge    : {
+    badge: {
       title: '30.000',
-      bg   : '#525e8a',
-      fg   : '#FFFFFF'
-      }
+      bg: '#525e8a',
+      fg: '#FFFFFF'
+    }
   },
   {
     id: 'credit-account',
@@ -60,19 +60,19 @@ export const navigation: FuseNavigation[] = [
     type: 'item',
     icon: 'label',
     url: '/sample',
-    badge    : {
+    badge: {
       title: '0',
-      bg   : '#525e8a',
-      fg   : '#FFFFFF'
-      }
+      bg: '#525e8a',
+      fg: '#FFFFFF'
+    }
   },
-  { 
+  {
     id: 'home',
     title: 'Trang chủ',
     translate: 'NAV.HOME',
     type: 'group',
     children: [
-      { 
+      {
         id: 'leads',
         title: 'Leads',
         translate: 'NAV.LEADS',
@@ -85,7 +85,9 @@ export const navigation: FuseNavigation[] = [
             translate: 'NEW_LEADS.TITLE',
             type: 'item',
             icon: '',
-            url: '/sample'
+            url: '/khach-hang-tiem-nang',
+            exactMatch: true,
+            queryParams: {type: LeadType.NEW}
           },
           {
             id: 'assign-leads',
@@ -93,7 +95,8 @@ export const navigation: FuseNavigation[] = [
             translate: 'ASSIGN_LEADS.TITLE',
             type: 'item',
             icon: '',
-            url: '/sample'
+            url: '/khach-hang-tiem-nang',
+            queryParams: {type: LeadType.SOLD}
           },
           {
             id: 'completed-leads',
@@ -101,7 +104,8 @@ export const navigation: FuseNavigation[] = [
             translate: 'COMPLETED_LEADS.TITLE',
             type: 'item',
             icon: '',
-            url: '/sample'
+            url: '/khach-hang-tiem-nang',
+            queryParams: {type: LeadType.FINISHED}
           },
           {
             id: 'rejected-leads',
@@ -109,20 +113,21 @@ export const navigation: FuseNavigation[] = [
             translate: 'REJECTED_LEADS.TITLE',
             type: 'item',
             icon: '',
-            url: '/sample'
+            url: '/khach-hang-tiem-nang',
+            queryParams: {type: LeadType.RETURNING}
           }
         ]
       }
     ]
   },
-  { 
+  {
     id: 'leads-management',
     title: 'Quản lý nhận leads',
     translate: 'NAV.LEADS_MANAGEMENT',
     type: 'collapsable',
     icon: 'assignment_ind',
     children: [
-      { 
+      {
         id: 'lead-registration',
         title: 'Đăng ký nhận Lead',
         translate: 'LEAD_REGISTRATION.TITLE',
@@ -130,7 +135,7 @@ export const navigation: FuseNavigation[] = [
         icon: '',
         url: '/sample'
       },
-      { 
+      {
         id: 'lead-zone',
         title: 'Khu vực/Dự án nhận leads',
         translate: 'LEAD_ZONE.TITLE',
@@ -140,7 +145,7 @@ export const navigation: FuseNavigation[] = [
       }
     ]
   },
-  { 
+  {
     id: 'articles-management',
     title: 'Quản lý tin đăng',
     translate: 'NAV.ARTICLES_MANAGEMENT',
@@ -148,7 +153,7 @@ export const navigation: FuseNavigation[] = [
     icon: 'notes',
     url: '/post',
     children: [
-      { 
+      {
         id: 'sale-article-management',
         title: 'Quản lý tin rao bán/cho thuê',
         translate: 'SALE_ARTICLE_MANAGEMENT.TITLE',
@@ -156,7 +161,7 @@ export const navigation: FuseNavigation[] = [
         icon: '',
         url: '/sample'
       },
-      { 
+      {
         id: 'post-sale-article',
         title: 'Đăng tin rao bán/cho thuê',
         translate: 'POST_SALE_ARTICLE.TITLE',
@@ -164,7 +169,7 @@ export const navigation: FuseNavigation[] = [
         icon: '',
         url: '/sample'
       },
-      { 
+      {
         id: 'buy-article-management',
         title: 'Quản lý tin cần mua/cần thuê',
         translate: 'BUY_ARTICLE_MANAGEMENT.TITLE',
@@ -172,7 +177,7 @@ export const navigation: FuseNavigation[] = [
         icon: '',
         url: '/sample'
       },
-      { 
+      {
         id: 'post-buy-article',
         title: 'Đăng tin cần mua/cần thuê',
         translate: 'POST_BUY_ARTICLE.TITLE',
@@ -182,14 +187,14 @@ export const navigation: FuseNavigation[] = [
       }
     ]
   },
-  { 
+  {
     id: 'financial-management',
     title: 'Quản lý tài chính',
     translate: 'NAV.FINANCIAL_MANAGEMENT',
     type: 'collapsable',
     icon: 'monetization_on',
     children: [
-      { 
+      {
         id: 'transactions-history',
         title: 'Lịch sử giao dịch',
         translate: 'TRANSACTIONS_HISTORY.TITLE',
@@ -197,7 +202,7 @@ export const navigation: FuseNavigation[] = [
         icon: '',
         url: '/sample'
       },
-      { 
+      {
         id: 'business-account-management',
         title: 'Quản lý tài khoản doanh nghiệp',
         translate: 'BUSINESS_ACCOUNT_MANAGEMENT.TITLE',
@@ -205,7 +210,7 @@ export const navigation: FuseNavigation[] = [
         icon: '',
         url: '/sample'
       },
-      { 
+      {
         id: 'recharge-account',
         title: 'Nạp tiền vào tài khoản',
         translate: 'RECHARGE_ACCOUNT.TITLE',
@@ -215,14 +220,14 @@ export const navigation: FuseNavigation[] = [
       }
     ]
   },
-  { 
+  {
     id: 'account-management',
     title: 'Quản lý tài khoản',
     translate: 'NAV.ACCOUNT_MANAGEMENT',
     type: 'collapsable',
     icon: 'supervisor_account',
     children: [
-      { 
+      {
         id: 'update-personal-information',
         title: 'Thay đổi thông tin cá nhân',
         translate: 'UPDATE_PERSONAL_INFORMATION.TITLE',
@@ -230,7 +235,7 @@ export const navigation: FuseNavigation[] = [
         icon: '',
         url: '/user/update'
       },
-      { 
+      {
         id: 'update-password',
         title: 'Thay đổi mật khẩu',
         translate: 'UPDATE_PASSWORD.TITLE',
@@ -240,7 +245,7 @@ export const navigation: FuseNavigation[] = [
       }
     ]
   },
-  { 
+  {
     id: 'inbox',
     title: 'Hộp tin nhắn',
     translate: 'INBOX.TITLE',
@@ -256,7 +261,7 @@ export const navigation: FuseNavigation[] = [
     icon: 'exit_to_app',
     url: '/logout'
   },
-  { 
+  {
     id: 'applications',
     title: 'Applications',
     translate: 'NAV.APPLICATIONS',
@@ -274,6 +279,6 @@ export const navigation: FuseNavigation[] = [
   }
 ];
 
-if(!environmentDev.production){
-  navigation.push(...componentList)
+if (!environmentDev.production) {
+  navigation.push(...componentList);
 }
