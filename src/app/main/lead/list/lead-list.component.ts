@@ -81,7 +81,7 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onChangedTab({index: this.initTabIndex});
+    this.onChangedTab({index: this.initTabIndex} as any);
   }
 
   onChangedTab(event: MatTabChangeEvent): void {
