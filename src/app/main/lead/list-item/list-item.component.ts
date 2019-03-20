@@ -18,7 +18,7 @@ export class ListItemComponent extends PageBaseComponent {
     super();
   }
 
-  onClickRegisterAlertLead(): void {}
+  onClickByLead(): void {}
 
   onClickLeadDetails(): void {
     this.router.navigate(['/khach-hang-tiem-nang/' + this.lead._id]);
