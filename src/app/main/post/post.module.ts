@@ -9,6 +9,9 @@ import {CheckboxGroupModule} from '../../shared/components/checkbox-group/checkb
 import {ImageUploaderModule} from '../../shared/components/image-uploader/imageUploader.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SelectTextModule} from '../../shared/components/select-text/select-text.module';
+import {InputTextareaModule} from '../../shared/components/input-textarea/input-textarea.module';
+import {InputNumberModule} from '../../shared/components/input-number/inputNumber.module';
+import {ButtonModule} from '../../shared/components/button/button.module';
 
 @NgModule({
   declarations: [AddEditRentPostComponent],
@@ -22,7 +25,10 @@ import {SelectTextModule} from '../../shared/components/select-text/select-text.
     ComboBoxModule,
     CheckboxGroupModule,
     ImageUploaderModule,
-    SelectTextModule
+    SelectTextModule,
+    InputTextareaModule,
+    InputNumberModule,
+    ButtonModule
   ]
 })
 export class PostModule { }

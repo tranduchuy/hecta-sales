@@ -30,11 +30,11 @@
             </div>
 
             <div class="input input-2">
-<!--              <app-date-picker [formControlName]="'publishStartDate'"
-                               [errors]="getErrorMessages(form, 'publishStartDate')"
-                               (valueChanged)="onPublishStartDateChanged($event)"
+              <app-date-picker [formControlName]="'publishStartDate'"
+                               [errors]="getErrorMessages('publishStartDate')"
+                               (valueChange)="onPublishStartDateChanged($event)"
                                [id]="'startDate'">
-              </app-date-picker>-->
+              </app-date-picker>
 
             </div>
 
@@ -45,10 +45,10 @@
               <label>Ngày kết thúc</label>
             </div>
             <div class="input input-2">
-<!--              <app-date-picker [formControlName]="'publishEndDate'"
-                               [errors]="getErrorMessages(form, 'publishEndDate')"
+              <app-date-picker [formControlName]="'publishEndDate'"
+                               [errors]="getErrorMessages('publishEndDate')"
                                [id]="'endDate'" >
-              </app-date-picker>-->
+              </app-date-picker>
             </div>
           </div>
         </div>
@@ -64,14 +64,12 @@
         </div>
         <div class="row-post">
           <div class="input" style="position: relative">
-            <!--<app-input-text [formControlName]="'title'"
+            <app-input-text [formControlName]="'title'"
                             (mouseOver)="basicForm.showTitleTooltip = true"
                             (mouseLeave)="basicForm.showTitleTooltip = false"
                             (valueChanged)="onTitleChanged($event)"
-                            [maxLength]="99"
-                            [minLength]="30"
-                            [errors]="getErrorMessages(form, 'title')"
-            ></app-input-text>-->
+                            [errors]="getErrorMessages('title')"
+            ></app-input-text>
             <span class="count-length"
                   [class.string-red]="basicForm.titleLengthRemind > 68 || basicForm.titleLengthRemind < 0"
                   style="position: absolute; top: 0; right: 0" >
@@ -87,9 +85,9 @@
           <label class="header-create-form">Nội dung tin đăng</label>(<span class="color-red">*</span>) tối đa chỉ 3000 ký tự
         </div>
         <div class="row-post">
-         <!-- <app-textarea [formControlName]="'description'"
+          <app-input-textarea [formControlName]="'description'"
                         (valueChanged)="onDescriptionChanged($event)"
-                        [errors]="getErrorMessages(form, 'description')"></app-textarea>-->
+                        [errors]="getErrorMessages('description')"></app-input-textarea>
 
           <span class="txtDescription_count"
                 style="float: left;margin-left: 10px;"
@@ -259,13 +257,13 @@
               <label>Diện tích</label>
             </div>
             <div class="input input-2">
-<!--              <app-select-filter-range [itemsSource]="itemsSource.area"
-                                       [unit]="'m2'"
+              <app-select-text  [itemsSource]="itemsSource.area"
                                        [formControlName]="'area'"
-                                       [placeholder]="'&#45;&#45;Chọn diện tích&#45;&#45;'"
-                                       [errors]="getErrorMessages(form, 'area')"
-                                       (valueChanged)="onSelectArea($event)"
-              ></app-select-filter-range>-->
+                                       [displayPath]="'text'"
+                                       [valuePath]="'value'"
+                                       [title]="'--Chọn diện tích--'"
+                                       [errors]="getErrorMessages('area')"
+              ></app-select-text>
             </div>
           </div>
         </div>
@@ -276,13 +274,13 @@
               <label>Giá</label>
             </div>
             <div class="input input-2">
-<!--              <app-select-filter-range [itemsSource]="itemsSource.price"
-                                       [unit]="itemsSource.unit"
+              <app-select-text [itemsSource]="itemsSource.price"
                                        [formControlName]="'price'"
-                                       [placeholder]="'&#45;&#45;Chọn mức giá&#45;&#45;'"
-                                       [errors]="getErrorMessages(form, 'area')"
-                                       (valueChanged)="onSelectPrice($event)"
-              ></app-select-filter-range>-->
+                                       [displayPath]="'text'"
+                                       [valuePath]="'value'"
+                                       [title]="'--Chọn mức giá--'"
+                                       [errors]="getErrorMessages('price')"
+              ></app-select-text>
             </div>
           </div>
         </div>
@@ -330,9 +328,9 @@
             <label>Điện thoại:</label>
           </div>
           <div class="input input-4">
-<!--            <app-input-number [formControlName]="'contactPhone'"
-                              [errors]="getErrorMessages(form, 'contactPhone')"
-            ></app-input-number>-->
+            <app-input-number [formControlName]="'contactPhone'"
+                              [errors]="getErrorMessages('contactPhone')"
+            ></app-input-number>
           </div>
         </div>
         <div class="row-post">
@@ -340,9 +338,9 @@
             <label>Di động: (<span class="color-red">*</span>)</label>
           </div>
           <div class="input input-4">
-<!--            <app-input-number [formControlName]="'contactMobile'"
-                              [errors]="getErrorMessages(form, 'contactMobile')"
-            ></app-input-number>-->
+            <app-input-number [formControlName]="'contactMobile'"
+                              [errors]="getErrorMessages('contactMobile')"
+            ></app-input-number>
           </div>
         </div>
         <div class="row-post">
@@ -371,15 +369,15 @@
       <div class="error-message color-red" *ngIf="basicForm.errorSubmit" >Có thông tin bị lỗi. bạn cần hoàn thành hết các nội dung cần thiết.</div>
       <div class="group-button">
         <div class="group-button">
-<!--          <app-button [classes]="'btn-save btn-blue'"
+          <app-button [classes]="'btn-save btn-blue'"
                       (triggerClick)="onClickBtnSubmit()"
                       [title]="loggedInUser ? 'Đăng tin' : 'Đăng tin không cần tài khoản'"
-          ></app-button>-->
+          ></app-button>
 
-          <!--Todo xem truoc khi dang tin-->
-          <!--<app-button [classes]="'btn-cancel btn-orange'"-->
-          <!--(triggerClick)="onClickBtnSubmit()"-->
-          <!--[title]="'Xem trước'"></app-button>-->
+          //Todo xem truoc khi dang tin
+          <app-button [classes]="'btn-cancel btn-orange'"
+          (triggerClick)="onClickBtnSubmit()"
+          [title]="'Xem trước'"></app-button>
         </div>
       </div>
     </div>

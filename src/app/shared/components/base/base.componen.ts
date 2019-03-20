@@ -12,6 +12,7 @@ export abstract class BaseComponent implements OnDestroy {
   @Input() placeholder = '';
   @Input() title = '';
   @Input() errors: string[] = [];
+  @Input() classes = '';
 
   @Output() gotFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
   @Output() lostFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
