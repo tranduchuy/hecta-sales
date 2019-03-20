@@ -6,82 +6,114 @@
   <div class="lead-details">
     <div class="row">
       <div class="key">Loại:</div>
-      <div class="value"> ...</div>
+      <div class="value">{{lead?.type}}</div>
     </div>
 
     <div class="row">
       <div class="key">Khu vực:</div>
-      <div class="value"> ...</div>
+      <div class="value"> {{lead?.location}}</div>
     </div>
 
     <div class="row">
       <div class="key">Diện tích:</div>
-      <div class="value"> ...</div>
+      <div class="value">{{lead?.area}}<ng-container *ngIf="lead?.area">m2</ng-container>
+      </div>
     </div>
-
 
     <div class="row">
       <div class="key">Mức giá:</div>
-      <div class="value"> ...</div>
+      <div class="value">{{lead?.price | currency : 'VND'}}</div>
     </div>
 
     <div class="row">
       <div class="key">Số phòng ngủ:</div>
-      <div class="value"> ...</div>
+      <div class="value">{{lead?.bedrooms}}</div>
     </div>
 
     <div class="row">
       <div class="key">Hướng nhà:</div>
-      <div class="value"> ...</div>
+      <div class="value">{{lead?.direction}}</div>
     </div>
 
-    <div class="row">
-      <div class="key">Giá:</div>
-      <div class="value"> ...</div>
+    <ng-container *ngIf="lead?.status === LEAD_TYPE.NEW">
+      <div class="row">
+        <div class="key">Giá hiện tại:</div>
+        <div class="value">{{lead?.leadPrice | currency : 'VND'}}</div>
+      </div>
+      <div class="row">
+        <div class="key">Giảm sau:</div>
+        <div class="value">{{lead?.timeToDownPriceInMMss}}</div>
+      </div>
+      <div class="row">
+        <div class="key">Ngày đăng:</div>
+        <div class="value">{{lead?.createAt | date : 'dd-mm-yyyy HH:mm:ss'}}</div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="lead?.status !== LEAD_TYPE.NEW">
+      <div class="row">
+        <div class="key">Giá:</div>
+        <div class="value">{{lead?.leadPrice | currency : 'VND'}}</div>
+      </div>
+
+      <div class="row">
+        <div class="key">Thời gian nhận lead:</div>
+        <div class="value"> {{lead?.boughtAt | date : 'dd-mm-yyyy HH:mm:ss'}}</div>
+      </div>
+
+      <div class="row" *ngIf="lead?.status === LEAD_TYPE.RETURNING">
+        <div class="key">Lý do:</div>
+        <div class="value">{{lead?.reason}}</div>
+      </div>
+
+      <div class="row">
+        <span>&nbsp;</span>
+      </div>
+
+      <div class="row">
+        <b>Thông tin lead</b>
+      </div>
+
+      <div class="row">
+        <div class="key">Họ và tên:</div>
+        <div class="value">{{lead?.name}}</div>
+      </div>
+
+      <div class="row">
+        <div class="key">Số điện thoại:</div>
+        <a class="value" [href]="'tel:' + lead?.phone">{{lead?.phone}}</a>
+      </div>
+
+      <div class="row">
+        <div class="key">Email:</div>
+        <div class="value">{{lead?.email}}</div>
+      </div>
+
+      <div class="row">
+        <div class="key">Địa chỉ:</div>
+        <div class="value"> {{lead?.address}}</div>
+      </div>
+    </ng-container>
+
+    <div class="actions-center" *ngIf="lead?.status === LEAD_TYPE.NEW">
+      <button mat-raised-button color="accent" (click)="buyLead()"> Nhận thông tin lead</button>
     </div>
 
-    <div class="row">
-      <div class="key">Thời gian nhận lead:</div>
-      <div class="value"> ...</div>
-    </div>
-
-    <div class="row">
-      <span>&nbsp;</span>
-    </div>
-    <div class="row">
-      <b>Thông tin lead</b>
-    </div>
-
-    <div class="row">
-      <div class="key">Họ và tên:</div>
-      <div class="value"> ...</div>
-    </div>
-
-    <div class="row">
-      <div class="key">Số điện thoại:</div>
-      <div class="value"> ...</div>
-    </div>
-
-    <div class="row">
-      <div class="key">Email:</div>
-      <div class="value"> ...</div>
-    </div>
-
-    <div class="row">
-      <div class="key">Địa chỉ:</div>
-      <div class="value"> ...</div>
-    </div>
-
-    <div class="actions">
-      <button mat-raised-button color="primary"> Nhận thông tin lead</button>
+    <div class="actions" *ngIf="lead?.status === LEAD_TYPE.SOLD">
+      <div class="left">
+        <button mat-raised-button color="warn" (click)="returnLead()">Trả lead</button>
+      </div>
+      <div class="right">
+        <button mat-raised-button color="primary" (click)="finishLead()">Hoàn thành</button>
+      </div>
     </div>
 
   </div>
 
-  <div class="notice">
+  <div *ngIf="lead?.status === LEAD_TYPE.SOLD">
     <ul>
-      <li>Bạn có 10' để hoàn trả  ........</li>
-      <li>Sau 10', khách hàng sẽ được tự động xác nhận .......</li>
+      <li>{{MESSAGES.LEAD_SOLD_MESSAGE_1}}</li>
+      <li>{{MESSAGES.LEAD_SOLD_MESSAGE_2}}</li>
     </ul>
   </div>
 </div>
