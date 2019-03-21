@@ -9,7 +9,8 @@ import { DialogResult } from '../dialog.service';
 export class ConfirmDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
   onClickBtnOk() {
     this.dialogRef.close(DialogResult.OK);

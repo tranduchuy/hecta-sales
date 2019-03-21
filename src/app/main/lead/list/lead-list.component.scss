@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  padding: 10px;
+}
+
+.page-header {
+  text-align: center;
+}
+
+md-tab-group {
+  .mat-tab-body-wrapper {
+    height: 100%;
+  }
+}
+
+.actions {
+  text-align: center;
+}
+
+.empty-list-message {
+  margin-top: 16px;
+  text-align: center;
+}

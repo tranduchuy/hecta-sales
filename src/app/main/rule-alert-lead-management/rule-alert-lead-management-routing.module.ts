@@ -6,14 +6,23 @@ import { RuleAlertLeadListComponent } from './rule-alert-lead-list/rule-alert-le
 const routes: Routes = [
   {
     path: 'add',
-    component: AddRuleAlertLeadComponent
+    component: AddRuleAlertLeadComponent,
+    data: {
+      level: 2
+    }
   }, {
     path: 'update/:id',
-    component: AddRuleAlertLeadComponent
+    component: AddRuleAlertLeadComponent,
+    data: {
+      level: 2
+    }
   },
   {
     path: 'list',
-    component: RuleAlertLeadListComponent
+    component: RuleAlertLeadListComponent,
+    data: {
+      level: 1
+    }
   }
 ];
 

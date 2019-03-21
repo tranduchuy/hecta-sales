@@ -1,10 +1,18 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { environment as environmentDev } from 'environments/environment';
+
+const appDev: Routes = [
+  {
+    path: 'component-list',
+    loadChildren: './shared/components/component-list/component-list.module#ComponentListModule',
+  }
+];
 
 const appRoutes: Routes = [
   {
-    path: 'component-list',
-    loadChildren: './shared/components/component-list/component-list.module#ComponentListModule'
+    path: 'home',
+    loadChildren: './main/homepage/homepage.module#HomepageModule'
   },
   {
     path: 'auth',
@@ -19,13 +27,21 @@ const appRoutes: Routes = [
     loadChildren: './main/user-management/user-management.module#UserManagementModule'
   },
   {
+    path: 'khach-hang-tiem-nang',
+    loadChildren: './main/lead/lead.module#LeadModule'
+  },
+  {
     path: '**',
-    redirectTo: '/auth/login'
+    redirectTo: 'home'
   },
 ];
 
+if (!environmentDev.production) {
+  appRoutes.unshift(...appDev);
+}
+
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
+  imports: [RouterModule.forRoot(appRoutes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

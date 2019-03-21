@@ -1,4 +1,14 @@
-import { Component, forwardRef, OnDestroy, EventEmitter, Output, Input, ViewChild, OnInit, ElementRef } from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  OnDestroy,
+  EventEmitter,
+  Output,
+  Input,
+  ViewChild,
+  OnInit,
+  ElementRef
+} from '@angular/core';
 import { InputTextBaseComponent } from '../base/input-base.component';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MatLabel } from '@angular/material';
@@ -55,7 +65,8 @@ export class InputTextComponent extends InputTextBaseComponent implements Contro
 
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+  }
 
   onInputChange(): void {
     this.writeValue(this.innerValue);
@@ -80,13 +91,16 @@ export class InputTextComponent extends InputTextBaseComponent implements Contro
     this.onModelTouched();
   }
 
-  private onModelChange = (_: any) => {};
+  private onModelChange = (_: any) => {
+  };
 
-  private onModelTouched = () => {};
+  private onModelTouched = () => {
+  };
 
   private onBlur(): void {
     this.onLostFocus();
   }
 
-  private blurEventListener: any = () => {};
+  private blurEventListener: any = () => {
+  };
 }

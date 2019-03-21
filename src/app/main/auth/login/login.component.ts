@@ -31,9 +31,9 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
     private _fuseConfigService: FuseConfigService,
     private fuseProgressBarService: FuseProgressBarService,
     private _formBuilder: FormBuilder,
-    private authServie: AuthService,
-    private validatorService: ValidatorService,
-    private router: Router,
+    private _authService: AuthService,
+    private _validatorService: ValidatorService,
+    private _router: Router,
   ) {
     super();
     // Configure the layout
@@ -64,8 +64,8 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
    */
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      username: ['', this.validatorService.getInputRequired()],
-      password: ['', this.validatorService.getInputRequired()]
+      username: ['', this._validatorService.getInputRequired()],
+      password: ['', this._validatorService.getInputRequired()]
     });
   }
 
@@ -78,10 +78,10 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
       password: this.loginForm.controls.password.value
     };
 
-    const sub = this.authServie.login(credential).subscribe(res => {
+    const sub = this._authService.login(credential).subscribe(res => {
       if (res.status === HTTP_CODES.SUCCESS) {
         this.isSuccess = true;
-        this.router.navigate(['sample']);
+        this._router.navigate(['home']);
       } else {
         this.isSuccess = false;
       }

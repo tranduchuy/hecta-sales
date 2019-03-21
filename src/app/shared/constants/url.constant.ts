@@ -1,4 +1,4 @@
-import { environment } from "environments/environment";
+import {environment} from 'environments/environment';
 
 export namespace URLs {
   export const LOGIN = environment.apiEndpoint + '/api/v1/users/login';
@@ -11,4 +11,9 @@ export namespace URLs {
   export const USER = environment.apiEndpoint + '/api/v1/users/info';
   export const IMAGE_UPLOAD = environment.apiStatic + '/images';
   export const IMAGE = environment.apiStatic + '/images/using/150x150';
+
+  export namespace Lead {
+    export const List = `${environment.apiEndpoint}/api/v1/leads`;
+  }
+  export const RESEND_EMAIL = environment.apiEndpoint + '/api/v1/users/confirm/resend';
 }

@@ -22,6 +22,7 @@ export class CheckboxGroupComponent extends BaseComponent implements ControlValu
   @Input() itemsSource: any[] = [];
   @Input() displayPath = '';
   @Input() valuePath = '';
+
   @Input()
   set value(values: any[]) {
     values.forEach(v => this.selectedObj[v] = true);
@@ -60,9 +61,11 @@ export class CheckboxGroupComponent extends BaseComponent implements ControlValu
     this.onModelTouched = fn;
   }
 
-  private onModelChange = (_: any) => {};
+  private onModelChange = (_: any) => {
+  };
 
-  private onModelTouched = () => {};
+  private onModelTouched = () => {
+  };
 
   private extractSelectedCheckboxValues(): string[] {
     const results = [];

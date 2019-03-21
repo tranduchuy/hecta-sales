@@ -3,6 +3,7 @@
     <!-- item.url -->
     <a class="nav-link" [ngClass]="item.classes" *ngIf="item.url && !item.externalUrl && !item.function"
        [routerLink]="[item.url]" [routerLinkActive]="['active', 'accent']"
+       [queryParams]="item.queryParams"
        [routerLinkActiveOptions]="{exact: item.exactMatch || false}"
        [target]="item.openInNewTab ? '_blank' : '_self'">
         <ng-container *ngTemplateOutlet="itemContent"></ng-container>

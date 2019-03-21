@@ -1,0 +1,64 @@
+.container {
+  width: 100%;
+  padding: 10px;
+}
+
+.page-header {
+  text-align: center;
+}
+
+.lead-details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 16px;
+  border-radius: 4px;
+  //@include mat-elevation(1);
+  background: #fff;
+
+  .row {
+    //display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: row;
+
+    .key {
+      //flex-direction: column;
+      flex-basis: calc(30%);
+      text-align: left;
+    }
+
+    .value {
+      //flex-direction: column;
+      flex-basis: calc(70%);
+      text-align: left;
+      font-weight: bold;
+    }
+  }
+}
+
+.actions-center {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+
+  .left {
+    flex-direction: column;
+    flex-basis: calc(50%);
+    text-align: left;
+  }
+
+  .right {
+    flex-direction: column;
+    flex-basis: calc(50%);
+    text-align: right;
+  }
+}
+
