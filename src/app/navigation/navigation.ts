@@ -133,7 +133,8 @@ export const navigation: FuseNavigation[] = [
         translate: 'LEAD_REGISTRATION.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        exactMatch: true,
+        url: '/rule-alert-lead/add'
       },
       {
         id: 'lead-zone',
@@ -141,7 +142,8 @@ export const navigation: FuseNavigation[] = [
         translate: 'LEAD_ZONE.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        exactMatch: true,
+        url: '/rule-alert-lead/list'
       }
     ]
   },
