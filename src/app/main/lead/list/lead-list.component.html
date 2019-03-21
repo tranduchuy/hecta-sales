@@ -12,7 +12,15 @@
 
         <ng-container *ngIf="t.type !== LEAD_TYPE.NO_RETURN && t.type !== LEAD_TYPE.RETURN_AND_REFUND">
           <div class="empty-list-message" *ngIf="leadList.itemsSource.length === 0">Danh sách trống</div>
+
           <div *ngIf="leadList.itemsSource.length > 0">
+            <div *ngIf="t.type === LEAD_TYPE.SOLD">
+              <ul>
+                <li>{{MESSAGES.LEAD_SOLD_MESSAGE_1}}</li>
+                <li>{{MESSAGES.LEAD_SOLD_MESSAGE_2}}</li>
+              </ul>
+            </div>
+
             <app-lead-list-item *ngFor="let lead of leadList.itemsSource"
                                 [leadType]="t.type"
                                 [lead]="lead">
