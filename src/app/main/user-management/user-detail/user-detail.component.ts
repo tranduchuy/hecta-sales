@@ -8,6 +8,8 @@ import { UserService } from '../shared/service/user.service';
 import { General } from 'app/shared/constants/general.constant';
 import { URLs } from 'app/shared/constants/url.constant';
 import { HTTP_CODES } from 'app/shared/constants/http-code.constant';
+import { UserProfile } from '../shared/model/user-profile';
+import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -18,10 +20,10 @@ import { HTTP_CODES } from 'app/shared/constants/http-code.constant';
 })
 export class UserDetailComponent extends PageBaseComponent implements OnInit {
 
-  user;
+  user: UserProfile
   isSuccess: Boolean = true;
 
-  url;
+  url: any;
   userForm: FormGroup;
 
   selectedFile: File = null;
@@ -42,6 +44,7 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
     private _dialog: DialogService,
     private _validatorService: ValidatorService,
     private _userService: UserService,
+    private _fuseProgressBarService: FuseProgressBarService
   ) {
     super();
   }
@@ -55,7 +58,6 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
 
     this.userForm = this._fb.group({
       name: ['', [this._validatorService.getInputRequired()]],
-      birth: ['', this._validatorService.getInputRequired()],
       gender: [''],
       phone: [''],
       email: [''],
@@ -77,6 +79,7 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
         this.selectedFile = this.url;
       }
       this._userService.uploadImage(this.selectedFile).subscribe(res=>{
+        this._fuseProgressBarService.show();
         if(res.status === HTTP_CODES.SUCCESS){
           this.userForm.controls['avatar'].setValue(res.data.link);
           console.log(this.userForm.controls['avatar'].setValue(res.data.link))
@@ -93,6 +96,7 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
           });
         this.subscriptions.push(subDialog);
         }
+        this._fuseProgressBarService.hide();
       });
     }
   }
@@ -109,7 +113,6 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
 
   onUpdateProfile(): void {
     console.log(this.userForm.value);
-    this._userService.uploadImage(this.userForm.controls.avatar.value);
 
     const sub = this._userService.updateProfile(this.userForm.value).subscribe(
       res => {
