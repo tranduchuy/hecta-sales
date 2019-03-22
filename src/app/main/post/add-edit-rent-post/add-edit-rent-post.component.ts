@@ -75,7 +75,6 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
               private dateService: DateService) {
     super();
     const sub = this.activatedRoute.queryParams.subscribe(params => {
-      console.log(params);
       if (params.id) {
         // case update campaign
         this.params = params;
