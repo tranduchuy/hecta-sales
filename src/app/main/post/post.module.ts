@@ -16,6 +16,7 @@ import {MatDividerModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 import {MatTabsModule} from '@angular/material/tabs';
+import {CaptchaModule} from '../../shared/components/captcha/captcha.module';
 @NgModule({
   declarations: [AddEditRentPostComponent],
   imports: [
@@ -34,7 +35,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     ButtonModule,
     MatTabsModule,
     MatDividerModule,
-    MatGridListModule
+    MatGridListModule,
+    CaptchaModule
   ]
 })
 export class PostModule { }

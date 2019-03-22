@@ -26,6 +26,7 @@ import { UserManagementModule } from './main/user-management/user-management.mod
 import { AppRoutingModule } from './app-routing.module';
 
 import { ServiceLocator } from './shared/services/service-locator';
+import {environment} from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +69,8 @@ import { ServiceLocator } from './shared/services/service-locator';
     MessageService,
     ValidatorService,
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
+    {provide: 'API_GOOGLE_CAPTCHA_TOKEN', useValue: environment.googleCaptchaToken},
+    {provide: 'API_GOOGLE_MAP_TOKEN', useValue: environment.googleMapToken},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

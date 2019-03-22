@@ -125,7 +125,6 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
 
   post(){
     const params = this.generatePostObject();
-    console.log(params);
     let req: Observable<any>;
 
     if (this.onFlowEdit) {

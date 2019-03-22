@@ -32,7 +32,7 @@
 
             <div class="input input-2">
               <app-date-picker [formControlName]="'publishStartDate'"
-                               [errors]="getErrorMessages('publishStartDate')"
+                               [errors]="getMessageErrors('publishStartDate')"
                                (valueChange)="onPublishStartDateChanged($event)"
                                [id]="'startDate'">
               </app-date-picker>
@@ -47,7 +47,7 @@
             </div>
             <div class="input input-2">
               <app-date-picker [formControlName]="'publishEndDate'"
-                               [errors]="getErrorMessages('publishEndDate')"
+                               [errors]="getMessageErrors('publishEndDate')"
                                [id]="'endDate'" >
               </app-date-picker>
             </div>
@@ -70,7 +70,7 @@
                             (mouseOver)="basicForm.showTitleTooltip = true"
                             (mouseLeave)="basicForm.showTitleTooltip = false"
                             (valueChanged)="onTitleChanged($event)"
-                            [errors]="getErrorMessages('title')"
+                            [errors]="getMessageErrors('title')"
             ></app-input-text>
             <span class="count-length"
                   [class.string-red]="basicForm.titleLengthRemind > 68 || basicForm.titleLengthRemind < 0"
@@ -89,7 +89,7 @@
         <div class="row-post">
           <app-input-textarea [formControlName]="'description'"
                         (valueChanged)="onDescriptionChanged($event)"
-                        [errors]="getErrorMessages('description')"></app-input-textarea>
+                        [errors]="getMessageErrors('description')"></app-input-textarea>
 
           <span class="txtDescription_count"
                 style="float: left;margin-left: 10px;"
@@ -169,7 +169,7 @@
                                [valuePath]="'value'"
                                [title]="'--Chọn hình thức--'"
                                [formControlName]="'formality'"
-                               [errors]="getErrorMessages(form, 'formality')"
+                               [errors]="getMessageErrors('formality')"
                                (valueChanged)="onSelectForm()"></app-select-text>
             </div>
           </mat-grid-tile>
@@ -183,7 +183,7 @@
                                [valuePath]="'value'"
                                [title]="'--Chọn loại--'"
                                [formControlName]="'type'"
-                               [errors]="getErrorMessages(form, 'type')"></app-select-text>
+                               [errors]="getMessageErrors('type')"></app-select-text>
             </div>
           </mat-grid-tile>
         </mat-grid-list>
@@ -213,7 +213,7 @@
                                [valuePath]="'value'"
                                [title]="'--Chọn quận / huyện--'"
                                [formControlName]="'district'"
-                               [errors]="getErrorMessages(form, 'district')"
+                               [errors]="getMessageErrors('district')"
                                (valueChanged)="onChangedDistrict()"></app-select-text>
             </div>
           </mat-grid-tile>
@@ -229,7 +229,7 @@
                                [valuePath]="'value'"
                                [title]="'--Chọn phường / xã--'"
                                [formControlName]="'ward'"
-                               [errors]="getErrorMessages(form, 'ward')"
+                               [errors]="getMessageErrors('ward')"
                                (valueChanged)="onChangedWard()"></app-select-text>
             </div>
           </mat-grid-tile>
@@ -243,7 +243,7 @@
                                [valuePath]="'value'"
                                [title]="'--Chọn đường--'"
                                [formControlName]="'ward'"
-                               [errors]="getErrorMessages(form, 'street')"
+                               [errors]="getMessageErrors('street')"
                                (valueChanged)="onChangedStreet()"></app-select-text>
             </div>
           </mat-grid-tile>
@@ -259,7 +259,7 @@
                                [valuePath]="'value'"
                                [title]="'--Chọn dự án--'"
                                [formControlName]="'project'"
-                               [errors]="getErrorMessages(form, 'project')"
+                               [errors]="getMessageErrors('project')"
                                (valueChanged)="onChangedProject()"></app-select-text>
             </div>
           </mat-grid-tile>
@@ -273,7 +273,7 @@
                                 [displayPath]="'text'"
                                 [valuePath]="'value'"
                                 [title]="'--Chọn diện tích--'"
-                                [errors]="getErrorMessages(form, 'area')"
+                                [errors]="getMessageErrors('area')"
               ></app-select-text>
             </div>
           </mat-grid-tile>
@@ -289,7 +289,7 @@
                                        [displayPath]="'text'"
                                        [valuePath]="'value'"
                                        [title]="'--Chọn mức giá--'"
-                                       [errors]="getErrorMessages('price')"
+                                       [errors]="getMessageErrors('price')"
               ></app-select-text>
             </div>
           </div>
@@ -301,7 +301,7 @@
           </div>
           <div class="input-3">
             <app-input-text [formControlName]="'address'"
-                            [errors]="getErrorMessages('address')"
+                            [errors]="getMessageErrors('address')"
             ></app-input-text>
           </div>
         </div>
@@ -320,7 +320,7 @@
           </div>
           <div class="input input-2">
             <app-input-text [formControlName]="'contactName'"
-                            [errors]="getErrorMessages('contactName')"
+                            [errors]="getMessageErrors('contactName')"
             ></app-input-text>
           </div>
         </div>
@@ -330,7 +330,7 @@
           </div>
           <div class="input input-2">
             <app-input-text [formControlName]="'contactAddress'"
-                            [errors]="getErrorMessages('contactAddress')"
+                            [errors]="getMessageErrors('contactAddress')"
             ></app-input-text>
           </div>
         </div>
@@ -340,7 +340,7 @@
           </div>
           <div class="input input-4">
             <app-input-number [formControlName]="'contactPhone'"
-                              [errors]="getErrorMessages('contactPhone')"
+                              [errors]="getMessageErrors('contactPhone')"
             ></app-input-number>
           </div>
         </div>
@@ -350,7 +350,7 @@
           </div>
           <div class="input input-4">
             <app-input-number [formControlName]="'contactMobile'"
-                              [errors]="getErrorMessages('contactMobile')"
+                              [errors]="getMessageErrors('contactMobile')"
             ></app-input-number>
           </div>
         </div>
@@ -360,7 +360,7 @@
           </div>
           <div class="input input-4">
             <app-input-text [formControlName]="'contactEmail'"
-                            [errors]="getErrorMessages('contactEmail')"
+                            [errors]="getMessageErrors('contactEmail')"
             ></app-input-text>
           </div>
           <app-checkbox-group [formControlName]="'receiveMail'"
@@ -373,9 +373,9 @@
     </div>
     <div class="form-wrapper">
       <div style="display: inline-block;">
-        <!--        <app-captcha (catchToken)="onCatchTokenCaptcha($event)"
-                             [errors]="getErrorMessages(form, 'captchaToken')"
-                ></app-captcha>-->
+                <app-captcha (catchToken)="onCatchTokenCaptcha($event)"
+                             [errors]="getMessageErrors('captchaToken')"
+                ></app-captcha>
       </div>
       <div class="error-message color-red" *ngIf="basicForm.errorSubmit" >Có thông tin bị lỗi. bạn cần hoàn thành hết các nội dung cần thiết.</div>
       <div class="center">
