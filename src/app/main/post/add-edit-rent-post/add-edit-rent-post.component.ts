@@ -1,18 +1,19 @@
 import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
 import {EditableFormBaseComponent} from '../../../shared/components/base/editable-form-base.component';
 import {Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { DateService } from '../../../shared/services/helper/date.service';
 import result from '../../../shared/constants/selector.constant';
 import {StrService} from '../../../shared/services/helper/str.service';
 import { PostService } from '../post.service';
 import {Observable} from 'rxjs';
+import {HelperService} from '../../../shared/services/helper.service';
 
 @Component({
   selector: 'app-add-edit-rent-post',
   templateUrl: './add-edit-rent-post.component.html',
   styleUrls: ['./add-edit-rent-post.component.scss'],
-  providers: [DateService]
+  providers: [DateService, HelperService]
 })
 export class AddEditRentPostComponent extends EditableFormBaseComponent implements AfterContentInit {
   CityListOther1 = result.cityDistrictProject;
@@ -68,9 +69,20 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
 
   constructor(
               private postService: PostService,
+              private helperService: HelperService,
               private router: Router,
+              private activatedRoute: ActivatedRoute,
               private dateService: DateService) {
     super();
+    const sub = this.activatedRoute.queryParams.subscribe(params => {
+      console.log(params);
+      if (params.id) {
+        // case update campaign
+        this.params = params;
+        this.onFlowEdit = true;
+      }
+    });
+    this.subscriptions.push(sub);
   }
 
 
@@ -79,6 +91,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     this.initItemsSourceCities();
     this.initItemsSourceArea();
     this.initItemsSourceForm();
+    this.loadPostsDetail();
   }
 
   private initItemsSourceCities() {
@@ -376,6 +389,22 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
 
     this.form.controls.address.setValue(address);
   }
+
+  loadPostsDetail() {
+    if (this.params.id) {
+      const sub = this.postService.getDetail(this.params.id)
+        .subscribe(res => {
+          if (res.status !== 1) {
+            alert([res.message]);
+          } else {
+            this.oldData = res.data;
+            this.setValueForm(res.data);
+            this.disableSettings.btnInsert = false;
+          }
+        });
+      this.subscriptions.push(sub);
+    }
+  }
   
 
   /**
@@ -394,6 +423,95 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     return this.itemsSource.cityOrProvinces.find(item => {
       return item.value.toString() === cd;
     });
+  }
+
+  setValueForm(data: any) {
+    const params = { ...data };
+    params.from = new Date(params.from);
+    params.to = new Date(params.to);
+    if (params.receiveMail === true) {
+      params.receiveMail = [1];
+    }
+    // get formality
+    const _objFormality = this.helperService.getFormilityBuyByValue(params.formality);
+    if (_objFormality) {
+      params.formality = {
+        text: _objFormality.name,
+        value: _objFormality.id
+      }
+
+      const _objType = this.helperService.getTypeByValue(_objFormality, params.type);
+      if (_objType) {
+        params.type = {
+          text: _objType.name,
+          value: _objType.id
+        }
+      }
+    }
+
+    delete params.city;
+    delete params.district;
+    delete params.ward;
+    delete params.street;
+    delete params.project;
+
+    params.images = StrService.mapIFileTextValue(params.images);
+
+    this.form.patchValue(params);
+
+    const keyword = params.keywordList.map(key => {
+      var str = '';
+      str += (str === '') ? key.keyword : (',' + key.keyword);
+      return str;
+    });
+    this.form.controls.keywordList.setValue(keyword);
+
+    // get detail city
+    const _objCity = this.helperService.getCityByCode(data.city);
+    if (_objCity) {
+      setTimeout(() => {
+        this.form.controls.city.setValue({
+          text: _objCity.name,
+          value: _objCity.code
+        });
+      }, 50);
+
+      const _objDistrict = this.helperService.getDistrictByValue(_objCity, data.district);
+      if (_objDistrict) {
+        setTimeout(() => {
+          this.form.controls.district.setValue({
+            text: _objDistrict.name,
+            value: _objDistrict.id
+          });
+
+          setTimeout(() => {
+            const _objWard = this.helperService.getWardByValue(_objDistrict, data.ward);
+            if (_objWard) {
+              this.form.controls.ward.setValue({
+                text: _objWard.name,
+                value: _objWard.id
+              });
+            }
+
+            const _objStreet = this.helperService.getStreetByValue(_objDistrict, data.street);
+            if (_objStreet) {
+              this.form.controls.street.setValue({
+                text: _objStreet.name,
+                value: _objStreet.id
+              });
+            }
+
+            const _objProject = this.helperService.getProjectByValue(_objDistrict, data.project);
+            if (_objProject) {
+              this.form.controls.project.setValue({
+                text: _objProject.name,
+                value: _objProject.id
+              });
+            }
+          }, 100);
+        }, 100);
+      }
+    }
   }
 
 

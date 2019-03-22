@@ -11,6 +11,10 @@ const routes: Route[] = [
     component: AddEditRentPostComponent
   },
   {
+    path: 'post-buy-article-modify',
+    component: AddEditRentPostComponent
+  },
+  {
     path: 'post-buy-article',
     component: AddEditRentPostComponent
   },
