@@ -36,6 +36,8 @@ export class SelectTextComponent extends BaseComponent implements ControlValueAc
     return this._selectedItems;
   }
 
+
+
   @Output() valueChanged = new EventEmitter<any>();
   @Output() textChanged = new EventEmitter<string>();
 
@@ -51,7 +53,7 @@ export class SelectTextComponent extends BaseComponent implements ControlValueAc
   }
 
   writeValue(obj: any) {
-    this.selectedItems = obj; 
+    this.selectedItems = obj;
   }
 
   updateModel() {
@@ -71,4 +73,9 @@ export class SelectTextComponent extends BaseComponent implements ControlValueAc
 
   private onModelTouched = () => {
   };
+
+
+  compareFn(c1: any, c2:any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
 }

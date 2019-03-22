@@ -226,8 +226,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
 
 
 
-  onChangedCity() {
-    const city = this.form.get('city').value;
+  onChangedCity(city) {
     this.form.get('district').setValue(null);
     this.form.get('ward').setValue(null);
     this.form.get('street').setValue(null);
@@ -274,8 +273,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     this.updateAddressInBasicInfo();
   }
 
-  onChangedDistrict() {
-    const district = this.form.get('district').value;
+  onChangedDistrict(district) {
     this.form.get('ward').setValue(null);
     this.form.get('street').setValue(null);
     this.form.get('project').setValue(null);
@@ -322,8 +320,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     });
   }
 
-  onSelectForm() {
-    const form = this.form.get('formality').value;
+  onSelectForm(form) {
     this.form.get('unit').setValue(null);
     this.form.get('type').setValue(null);
     this.form.get('price').setValue(null);
@@ -404,13 +401,13 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
       this.subscriptions.push(sub);
     }
   }
-  
+
 
   /**
    * Use when flow edit
    */
-  private mapDistrictIdToObject(id: any): any {
-    return this.itemsSource.districts.find(item => {
+  private mapAreaByValue(id: any): any {
+    return this.itemsSource.area.find(item => {
       return item.value.toString() === id.toString();
     });
   }
@@ -418,9 +415,9 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
   /**
    * Use when flow edit
    */
-  private mapCityCodeToObject(cd: string): any {
-    return this.itemsSource.cityOrProvinces.find(item => {
-      return item.value.toString() === cd;
+  private mapPriceByValue(id: any): any {
+    return this.itemsSource.price.find(item => {
+      return item.value.toString() === id.toString();
     });
   }
 
@@ -438,13 +435,28 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
         text: _objFormality.name,
         value: _objFormality.id
       }
+      this.onSelectForm(params.formality);
 
       const _objType = this.helperService.getTypeByValue(_objFormality, params.type);
       if (_objType) {
         params.type = {
           text: _objType.name,
           value: _objType.id
-        }
+        };
+      }
+      const _objArea = this.mapAreaByValue(params.area || '');
+      if (_objArea) {
+        params.area = {
+          text: _objArea.name,
+          value: _objArea.id
+        };
+      }
+      const _objPrice = this.mapPriceByValue(params.price || '');
+      if (_objPrice) {
+        params.price = {
+          text: _objPrice.name,
+          value: _objPrice.id
+        };
       }
     }
 
@@ -469,19 +481,23 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     const _objCity = this.helperService.getCityByCode(data.city);
     if (_objCity) {
       setTimeout(() => {
-        this.form.controls.city.setValue({
+        const city = {
           text: _objCity.name,
           value: _objCity.code
-        });
+        };
+        this.form.controls.city.setValue(city);
+        this.onChangedCity(city);
       }, 50);
 
       const _objDistrict = this.helperService.getDistrictByValue(_objCity, data.district);
       if (_objDistrict) {
         setTimeout(() => {
-          this.form.controls.district.setValue({
+          const district = {
             text: _objDistrict.name,
             value: _objDistrict.id
-          });
+          };
+          this.form.controls.district.setValue(district);
+          this.onChangedDistrict(district);
 
           setTimeout(() => {
             const _objWard = this.helperService.getWardByValue(_objDistrict, data.ward);

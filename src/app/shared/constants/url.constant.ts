@@ -13,7 +13,7 @@ export namespace URLs {
   export namespace Post {
     export const postDetail = environment.apiEndpoint + '/api/v1/posts/detail/';
     export const createBuy = environment.apiEndpoint + '/api/v1/buys/add';
-    export const updateBuy = environment.apiEndpoint + '/api/v1/buys/{id}';
+    export const updateBuy = environment.apiEndpoint + '/api/v1/buys/update/{id}';
   }
 
   export namespace Lead {

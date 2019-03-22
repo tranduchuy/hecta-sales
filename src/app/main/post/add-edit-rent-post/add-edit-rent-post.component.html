@@ -170,7 +170,7 @@
                                [title]="'--Chọn hình thức--'"
                                [formControlName]="'formality'"
                                [errors]="getMessageErrors('formality')"
-                               (valueChanged)="onSelectForm()"></app-select-text>
+                               (valueChanged)="onSelectForm($event.value)"></app-select-text>
             </div>
           </mat-grid-tile>
           <mat-grid-tile>
@@ -199,7 +199,7 @@
                                  [displayPath]="'text'"
                                  [valuePath]="'value'"
                                  [errors]="getMessageErrors('city')"
-                                 (valueChanged)="onChangedCity()"
+                                 (valueChanged)="onChangedCity($event.value)"
                                  [formControlName]="'city'"></app-select-text>
               </div>
           </mat-grid-tile>
@@ -214,7 +214,7 @@
                                [title]="'--Chọn quận / huyện--'"
                                [formControlName]="'district'"
                                [errors]="getMessageErrors('district')"
-                               (valueChanged)="onChangedDistrict()"></app-select-text>
+                               (valueChanged)="onChangedDistrict($event.value)"></app-select-text>
             </div>
           </mat-grid-tile>
         </mat-grid-list>
