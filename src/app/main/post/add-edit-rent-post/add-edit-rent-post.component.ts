@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import { DateService } from '../../../shared/services/helper/date.service';
 import result from '../../../shared/constants/selector.constant';
 import {StrService} from '../../../shared/services/helper/str.service';
+import { PostService } from '../post.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-add-edit-rent-post',
@@ -65,6 +67,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
   };
 
   constructor(
+              private postService: PostService,
               private router: Router,
               private dateService: DateService) {
     super();
@@ -120,7 +123,29 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     });
   }
 
-  post(){}
+  post(){
+    const params = this.generatePostObject();
+    console.log(params);
+    let req: Observable<any>;
+
+    if (this.onFlowEdit) {
+      req = this.postService.updateBuyInfo(this.params.id, params);
+    } else {
+      req = this.postService.createBuy(params);
+    }
+
+    const sub = req
+      .subscribe((res: any) => {
+        if (res.status !== 1) {
+          alert([res.message]);
+          return;
+        }
+
+        alert(res.message);
+        this.router.navigate(['/campaign']);
+      });
+    this.subscriptions.push(sub);
+  }
 
   onCatchTokenCaptcha(value: string) {
     this.form.controls.captchaToken.setValue(value);
@@ -137,6 +162,55 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
   onKeywordChanged(value: any) {
     this.basicForm.keywordListshow = value.toString().split(',');
     this.basicForm.keywordRemind = this.basicForm.keywordListshow.length;
+  }
+
+  onClickBtnSubmit() {
+    this.onSubmit();
+  }
+
+  private generatePostObject(): any {
+    const params = {...this.form.value};
+
+    // required
+    params.title = params.title;
+    params.description = params.description;
+    params.formality = params.formality.value;
+    params.type = params.type.value;
+    params.city = params.city.value;
+    params.district = params.district.value;
+    params.address = params.address;
+    params.captchaToken = params.captchaToken;
+    params.contactMobile = params.contactMobile;
+
+    // not require
+    // TODO remove space first && last of keywordList
+    params.keywordList = params.keywordList ? params.keywordList.toString().split(',') : null;
+
+    params.images = params.images ? StrService.mapDataImage(params.images) : null;
+
+    params.ward = params.ward ? params.ward.value : null;
+    params.street = params.street ? params.street.value : null;
+    params.project = params.project ? params.project.value : null;
+
+    params.areaMin = params.area ? params.area.min.value : null;
+    params.areaMax = params.area ? params.area.max.value : null;
+
+    params.priceMin = params.price ? params.price.min.value : null;
+    params.priceMax = params.price ? params.price.max.value : null;
+
+    params.unit = params.unit ? params.unit : null;
+    // contact
+    params.contactName = params.contactName ? params.contactName : null;
+    params.contactAddress = params.contactAddress ? params.contactAddress : null;
+    params.contactPhone = params.contactPhone ? params.contactPhone : null;
+    params.contactEmail = params.contactEmail ? params.contactEmail : null;
+    params.receiveMail = params.receiveMail ? true : false;
+
+    // time
+    params.from = params.publishStartDate.getTime();
+    params.to = params.publishEndDate.getTime();
+
+    return params;
   }
 
 
@@ -303,54 +377,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
 
     this.form.controls.address.setValue(address);
   }
-
-  private generatePostObject(): any {
-
-    // console.log('form', this.form);
-
-    const params = this.form.value;
-
-    // required
-    params.title = params.title;
-    params.description = params.description;
-    params.formality = params.formality.value;
-    params.type = params.type.value;
-    params.city = params.city.value;
-    params.district = params.district.value;
-    params.address = params.address;
-    params.captchaToken = params.captchaToken;
-    params.contactMobile = params.contactMobile;
-
-    // not require
-    // TODO remove space first && last of keywordList
-    params.keywordList = params.keywordList ? params.keywordList.toString().split(',') : null;
-
-    params.images = params.images ? StrService.mapDataImage(params.images) : null;
-
-    params.ward = params.ward ? params.ward.value : null;
-    params.street = params.street ? params.street.value : null;
-    params.project = params.project ? params.project.value : null;
-
-    params.areaMin = params.area ? params.area.min.value : null;
-    params.areaMax = params.area ? params.area.max.value : null;
-
-    params.priceMin = params.price ? params.price.min.value : null;
-    params.priceMax = params.price ? params.price.max.value : null;
-
-    params.unit = params.unit ? params.unit : null;
-    // contact
-    params.contactName = params.contactName ? params.contactName : null;
-    params.contactAddress = params.contactAddress ? params.contactAddress : null;
-    params.contactPhone = params.contactPhone ? params.contactPhone : null;
-    params.contactEmail = params.contactEmail ? params.contactEmail : null;
-    params.receiveMail = params.receiveMail ? true : false;
-
-    // time
-    params.from = params.publishStartDate.getTime();
-    params.to = params.publishEndDate.getTime();
-
-    return params;
-  }
+  
 
   /**
    * Use when flow edit

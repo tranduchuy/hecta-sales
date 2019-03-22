@@ -9,6 +9,7 @@ import {BaseComponent} from '../base/base.componen';
 
 export class ButtonComponent extends BaseComponent {
   @Input() title = '';
+  @Input() color = 'primary';
   @Output() triggerClick = new EventEmitter<any>();
 
   onClickBtn(event: any) {

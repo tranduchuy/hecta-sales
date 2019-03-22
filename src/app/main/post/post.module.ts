@@ -12,7 +12,10 @@ import {SelectTextModule} from '../../shared/components/select-text/select-text.
 import {InputTextareaModule} from '../../shared/components/input-textarea/input-textarea.module';
 import {InputNumberModule} from '../../shared/components/input-number/inputNumber.module';
 import {ButtonModule} from '../../shared/components/button/button.module';
+import {MatDividerModule} from '@angular/material';
+import {MatGridListModule} from '@angular/material/grid-list';
 
+import {MatTabsModule} from '@angular/material/tabs';
 @NgModule({
   declarations: [AddEditRentPostComponent],
   imports: [
@@ -28,7 +31,10 @@ import {ButtonModule} from '../../shared/components/button/button.module';
     SelectTextModule,
     InputTextareaModule,
     InputNumberModule,
-    ButtonModule
+    ButtonModule,
+    MatTabsModule,
+    MatDividerModule,
+    MatGridListModule
   ]
 })
 export class PostModule { }
