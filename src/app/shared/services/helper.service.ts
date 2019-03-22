@@ -21,17 +21,17 @@ export class HelperService {
 
   getWardByValue(district: any, value: number): any {
     return district.ward.find(w => {
-      return w.id === value;
+      return w.id.toString() === value.toString();
     });
   }
   getStreetByValue(district: any, value: number): any {
-    return district.street.find(w => {
-      return w.id === value;
+    return district.street.find(s => {
+      return s.id.toString() === value.toString();
     });
   }
   getProjectByValue(district: any, value: number): any {
-    return district.project.find(w => {
-      return w.id.toString() === value;
+    return district.project.find(p => {
+      return p.id.toString() === value.toString();
     });
   }
 

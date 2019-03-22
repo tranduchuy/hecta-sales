@@ -500,7 +500,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
           this.onChangedDistrict(district);
 
           setTimeout(() => {
-            const _objWard = this.helperService.getWardByValue(_objDistrict, data.ward);
+            const _objWard = this.helperService.getWardByValue(_objDistrict, data.ward || '');
             if (_objWard) {
               this.form.controls.ward.setValue({
                 text: _objWard.name,
@@ -508,7 +508,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
               });
             }
 
-            const _objStreet = this.helperService.getStreetByValue(_objDistrict, data.street);
+            const _objStreet = this.helperService.getStreetByValue(_objDistrict, data.street || '');
             if (_objStreet) {
               this.form.controls.street.setValue({
                 text: _objStreet.name,
@@ -516,7 +516,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
               });
             }
 
-            const _objProject = this.helperService.getProjectByValue(_objDistrict, data.project);
+            const _objProject = this.helperService.getProjectByValue(_objDistrict, data.project || '');
             if (_objProject) {
               this.form.controls.project.setValue({
                 text: _objProject.name,
