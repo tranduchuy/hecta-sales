@@ -392,7 +392,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
 
   loadPostsDetail() {
     if (this.params.id) {
-      const sub = this.postService.getDetail(this.params.id)
+      const sub = this.postService.getDetail({postId: this.params.id})
         .subscribe(res => {
           if (res.status !== 1) {
             alert([res.message]);

@@ -17,7 +17,7 @@ export class PostService {
     const url = URLs.Post.updateBuy.replace('{id}', id);
     return this._http.put(url, data);
   }
-  getDetail(id: string): Observable<any> {
-    return this._http.get(URLs.Post.postDetail.replace('{id}', id));
+  getDetail(params): Observable<any> {
+    return this._http.get(URLs.Post.postDetail + params.postId, params);
   }
 }
