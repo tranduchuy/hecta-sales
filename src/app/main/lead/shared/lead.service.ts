@@ -13,6 +13,10 @@ export class LeadService {
     return this._httpClient.get(URLs.Lead.List, {params});
   }
 
+  getLeadById(id: string): Observable<any> {
+    return this._httpClient.get(`${URLs.Lead.List}/${id}`);
+  }
+
   convertTimeToDownPriceToMMss(leads: LeadResponse[] = []): void {
     leads.forEach((lead: LeadResponse) => {
       // @ts-ignore

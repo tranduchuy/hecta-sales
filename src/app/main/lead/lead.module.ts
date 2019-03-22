@@ -6,11 +6,13 @@ import { LeadRoutingModule } from './lead-routing.module';
 import { MatButtonModule, MatTabsModule } from '@angular/material';
 import { ListItemComponent } from './list-item/list-item.component';
 import { FuseSharedModule } from '../../../@fuse/shared.module';
+import { LeadDetailsComponent } from './lead-details/lead-details.component';
 
 @NgModule({
   declarations: [
     LeadListComponent,
-    ListItemComponent
+    ListItemComponent,
+    LeadDetailsComponent
   ],
   imports: [
     CommonModule,

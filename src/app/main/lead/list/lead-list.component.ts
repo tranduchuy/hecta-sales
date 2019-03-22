@@ -7,6 +7,7 @@ import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 import { DialogService } from '../../../shared/components/dialog/dialog.service';
 import { ListLeadResponse } from '../shared/model/LeadListResponse';
 import { ActivatedRoute } from '@angular/router';
+import { LeadMessages } from '../shared/messages';
 
 interface ITabConfig {
   header: string;
@@ -68,6 +69,7 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
   ];
 
   LEAD_TYPE = LeadType;
+  MESSAGES = LeadMessages;
 
   leadList = {
     limit: 10,
