@@ -46,7 +46,7 @@
       </div>
       <div class="row">
         <div class="key">Ngày đăng:</div>
-        <div class="value">{{lead?.createAt | date : 'dd-mm-yyyy HH:mm:ss'}}</div>
+        <div class="value">{{lead?.createdAt | date : 'dd-MM-yyyy HH:mm:ss'}}</div>
       </div>
     </ng-container>
 
@@ -58,7 +58,7 @@
 
       <div class="row">
         <div class="key">Thời gian nhận lead:</div>
-        <div class="value"> {{lead?.boughtAt | date : 'dd-mm-yyyy HH:mm:ss'}}</div>
+        <div class="value"> {{lead?.boughtAt | date : 'dd-MM-yyyy HH:mm:ss'}}</div>
       </div>
 
       <div class="row" *ngIf="lead?.status === LEAD_TYPE.RETURNING">

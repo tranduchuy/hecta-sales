@@ -12,6 +12,6 @@ export class FinancialService {
 
   getBalance(): Observable<any>
   {
-    return this._http.get<any>(URLs.INFO)
+    return this._http.get<any>(URLs.USER)
   }
 }

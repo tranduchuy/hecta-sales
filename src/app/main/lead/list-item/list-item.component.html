@@ -12,7 +12,7 @@
   <ng-container *ngIf="leadType === LEAD_TYPE.NEW">
     <div class="row">
       <div class="key">Giá hiện tại:</div>
-      <div class="value">{{lead?.price | currency: 'VND'}}</div>
+      <div class="value">{{lead?.leadPrice | currency: 'VND'}}</div>
     </div>
 
     <div class="row">
@@ -22,19 +22,19 @@
 
     <div class="row">
       <div class="key">Ngày đăng:</div>
-      <div class="value">{{lead?.createAt | date : 'dd-MM-yyyy'}}</div>
+      <div class="value">{{lead?.createdAt | date : 'dd-MM-yyyy'}}</div>
     </div>
   </ng-container>
 
   <ng-container *ngIf="leadType !== LEAD_TYPE.NEW">
     <div class="row">
       <div class="key">Giá:</div>
-      <div class="value">{{lead?.price | currency: 'VND'}}</div>
+      <div class="value">{{lead?.leadPrice | currency: 'VND'}}</div>
     </div>
 
     <div class="row">
       <div class="key">Thời gian nhận lead:</div>
-      <div class="value">{{lead?.createAt | date : 'dd-MM-yyyy HH:mm:ss'}}</div>
+      <div class="value">{{lead?.boughtAt | date : 'dd-MM-yyyy HH:mm:ss'}}</div>
     </div>
 
     <div class="row">
