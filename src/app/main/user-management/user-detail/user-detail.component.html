@@ -2,20 +2,13 @@
     <form name="userForm" [formGroup]="userForm" novalidate>
         <h2 class="page-header">Thông tin cá nhân</h2>
         <app-input-text [formControlName]="'name'"
-                        [placeholder]="'Demo'"
                         [title]="'Họ và tên'"
                         [icon]="'supervisor_account'"
-                        [ngModel]="user?.name"
-                        ></app-input-text>
-        <!-- <app-date-picker [title]="'Ngày sinh'"
-                         [formControlName]="'birth'"
-                         [ngModel]="user?.birthday"
-                         ></app-date-picker> -->
+                        [ngModel]="user?.name"></app-input-text>
         <h4>Giới tính</h4>
         <app-radio-group [itemsSource]="genderItemsSource"
                          [formControlName]="'gender'"
                          [displayPath]="'name'"
-                         (valueChange)="onRadioChange($event)"
                          [direction]="'row'"
                          [isDisabled]="false"
                          [valuePath]="'value'"
@@ -23,22 +16,24 @@
         <hr>
         <h2>Thông tin liên hệ</h2>
         <app-input-text [formControlName]="'phone'"
-                        [placeholder]="'Demo'"
                         [title]="'Số điện thoại'"
                         [icon]="'phone'"
                         [isDisabled]="true"
-                        [ngModel]="user?.phone"
-                        ></app-input-text>
+                        [ngModel]="user?.phone"></app-input-text>
         <app-input-text [formControlName]="'email'"
-                        [placeholder]="'Demo'"  
                         [title]="'Email'"
                         [icon]="'mail'"
                         [isDisabled]="true"
-                        [ngModel]="user?.email"
-                        ></app-input-text>
+                        [ngModel]="user?.email"></app-input-text>
         <hr>
         <h2>Ảnh đại diện</h2>
-        <input accept="image/*" multiple="multiple" id="imgupload" type='file' (change)="onUploadImage($event);" style="display:none;"/>
+        <input accept="image/*"
+               multiple="multiple"
+               id="imgupload"
+               type='file'
+               (change)="onUploadImage($event);"
+               #imageInput
+               style="display:none;"/>
         <button mat-raised-button color="accent" (click)="onBrowser($event)"><i class="material-icons">
             add_photo_alternate
             </i></button>
@@ -46,7 +41,9 @@
             clear
             </i></button><br><br>
         <img id="avatar" [src]="url || 'http://placehold.it/200'" alt="your image" (click)="onBrowser($event)"/> <br><br>
-        <button mat-raised-button color="primary" (click)="onUpdateProfile()">Lưu lại</button>
-        </form>
+        <div fxLayoutAlign="end">
+            <button mat-raised-button color="primary" (click)="onUpdateProfile()">Lưu lại</button>
+        </div>
+    </form>
 </mat-card>
 
