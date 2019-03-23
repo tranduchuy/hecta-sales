@@ -81,10 +81,19 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
         this._fuseProgressBarService.show();
         if(res.status === HTTP_CODES.SUCCESS){
           this.userForm.controls['avatar'].setValue(res.data.link);
-          this._dialog.openInfo('Tải ảnh thành công.')
+          console.log(this.userForm.controls['avatar'].setValue(res.data.link))
+          const subDialog = this._dialog.openInfo('Tải ảnh thành công.')
+            .subscribe((result: DialogResult) => {
+              console.log('update password success', result);
+            });
+          this.subscriptions.push(subDialog);
         }
         if(res.status === HTTP_CODES.ERROR){
-          this._dialog.openInfo('Tải ảnh không thành công. Thử lại.')
+          const subDialog = this._dialog.openInfo('Tải ảnh không thành công. Thử lại.')
+          .subscribe((result: DialogResult) => {
+            console.log('update password success', result);
+          });
+        this.subscriptions.push(subDialog);
         }
         this._fuseProgressBarService.hide();
       });
@@ -103,13 +112,22 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
   }
 
   onUpdateProfile(): void {
+
     const sub = this._userService.updateProfile(this.userForm.value).subscribe(
       res => {
         if (res.status == HTTP_CODES.SUCCESS) {
-          this._dialog.openInfo('Cập nhật tài khoản thành công')
+          const subDialog = this._dialog.openInfo('Cập nhật tài khoản thành công')
+            .subscribe((result: DialogResult) => {
+              console.log('update password success', result);
+            });
+          this.subscriptions.push(subDialog);
         } else {
           this.isSuccess = false;
-          this._dialog.openInfo('Cập nhật tài khoản không thành công. Vui lòng kiểm tra lại thông tin.')
+          const subDialog = this._dialog.openInfo('Cập nhật tài khoản không thành công. Vui lòng kiểm tra lại thông tin.')
+            .subscribe((result: DialogResult) => {
+              console.log('update password fail', result);
+            });
+          this.subscriptions.push(subDialog);
         }
       }
     )
