@@ -12,7 +12,6 @@ import { UserProfile } from '../shared/model/user-profile';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 import { ViewChild } from '@angular/core';
 
-
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
@@ -22,7 +21,7 @@ import { ViewChild } from '@angular/core';
 })
 export class UserDetailComponent extends PageBaseComponent implements OnInit {
   @ViewChild('imageInput') imageInput: ElementRef;
-  user: UserProfile
+  user: UserProfile;
   isSuccess: Boolean = true;
 
   url: any;
@@ -56,7 +55,7 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
       this.user = res.data.user;
       console.log(this.user);
       this.url = `${URLs.IMAGE}/${this.user.avatar}`;
-    })
+    });
 
     this.userForm = this._fb.group({
       name: ['', [this._validatorService.getInputRequired()]],
@@ -65,44 +64,42 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
       email: [''],
       avatar: [''],
       url: ['']
-    })
-
+    });
   }
 
   onUploadImage(event): void {
     if (event.target.files && event.target.files[0]) {
-      let reader: FileReader = new FileReader();
+      const reader: FileReader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event: Event) => {
+      reader.onload = () => {
         this.url = reader.result;
         this.selectedFile = this.url;
-      }
-      this._userService.uploadImage(this.selectedFile).subscribe(res=>{
+      };
+
+      this._userService.uploadImage(this.selectedFile).subscribe(res => {
         this._fuseProgressBarService.show();
-        if(res.status === HTTP_CODES.SUCCESS){
+        if (res.status === HTTP_CODES.SUCCESS) {
           this.userForm.controls['avatar'].setValue(res.data.link);
-          console.log(this.userForm.controls['avatar'].setValue(res.data.link))
           const subDialog = this._dialog.openInfo('Tải ảnh thành công.')
             .subscribe((result: DialogResult) => {
               console.log('update password success', result);
             });
           this.subscriptions.push(subDialog);
         }
-        if(res.status === HTTP_CODES.ERROR){
+
+        if (res.status === HTTP_CODES.ERROR) {
           const subDialog = this._dialog.openInfo('Tải ảnh không thành công. Thử lại.')
-          .subscribe((result: DialogResult) => {
-            console.log('update password success', result);
-          });
-        this.subscriptions.push(subDialog);
+            .subscribe();
+          this.subscriptions.push(subDialog);
         }
         this._fuseProgressBarService.hide();
       });
     }
   }
 
-  onBrowser(event: any) {
+  onBrowser(event: any): void {
     event.preventDefault();
-    let e: HTMLElement = document.getElementById('imgupload') as HTMLElement;
+    const e: HTMLElement = document.getElementById('imgupload') as HTMLElement;
     e.click();
   }
 
@@ -115,7 +112,7 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
 
     const sub = this._userService.updateProfile(this.userForm.value).subscribe(
       res => {
-        if (res.status == HTTP_CODES.SUCCESS) {
+        if (res.status === HTTP_CODES.SUCCESS) {
           const subDialog = this._dialog.openInfo('Cập nhật tài khoản thành công')
             .subscribe((result: DialogResult) => {
               console.log('update password success', result);
@@ -130,7 +127,8 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
           this.subscriptions.push(subDialog);
         }
       }
-    )
+    );
+
     this.subscriptions.push(sub);
   }
 }
