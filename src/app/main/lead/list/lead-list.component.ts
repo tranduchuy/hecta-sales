@@ -6,7 +6,7 @@ import { LeadType } from '../shared/lead.type';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 import { DialogService } from '../../../shared/components/dialog/dialog.service';
 import { ListLeadResponse } from '../shared/model/LeadListResponse';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LeadMessages } from '../shared/messages';
 
 interface ITabConfig {
@@ -78,30 +78,33 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
     itemsSource: []
   };
 
-  initTabIndex = 0;
-
   constructor(private leadService: LeadService,
               private route: ActivatedRoute,
+              private router: Router,
               private dialog: DialogService) {
     super();
     const self = this;
     const subRoute = this.route.queryParams.subscribe(params => {
       if (params.type) {
         const index = self.tabs.findIndex(tab => tab.type === +params.type);
-        self.initTabIndex = index > -1 ? index : 0;
+        self.loadTabContent(index > -1 ? index : 0);
       }
     });
     this.subscriptions.push(subRoute);
   }
 
   ngOnInit(): void {
-    this.onChangedTab({index: this.initTabIndex} as any);
   }
 
   onChangedTab(event: MatTabChangeEvent): void {
+    const leadType = this.tabs[event.index].type;
+    this.router.navigate(['.'], {relativeTo: this.route, queryParams: {type: leadType}});
+  }
+
+  loadTabContent(tabIndex: number): void {
     this.selectedTab = {
-      index: event.index,
-      tab: this.tabs[event.index]
+      index: tabIndex,
+      tab: this.tabs[tabIndex]
     };
 
     if (this.selectedTab.tab.type === LeadType.NO_RETURN
