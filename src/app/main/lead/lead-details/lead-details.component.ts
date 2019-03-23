@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { PageBaseComponent } from '../../../shared/components/base/page-base.component';
 import { LeadService } from '../shared/lead.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 import { DialogResult, DialogService } from '../../../shared/components/dialog/dialog.service';
 import { LeadDetails } from '../shared/model/lead-details';
 import { LeadType } from '../shared/lead.type';
 import { LeadMessages } from '../shared/messages';
+import { CurrencyPipe, Location } from '@angular/common';
 
 @Component({
   selector: 'app-lead-details',
   templateUrl: './lead-details.component.html',
   styleUrls: ['./lead-details.component.scss'],
-  providers: [LeadService]
+  providers: [LeadService, CurrencyPipe]
 })
 export class LeadDetailsComponent extends PageBaseComponent implements OnInit {
   pageTitle = '';
@@ -22,12 +23,12 @@ export class LeadDetailsComponent extends PageBaseComponent implements OnInit {
 
   constructor(private leadService: LeadService,
               private dialog: DialogService,
+              private router: Router,
+              private location: Location,
+              private currencyPipe: CurrencyPipe,
               private route: ActivatedRoute) {
     super();
     const subParams = this.route.params.subscribe(params => {
-
-      console.log(params);
-
       const leadId = params.id;
       if (leadId) {
         const subHttp = this.leadService.getLeadById(leadId)
@@ -38,7 +39,9 @@ export class LeadDetailsComponent extends PageBaseComponent implements OnInit {
               this.initPageTitle();
             } else {
               const subDialog = this.dialog.openWarning(res.message)
-                .subscribe((result: DialogResult) => {});
+                .subscribe((result: DialogResult) => {
+                  this.location.back();
+                });
               this.subscriptions.push(subDialog);
             }
           });
@@ -53,6 +56,27 @@ export class LeadDetailsComponent extends PageBaseComponent implements OnInit {
   }
 
   buyLead(): void {
+    const confirmMessage = LeadMessages.CONFIRM_BUY_LEAD + this.currencyPipe.transform(this.lead.leadPrice, 'VND');
+    const subConfirmDialog = this.dialog.openConfirm(confirmMessage)
+      .subscribe((result: DialogResult) => {
+        if (result === DialogResult.OK) {
+          const httpSub = this.leadService.buyLead(this.lead._id)
+            .subscribe(res => {
+              if (res.status === HTTP_CODES.SUCCESS) {
+                const subDialog = this.dialog.openInfo(res.message)
+                  .subscribe(() => {
+                    this.router.navigate(['/khach-hang-tiem-nang'], {queryParams: {type: LeadType.SOLD}});
+                  });
+                this.subscriptions.push(subDialog);
+              } else {
+                this.dialog.openWarning(res.message).subscribe().unsubscribe();
+              }
+            });
+          this.subscriptions.push(httpSub);
+        } else {
+        }
+      });
+    this.subscriptions.push(subConfirmDialog);
   }
 
   returnLead(): void {

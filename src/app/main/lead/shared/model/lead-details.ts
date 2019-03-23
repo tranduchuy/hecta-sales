@@ -6,8 +6,6 @@ export interface LeadDetails extends LeadResponse {
   bedrooms: number;
   street: string;
   direction: number;
-  leadPrice: number;
   status: number;
   address?: string;
-  boughtAt?: string;
 }

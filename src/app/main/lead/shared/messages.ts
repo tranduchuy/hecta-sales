@@ -6,4 +6,6 @@ export namespace LeadMessages {
 
   export const LEAD_SOLD_MESSAGE_2 = `Sau 10', khách hàng sẽ tự động được xác nhận, bạn không thể hoàn khách 
   nếu khách hàng đã được xác định.`;
+
+  export const CONFIRM_BUY_LEAD = `Bạn có chắc muốn nhận thông tin lead này, giá hiên tại `;
 }
