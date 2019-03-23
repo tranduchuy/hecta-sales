@@ -8,4 +8,9 @@ export namespace General {
     export const TYPE_PERSONAL = 1;
     export const TYPE_BUSINESS = 2;
   }
+
+  export namespace BankLogo {
+    export const DONG_A = 'https://hecta.vn/assets/images/bank-donga.png';
+    export const ACB = 'https://hecta.vn/assets/images/bank-acb.png'
+  }
 }
