@@ -194,6 +194,7 @@ export const navigation: FuseNavigation[] = [
     translate: 'NAV.FINANCIAL_MANAGEMENT',
     type: 'collapsable',
     icon: 'monetization_on',
+    url: '/quan-ly-tai-chinh',
     children: [
       {
         id: 'transactions-history',
@@ -201,7 +202,7 @@ export const navigation: FuseNavigation[] = [
         translate: 'TRANSACTIONS_HISTORY.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        url: '/quan-ly-tai-chinh/giao-dich'
       },
       {
         id: 'business-account-management',
@@ -209,7 +210,7 @@ export const navigation: FuseNavigation[] = [
         translate: 'BUSINESS_ACCOUNT_MANAGEMENT.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        url: '/home'
       },
       {
         id: 'recharge-account',
@@ -217,7 +218,7 @@ export const navigation: FuseNavigation[] = [
         translate: 'RECHARGE_ACCOUNT.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        url: '/quan-ly-tai-chinh/nap-tien'
       }
     ]
   },

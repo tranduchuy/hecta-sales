@@ -19,10 +19,13 @@ import {DatePickerModule} from 'app/shared/components/date-picker/date-picker.mo
 import {RadioGroupModule} from 'app/shared/components/radio-group/radio-group.module';
 import {FinancialManagementRoutingModule} from './financial-management.routing.module';
 import {BalanceDetailComponent} from './balance-detail/balance-detail.component';
+import { FinancialListComponent } from './financial-list/financial-list.component';
+import { HistoryTransactionComponent } from './history-transaction/history-transaction.component';
+import { RechargeComponent } from './recharge/recharge.component';
 
 
 @NgModule({
-  declarations: [BalanceDetailComponent],
+  declarations: [BalanceDetailComponent, FinancialListComponent, HistoryTransactionComponent, RechargeComponent],
   imports: [
     CommonModule,
     MatExpansionModule,
