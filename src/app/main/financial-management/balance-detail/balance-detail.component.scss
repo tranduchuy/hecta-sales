@@ -1,0 +1,32 @@
+.balance {
+  font-weight: bold;
+  margin-right: 50px;
+
+  &__value {
+    margin-left: 20px;
+  }
+}
+
+.card {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 90%;
+  min-height: 120px;
+  background: #fff;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.card .box {
+  position: absolute;
+  top: 3%;
+  left: 0;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+}

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FinancialService} from '../shared/service/financial.service';
 
 @Component({
   selector: 'app-balance-detail',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BalanceDetailComponent implements OnInit {
 
-  constructor() { }
+  balance: Object = {};
+
+  constructor(private _financialService: FinancialService) {
+  }
 
   ngOnInit() {
+    this._financialService.getBalance().subscribe(
+      (res: any) => {
+        this.balance = res.data.user.balance;
+        console.log(this.balance)
+      }
+    )
   }
 
 }
