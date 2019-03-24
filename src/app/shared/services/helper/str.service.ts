@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {IFileTextValue} from '../../components/image-uploader/imageUploader.component';
+import {IFileTextValue} from '../../components/image-uploader/image-uploader.component';
 
 @Injectable()
 export class StrService {

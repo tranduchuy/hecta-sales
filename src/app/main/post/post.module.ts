@@ -6,7 +6,7 @@ import {DatePickerModule} from '../../shared/components/date-picker/date-picker.
 import {InputTextModule} from '../../shared/components/input-text/input-text.module';
 import {ComboBoxModule} from '../../shared/components/combo-box/combo-box.module';
 import {CheckboxGroupModule} from '../../shared/components/checkbox-group/checkbox-group.module';
-import {ImageUploaderModule} from '../../shared/components/image-uploader/imageUploader.module';
+import {ImageUploaderModule} from '../../shared/components/image-uploader/image-uploader.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SelectTextModule} from '../../shared/components/select-text/select-text.module';
 import {InputTextareaModule} from '../../shared/components/input-textarea/input-textarea.module';

@@ -374,7 +374,6 @@
     <div class="form-wrapper">
       <div style="display: inline-block;">
                 <app-captcha (catchToken)="onCatchTokenCaptcha($event)"
-                             [errors]="getMessageErrors('captchaToken')"
                 ></app-captcha>
       </div>
       <div class="error-message color-red" *ngIf="basicForm.errorSubmit" >Có thông tin bị lỗi. bạn cần hoàn thành hết các nội dung cần thiết.</div>

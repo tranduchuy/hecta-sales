@@ -37,9 +37,9 @@ export interface IFileTextValue {
 }
 
 @Component({
-  templateUrl: './imageUploader.component.html',
+  templateUrl: './image-uploader.component.html',
   selector: 'app-image-uploader',
-  styleUrls: ['./imageUploader.component.scss'],
+  styleUrls: ['./image-uploader.component.scss'],
   providers: [IMAGE_UPLOADER_VALUE_ACCESSOR]
 })
 

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { StrService } from '../../services/helper/str.service';
-import { ImageUploaderComponent } from './imageUploader.component';
+import { ImageUploaderComponent } from './image-uploader.component';
 
 @NgModule({
   declarations: [ImageUploaderComponent],

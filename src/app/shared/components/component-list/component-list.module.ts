@@ -13,6 +13,11 @@ import { ComponentListRoutingModule } from './component-list-routing.module';
 import { InputTextModule } from '../input-text/input-text.module';
 import { MatButtonModule, MatGridListModule, MatListModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {SelectTextModule} from '../select-text/select-text.module';
+import {InputTextareaModule} from '../input-textarea/input-textarea.module';
+import {CaptchaModule} from '../captcha/captcha.module';
+import {ImageUploaderModule} from '../image-uploader/image-uploader.module';
+import {InputNumberModule} from '../input-number/inputNumber.module';
 
 @NgModule({
   declarations: [ComponentListComponent],
@@ -30,7 +35,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     DatePickerModule,
     MatGridListModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    SelectTextModule,
+    InputTextareaModule,
+    CaptchaModule,
+    ImageUploaderModule,
+    InputNumberModule
+
   ],
   providers: [
     ValidatorService,
