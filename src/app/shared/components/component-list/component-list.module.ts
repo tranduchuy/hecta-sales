@@ -17,7 +17,7 @@ import {SelectTextModule} from '../select-text/select-text.module';
 import {InputTextareaModule} from '../input-textarea/input-textarea.module';
 import {CaptchaModule} from '../captcha/captcha.module';
 import {ImageUploaderModule} from '../image-uploader/image-uploader.module';
-import {InputNumberModule} from '../input-number/inputNumber.module';
+import {InputNumberModule} from '../input-number/input-number.module';
 
 @NgModule({
   declarations: [ComponentListComponent],

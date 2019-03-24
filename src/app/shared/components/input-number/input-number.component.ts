@@ -9,9 +9,9 @@ const INPUT_NUMBER_VALUE_ACCESSOR = {
 };
 
 @Component({
-  templateUrl: './inputNumber.component.html',
+  templateUrl: './input-number.component.html',
   selector: 'app-input-number',
-  styleUrls: ['./inputNumber.component.scss'],
+  styleUrls: ['./input-number.component.scss'],
   providers: [INPUT_NUMBER_VALUE_ACCESSOR]
 })
 

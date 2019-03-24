@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
-import { InputNumberComponent } from './inputNumber.component';
+import { InputNumberComponent } from './input-number.component';
 import {MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 
 @NgModule({
