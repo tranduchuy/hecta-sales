@@ -1,5 +1,21 @@
 @import "src/@fuse/scss/fuse";
 
+.page-header {
+  text-align: center;
+}
+
+.actions-center {
+  text-align: center;
+}
+
+#add-rule {
+  position: fixed;
+  bottom: 80px;
+  right: 12px;
+  padding: 0;
+  z-index: 99;
+}
+
 #rule-list {
 
   .content {

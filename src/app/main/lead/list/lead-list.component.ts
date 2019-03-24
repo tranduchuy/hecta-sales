@@ -8,6 +8,7 @@ import { DialogService } from '../../../shared/components/dialog/dialog.service'
 import { ListLeadResponse } from '../shared/model/LeadListResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LeadMessages } from '../shared/messages';
+import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 
 interface ITabConfig {
   header: string;
@@ -81,9 +82,11 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
   constructor(private leadService: LeadService,
               private route: ActivatedRoute,
               private router: Router,
+              private fuseProgressBarService: FuseProgressBarService,
               private dialog: DialogService) {
     super();
     const self = this;
+
     const subRoute = this.route.queryParams.subscribe(params => {
       if (params.type) {
         const index = self.tabs.findIndex(tab => tab.type === +params.type);
@@ -134,8 +137,12 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
   }
 
   private _loadLeads(params: QueryParams): void {
+    this.fuseProgressBarService.show();
+
     const httpSub = this.leadService.getList(params)
       .subscribe((res: ListLeadResponse) => {
+        this.fuseProgressBarService.hide();
+
         if (res.status === HTTP_CODES.SUCCESS) {
           const leadList = res.data.entries;
           this.leadService.convertTimeToDownPriceToMMss(leadList);
