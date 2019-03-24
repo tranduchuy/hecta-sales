@@ -15,7 +15,7 @@
   </mat-autocomplete>
   <mat-icon matSuffix *ngIf="icon">{{icon}}</mat-icon>
   <mat-hint>
-    <div *ngFor="let m of errors">{{m}}</div>
+    <div *ngFor="let m of errors" class="error">{{m}}</div>
   </mat-hint>
 </mat-form-field>
 
