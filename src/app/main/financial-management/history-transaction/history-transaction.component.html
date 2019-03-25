@@ -1,5 +1,5 @@
 <div id="none-data">
-  <h2 *ngIf="data.length==0">CHƯA CÓ DỮ LIỆU</h2>
+  <h2 class="page-header" *ngIf="data.length==0">CHƯA CÓ DỮ LIỆU</h2>
 </div>
 <div fxShow.lt-md fxShow="false" *ngIf="data.length>0">
   <div class="content" *ngFor="let item of data; let i = index">
