@@ -45,7 +45,7 @@ if (!environmentDev.production) {
 }
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, {useHash: true})],
+  imports: [RouterModule.forRoot(appRoutes, {useHash: true, onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
