@@ -8,6 +8,7 @@ import { LeadDetails } from '../shared/model/lead-details';
 import { LeadType } from '../shared/lead.type';
 import { LeadMessages } from '../shared/messages';
 import { CurrencyPipe, Location } from '@angular/common';
+import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-lead-details',
@@ -25,14 +26,18 @@ export class LeadDetailsComponent extends PageBaseComponent implements OnInit {
               private dialog: DialogService,
               private router: Router,
               private location: Location,
+              private fuseProgressBarService: FuseProgressBarService,
               private currencyPipe: CurrencyPipe,
               private route: ActivatedRoute) {
     super();
     const subParams = this.route.params.subscribe(params => {
       const leadId = params.id;
       if (leadId) {
+        this.fuseProgressBarService.show();
         const subHttp = this.leadService.getLeadById(leadId)
           .subscribe(res => {
+            this.fuseProgressBarService.hide();
+
             if (res.status === HTTP_CODES.SUCCESS) {
               this.lead = res.data as LeadDetails;
               this.leadService.convertTimeToDownPriceToMMss([this.lead]);
@@ -60,8 +65,12 @@ export class LeadDetailsComponent extends PageBaseComponent implements OnInit {
     const subConfirmDialog = this.dialog.openConfirm(confirmMessage)
       .subscribe((result: DialogResult) => {
         if (result === DialogResult.OK) {
+          this.fuseProgressBarService.show();
+
           const httpSub = this.leadService.buyLead(this.lead._id)
             .subscribe(res => {
+              this.fuseProgressBarService.hide();
+
               if (res.status === HTTP_CODES.SUCCESS) {
                 const subDialog = this.dialog.openInfo(res.message)
                   .subscribe(() => {
@@ -73,7 +82,6 @@ export class LeadDetailsComponent extends PageBaseComponent implements OnInit {
               }
             });
           this.subscriptions.push(httpSub);
-        } else {
         }
       });
     this.subscriptions.push(subConfirmDialog);
