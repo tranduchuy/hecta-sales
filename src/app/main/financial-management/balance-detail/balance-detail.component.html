@@ -1,22 +1,24 @@
 <div fxLayout="column">
   <div class="card">
     <div class="box">
-      <div fxLayout="row wrap">
-        <span class="balance">Tài khoản chính 1</span>
-        <span class="balance__value">{{balance.main1}} đ</span>
-      </div>
-      <div fxLayout="row">
-        <span class="balance">Tài khoản chính 2</span>
-        <span class="balance__value">{{balance.main2}} đ</span>
-      </div>
-      <div fxLayout="row">
-        <span class="balance">Tài khoản khuyến mãi</span>
-        <span>{{balance.promo}} đ</span>
-      </div>
-      <div fxLayout="row">
-        <span class="balance">Tài khoản tín dụng</span>
-        <span class="balance__value">{{balance.credit}} đ</span>
-      </div>
+      <table>
+        <tr>
+          <td class="balance">Tài khoản chính 1</td>
+          <td class="balance__value">{{balance.main1 | number: '.0-2'}} đ</td>
+        </tr>
+        <tr>
+          <td class="balance">Tài khoản chính 2</td>
+          <td class="balance__value">{{balance.main2 | number: '.0-2'}} đ</td>
+        </tr>
+        <tr>
+          <td class="balance">Tài khoản khuyến mãi</td>
+          <td class="balance__value">{{balance.promo | number: '.0-2'}} đ</td>
+        </tr>
+        <tr>
+          <td class="balance">Tài khoản tín dụng</td>
+          <td class="balance__value">{{balance.credit | number: '.0-2'}} đ</td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

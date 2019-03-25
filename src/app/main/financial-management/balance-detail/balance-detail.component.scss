@@ -1,9 +1,16 @@
+table{
+  width: 100%;
+}
+
 .balance {
   font-weight: bold;
+  color: #777;
   margin-right: 50px;
+  text-align: left;
 
   &__value {
-    margin-left: 20px;
+    font-weight: bold;
+    text-align: right;
   }
 }
 
@@ -26,7 +33,7 @@
   top: 3%;
   left: 0;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
   width: 100%;
 }
