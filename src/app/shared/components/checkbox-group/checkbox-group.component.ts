@@ -25,7 +25,7 @@ export class CheckboxGroupComponent extends BaseComponent implements ControlValu
 
   @Input()
   set value(values: any[]) {
-    values.forEach(v => this.selectedObj[v] = true);
+    this.selectedValues.forEach(v => this.selectedObj[v] = true);
   }
 
   get value(): any[] {

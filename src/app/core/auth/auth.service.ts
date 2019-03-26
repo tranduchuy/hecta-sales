@@ -50,6 +50,10 @@ export class AuthService {
     return this.tokenStorage.getUserRoles();
   }
 
+  public getUserInfo(): Observable<any> {
+    return this.tokenStorage.getUserInfo();
+  }
+
   /**
    * Function, checks response of failed request to determine,
    * whether token be refreshed or not.
@@ -73,7 +77,8 @@ export class AuthService {
           {
             accessToken: res.data.token,
             refreshToken: res.data.refreshToken,
-            roles: res.data.role
+            roles: res.data.role,
+            userInfo: res.data
           } as AccessData,
           {
             status: res.status
@@ -185,7 +190,8 @@ export class AuthService {
       this.tokenStorage
         .setAccessToken(accessData.accessToken)
         .setRefreshToken(accessData.refreshToken)
-        .setUserRoles(accessData.roles);
+        .setUserRoles(accessData.roles)
+        .setUserInfo(accessData.userInfo);
       this.onCredentialUpdated$.next(accessData);
     }
   }

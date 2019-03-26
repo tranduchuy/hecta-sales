@@ -1,0 +1,100 @@
+.up-im-container {
+  position: relative;
+
+  .image-item {
+    position: relative;
+    float: left;
+    height: 170px;
+    width: 164px;
+    margin-right: 5px;
+    margin-top: 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #ccc;
+
+    .upload-image-tools {
+      width: 145px;
+      height: 28px;
+      min-width: 60px;
+      margin: 5px auto;
+      background: #dae4ed;
+      border-radius: 3px;
+      padding: 4px;
+      text-align: center;
+
+      & > span {
+        display: block;
+        float: left;
+        line-height: 20px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .upload-tool-rotation {
+        background: url('/assets/images/upload-tool-rotation.png') no-repeat 50% 50%;
+        width: 27px;
+        height: 19px;
+        margin: 0 -4px 0 2px;
+      }
+
+      .upload-tool-delete {
+        background: url(/assets/images/upload-tool-delete.png) no-repeat 50% 50%;
+        width: 25px;
+        height: 19px;
+        margin-right: 0;
+      }
+    }
+
+    & > img {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+    }
+  }
+
+  .block-upload-item {
+    height: 170px;
+    overflow: hidden;
+    position: relative;
+    width: 164px;
+    margin-right: 5px;
+    margin-top: 5px;
+    float: left;
+    border: 2px dashed #cbd9ca;
+    background-color: #f0f6f2;
+    background-image: url(https://file4.batdongsan.com.vn/images/opt/bg-upload-image.png);
+    background-position: center 30px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    input[type=file] {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      font-family: Arial;
+      font-size: 118px;
+      margin: 0px;
+      padding: 0px;
+      cursor: pointer;
+      opacity: 0;
+    }
+
+    & > p {
+      font-size: 11px;
+      text-align: center;
+      font-weight: 700;
+      cursor: pointer;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+
+  .droptext {
+    color: #666;
+    clear: both;
+  }
+}

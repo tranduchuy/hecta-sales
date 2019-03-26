@@ -1,6 +1,6 @@
 <div class="page-layout blank p-24" fusePerfectScrollbar>
   <form novalidate [formGroup]="form" *ngIf="form">
-    <div class="h2 mb-24">{{pageTitle}}</div>
+    <div class="h2 mb-24 page-header">{{pageTitle}}</div>
     <div>
       <app-combo-box [title]="'Hình thức'"
                      [itemsSource]="formalityConfig.itemSource"
@@ -48,10 +48,9 @@
                      [errors]="getErrorMessages(form,'project')">
       </app-combo-box>
     </div>
-    <div class="center">
+    <div class="actions-center">
       <button mat-raised-button color="primary" *ngIf="isAddMode" (click)="onClickAddButton()">Thêm</button>
       <button mat-raised-button color="primary" *ngIf="!isAddMode" (click)="onClickEditButton()">Cập nhật</button>
-      <button mat-raised-button color="basic" (click)="onClickBackButton()">Quay lại</button>
     </div>
 
   </form>

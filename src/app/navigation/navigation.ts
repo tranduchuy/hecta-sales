@@ -153,6 +153,7 @@ export const navigation: FuseNavigation[] = [
     translate: 'NAV.ARTICLES_MANAGEMENT',
     type: 'collapsable',
     icon: 'notes',
+    url: '/post',
     children: [
       {
         id: 'sale-article-management',
@@ -184,7 +185,7 @@ export const navigation: FuseNavigation[] = [
         translate: 'POST_BUY_ARTICLE.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        url: '/post/post-buy-article'
       }
     ]
   },
