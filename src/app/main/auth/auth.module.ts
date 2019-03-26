@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '../../../@fuse/shared.module';
@@ -20,10 +20,15 @@ import { MessageService } from 'app/shared/services/message/message.service';
 import { DialogService } from 'app/shared/components/dialog/dialog.service';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MailConfirmComponent } from './mail-confirm/mail-confirm.component';
-import { 
+import {
   FormsModule, ReactiveFormsModule
 } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { UserService } from '../user-management/shared/service/user.service';
+
+export function init_app(userService: UserService) {
+  return () => userService.getUserInfoLoggedIn();
+}
 
 const routes: Routes = [
   {
@@ -53,7 +58,7 @@ const routes: Routes = [
 
   imports: [
     RouterModule.forChild(routes),
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     TranslateModule,
@@ -77,7 +82,14 @@ const routes: Routes = [
     LoginComponent, ForgotPasswordComponent, RegisterComponent, ResetPasswordComponent, MailConfirmComponent
   ],
 
-  providers: [AuthService, TokenStorage, ValidatorService, MessageService, DialogService]
+  providers: [
+    AuthService,
+    TokenStorage,
+    ValidatorService,
+    MessageService,
+    DialogService,
+    { provide: APP_INITIALIZER, useFactory: init_app, deps: [UserService], multi: true }
+  ]
 })
 
 export class AuthModule {}
