@@ -62,6 +62,9 @@ export const locale = {
     POST_BUY_ARTICLE: {
       TITLE: 'data'
     },
+    FINANCIAL_LIST: {
+      TITLE: 'data'
+    },
     TRANSACTIONS_HISTORY: {
       TITLE: 'data'
     },

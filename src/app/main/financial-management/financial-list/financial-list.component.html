@@ -1,0 +1,14 @@
+<app-balance-detail></app-balance-detail>
+
+<div style="width: 100%" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h2 class="page-header">Quản lý tài chính</h2>
+  </div>
+  <div fxLayout="row">
+    <mat-action-list>
+      <button mat-list-item (click)="navigateToTransactionHistory()">Lịch sử giao dịch</button>
+      <button mat-list-item>Quản lý tài khoản doanh nghiệp</button>
+      <button mat-list-item (click)="navigateToRechargeAccount()">Nạp tiền vào tài khoản</button>
+    </mat-action-list>
+  </div>
+</div>

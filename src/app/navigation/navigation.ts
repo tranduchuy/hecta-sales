@@ -197,12 +197,22 @@ export const navigation: FuseNavigation[] = [
     icon: 'monetization_on',
     children: [
       {
+        id: 'financial-management-list',
+        title: 'Tổng quan',
+        translate: 'FINANCIAL_LIST.TITLE',
+        type: 'item',
+        icon: '',
+        exactMatch: true,
+        url: '/quan-ly-tai-chinh'
+      },
+      {
         id: 'transactions-history',
         title: 'Lịch sử giao dịch',
         translate: 'TRANSACTIONS_HISTORY.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        exactMatch: true,
+        url: '/quan-ly-tai-chinh/giao-dich'
       },
       {
         id: 'business-account-management',
@@ -210,7 +220,8 @@ export const navigation: FuseNavigation[] = [
         translate: 'BUSINESS_ACCOUNT_MANAGEMENT.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        exactMatch: true,
+        url: '/home'
       },
       {
         id: 'recharge-account',
@@ -218,7 +229,8 @@ export const navigation: FuseNavigation[] = [
         translate: 'RECHARGE_ACCOUNT.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        exactMatch: true,
+        url: '/quan-ly-tai-chinh/nap-tien'
       }
     ]
   },

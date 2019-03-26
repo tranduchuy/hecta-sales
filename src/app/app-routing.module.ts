@@ -35,6 +35,10 @@ const appRoutes: Routes = [
     loadChildren: './main/lead/lead.module#LeadModule'
   },
   {
+    path: 'quan-ly-tai-chinh',
+    loadChildren: './main/financial-management/financial-management.module#FinancialManagementModule'
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },
