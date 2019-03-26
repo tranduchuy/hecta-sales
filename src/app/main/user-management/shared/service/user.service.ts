@@ -28,10 +28,10 @@ export class UserService {
     return this._httpClient.post<UserProfile>(URLs.UPDATE, data)
   }
 
-  public uploadImage(image: File): Observable<any>{
+  public uploadImage(image: File): Observable<any> {
     const formData = new FormData();
-    formData.append('image',image);
-    return this._httpClient.post(URLs.IMAGE_UPLOAD, formData,{
+    formData.append('image', image);
+    return this._httpClient.post(URLs.IMAGE_UPLOAD, formData, {
       reportProgress: true,
       observe: 'events'
     });
@@ -46,6 +46,20 @@ export class UserService {
         'accessToken': this._cookieService.get('accessToken')
       })
     })
+  }
+
+  getUserInfoLoggedIn(): Promise<any> {
+    const promise = this._httpClient.get<any>(URLs.USER, {
+      headers: new HttpHeaders({
+        'accessToken': this._cookieService.get('accessToken')
+      })
+    })
+      .toPromise()
+      .then(settings => {
+        console.log(`Settings from API: `, settings);
+        return settings;
+      });
+    return promise;
   }
 
 }
