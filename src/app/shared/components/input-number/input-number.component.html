@@ -1,0 +1,17 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{title}}</mat-label>
+  <input matInput
+         type='text'
+         mask='{{_mask}}'
+         [disabled]="isDisabled"
+         [(ngModel)]="_value"
+         [class]="classes"
+         [placeholder]="placeholder"
+         (blur)="onGotBlur()"
+         [ngModelOptions]="{standalone: true}"
+         (ngModelChange)="onChangeValue()"/>
+  <mat-icon matSuffix *ngIf="icon">{{icon}}</mat-icon>
+  <mat-hint>
+    <div *ngFor="let m of errors">{{m}}</div>
+  </mat-hint>
+</mat-form-field>

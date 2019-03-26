@@ -1,0 +1,39 @@
+<!--<div style="font-family: 'Courier New'; text-decoration: underline">-->
+  <!--Not implement-->
+<!--</div>-->
+
+
+<div class="up-im-container">
+
+  <!-- Begin: List images -->
+  <div class="image-item"
+       *ngFor="let _f of _files; trackBy: trackBy"
+       [style.background-image]="'url('+ _f.url +')'">
+
+    <!--<img *ngIf="_f.result" [src]="" alt="">-->
+
+    <div class="upload-image-tools" style="width: 145px;">
+      <!--<span class="upload-tool-rotation"></span>-->
+      <span class="upload-tool-delete" title="Remove" (click)="removeFile(_f)"></span>
+      <!--<a class="upload-avatar">Ảnh đại diện</a>-->
+    </div>
+
+  </div>
+  <!-- End: List images-->
+
+  <div class="block-upload-item" *ngIf="max === -1 || (max !== -1 && _files.length < max)">
+
+    <p>(Click để tải ảnh<br> hoặc kéo thả ảnh vào đây)</p>
+
+    <input multiple="multiple"
+           type="file"
+           accept="image/*"
+           #inputFile
+           (change)="onChangeInputFiles($event)"
+           name="file">
+  </div>
+
+  <div class="droptext">
+    Đăng ảnh thật nhanh bằng cách kéo và thả ảnh vào khung.  Thay đổi vị trí của ảnh bằng cách kéo ảnh vào vị trí mà bạn muốn!
+  </div>
+</div>

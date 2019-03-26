@@ -1,5 +1,5 @@
 import { Component, OnInit, isDevMode } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { MessageService } from '../../services/message/message.service';
 import { ValidatorService } from '../../services/validators/validator.service';
@@ -85,11 +85,16 @@ export class ComponentListComponent extends PageBaseComponent
     this.form = this.fb.group({
       username: ['', [this.validatorService.getInputRequired(), this.validatorService.getEmailPattern()]],
       password: [''],
+      description: [''],
       gender: [0],
       districts: [['d2'], [this.validatorService.getInputRequired()]],
       city: ['', [this.validatorService.getInputRequired()]],
       bike: ['', [this.validatorService.getInputRequired()]],
-      date: [null, [this.validatorService.getInputRequired()]]
+      date: [null, [this.validatorService.getInputRequired()]],
+      images: [[], []],
+      captchaToken: [null, [Validators.required]],
+      contactPhone: [0],
+      city1: [null]
     });
 
     this.form.valueChanges
@@ -99,6 +104,10 @@ export class ComponentListComponent extends PageBaseComponent
       });
 
     console.log(this.messageService.get('100'));
+  }
+
+  onCatchTokenCaptcha(value: string) {
+    this.form.controls.captchaToken.setValue(value);
   }
 
   onRadioChange(event: any): void {

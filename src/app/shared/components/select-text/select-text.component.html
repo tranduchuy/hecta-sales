@@ -1,0 +1,17 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{title}}</mat-label>
+  <mat-select
+              [compareWith]="compareFn"
+              [(value)]="_selectedItems"
+              [disabled]="isDisabled"
+              (selectionChange)="selected($event)">
+    <mat-option [value]="null">None</mat-option>
+    <mat-option *ngFor="let item of itemsSource"
+                [disabled]="item.isDisabled === true"
+                [value]="item">{{item[displayPath]}}</mat-option>
+  </mat-select>
+  <mat-icon matSuffix *ngIf="icon">{{icon}}</mat-icon>
+  <mat-hint>
+    <div *ngFor="let m of errors">{{m}}</div>
+  </mat-hint>
+</mat-form-field>

@@ -5,6 +5,7 @@ import { PageBaseComponent } from '../../../shared/components/base/page-base.com
 import { DialogResult, DialogService } from '../../../shared/components/dialog/dialog.service';
 import { RuleAlertLeadResponse } from '../shared/model/rule-alert-lead-response';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
+import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-rule-alert-lead-list',
@@ -15,15 +16,20 @@ export class RuleAlertLeadListComponent extends PageBaseComponent implements OnI
 
   ruleAlertLeadDetailsList: any[];
 
-  constructor(private router: Router, private service: RuleAlertLeadService,
+  constructor(private router: Router,
+              private service: RuleAlertLeadService,
+              private fuseProgressBarService: FuseProgressBarService,
               private dialog: DialogService) {
     super();
   }
 
   ngOnInit(): void {
+    this.fuseProgressBarService.show();
     const sub = this.service.getRuleAlertLeadList().subscribe((res: any) => {
       this.ruleAlertLeadDetailsList = res.data.entries
         .map((entry: RuleAlertLeadResponse) => this.service.getRuleAlertLeadLiteDetails(entry));
+
+      this.fuseProgressBarService.hide();
     });
     this.subscriptions.push(sub);
   }
@@ -33,7 +39,6 @@ export class RuleAlertLeadListComponent extends PageBaseComponent implements OnI
   }
 
   onClickEditRule(rule?: any): void {
-    console.log(rule);
     this.router.navigate(['/rule-alert-lead/update/' + rule.id]);
   }
 
@@ -43,8 +48,10 @@ export class RuleAlertLeadListComponent extends PageBaseComponent implements OnI
     const subDialog = this.dialog.openConfirm(confirmMessage)
       .subscribe((result: DialogResult) => {
         if (result === DialogResult.OK) {
+          this.fuseProgressBarService.show();
           const subHttp = self.service.deleteRuleAlertLead(rule.id)
             .subscribe((res: any) => {
+              this.fuseProgressBarService.hide();
               if (res.status === HTTP_CODES.SUCCESS) {
                 self.ngOnInit();
                 const successMessage = `Bạn đã xóa nhận lead dự án ${rule.projectName}, ${rule.districtName}, ${rule.cityName} thành công!`;

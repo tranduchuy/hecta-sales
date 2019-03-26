@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
@@ -10,6 +10,7 @@ import { FuseProgressBarService } from '../../../../@fuse/components/progress-ba
 import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
+import { LeadType } from '../../lead/shared/lead.type';
 
 @Component({
   selector: 'login',
@@ -81,7 +82,7 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
     const sub = this._authService.login(credential).subscribe(res => {
       if (res.status === HTTP_CODES.SUCCESS) {
         this.isSuccess = true;
-        this._router.navigate(['home']);
+        this._router.navigate(['/khach-hang-tiem-nang'], {queryParams: {type: LeadType.NEW}});
       } else {
         this.isSuccess = false;
       }

@@ -1,8 +1,5 @@
-<div id="rule-list" class="page-layout simple p-24">
-  <div class="h2 mb-12">Quản lý nhận lead</div>
-  <div>
-    <button mat-raised-button color="primary" (click)="onClickAddRule()">Đăng kí nhận lead</button>
-  </div>
+<div id="rule-list" class="page-layout simple p-24" fusePerfectScrollbar>
+  <div class="h2 mb-12 page-header">Quản lý nhận lead</div>
 
   <div class="content">
     <div class="results">
@@ -18,8 +15,11 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
+
+<button  id="add-rule" mat-fab color="accent" (click)="onClickAddRule()">
+  <mat-icon aria-label="Đăng kí nhận lead">add</mat-icon>
+</button>
 
 

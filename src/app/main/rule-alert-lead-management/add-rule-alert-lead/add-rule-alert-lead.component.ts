@@ -8,6 +8,7 @@ import { RuleAlertLeadService } from '../shared/service/rule-alert-lead.service'
 import { RuleAlertLeadRequest } from '../shared/model/rule-alert-lead-request';
 import { RuleAlertLeadResponse } from '../shared/model/rule-alert-lead-response';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
+import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-add-rule-alert-lead',
@@ -53,6 +54,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
               private dialog: DialogService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
+              private fuseProgressBarService: FuseProgressBarService,
               private ruleAlertLeadService: RuleAlertLeadService) {
     super();
   }
@@ -66,6 +68,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
       const id = params.id;
       if (id) {
         this.isAddMode = false;
+        this.fuseProgressBarService.show();
         const subHttp = this.ruleAlertLeadService.getRuleAlertLeadById(id)
           .subscribe((res: any) => {
             if (res.status === HTTP_CODES.SUCCESS) {
@@ -74,11 +77,12 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
             } else {
               const subDialog = this.dialog.openWarning(res.message)
                 .subscribe((result: DialogResult) => {
-                  this.goBack();
+                  this.gotoListLead();
                 });
               this.subscriptions.push(subDialog);
             }
           });
+        this.fuseProgressBarService.hide();
         this.subscriptions.push(subHttp);
       } else {
         this.isAddMode = true;
@@ -100,10 +104,6 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
     this.form.patchValue(Object.assign({}, this.ruleAlertLeadModel, {project: this.ruleAlertLeadModel.project._id}));
   }
 
-  onClickBackButton(): void {
-    this.goBack();
-  }
-
   onClickAddButton(): void {
     const rule: RuleAlertLeadRequest = this.getFormValue();
     this.markAsTouchedForAll(this.form);
@@ -111,12 +111,14 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
       return;
     }
 
+    this.fuseProgressBarService.show();
     const subHttp = this.ruleAlertLeadService.addRuleAlertLead(rule)
       .subscribe(res => {
+        this.fuseProgressBarService.hide();
         if (res.status === HTTP_CODES.SUCCESS) {
           const subDialog = this.dialog.openInfo('Bạn đã đăng kí nhận thông tin lead thành công!')
             .subscribe((result: DialogResult) => {
-              this.goBack();
+              this.gotoListLead();
             });
           this.subscriptions.push(subDialog);
         }
@@ -140,18 +142,20 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
       return;
     }
 
+    this.fuseProgressBarService.show();
     const subHttp = this.ruleAlertLeadService.updateRuleAlertLead(rule)
       .subscribe(res => {
+        this.fuseProgressBarService.hide();
         let subDialog;
         if (res.status === HTTP_CODES.SUCCESS) {
           subDialog = this.dialog.openInfo('Bạn đã cập nhật nhận lead thành công!')
             .subscribe((result: DialogResult) => {
-              this.goBack();
+              this.gotoListLead();
             });
         } else {
           subDialog = this.dialog.openWarning(res.message)
             .subscribe((result: DialogResult) => {
-              this.goBack();
+              this.gotoListLead();
             });
         }
         this.subscriptions.push(subDialog);
@@ -244,7 +248,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
     });
   }
 
-  private goBack(): void {
+  private gotoListLead(): void {
     this.router.navigate(['/rule-alert-lead/list']);
   }
 }

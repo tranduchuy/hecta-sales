@@ -13,6 +13,6 @@
                          [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker touchUi #picker></mat-datepicker>
   <mat-hint>
-    <div *ngFor="let m of errors">{{m}}</div>
+    <div *ngFor="let m of errors" class="error">{{m}}</div>
   </mat-hint>
 </mat-form-field>
