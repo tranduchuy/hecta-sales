@@ -67,6 +67,20 @@ export class TokenStorage {
     return this;
   }
 
+  public setUserInfo(userInfo: any): any {
+    if (userInfo) {
+      this.cookieService.set('userInfo', JSON.stringify(userInfo), 7);
+    }
+    return this;
+  }
+
+  public getUserInfo(): Observable<any> {
+    const userInfo: any = this.cookieService.get('userInfo');
+    try {
+      return of(JSON.parse(userInfo));
+    } catch (e) {}
+  }
+
   /**
    * Remove tokens
    */
@@ -74,5 +88,6 @@ export class TokenStorage {
     this.cookieService.delete('accessToken');
     this.cookieService.delete('refreshToken');
     this.cookieService.delete('userRoles');
+    this.cookieService.delete('userInfo');
   }
 }
