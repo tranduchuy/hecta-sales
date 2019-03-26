@@ -1,0 +1,49 @@
+<div style="width: 100%">
+  <mat-paginator [length]="meta.total" [pageSize]="10" (page)="updatePage($event)" *ngIf="data.length>0">
+  </mat-paginator>
+  <table mat-table [dataSource]="data" style="width: 100%">
+
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef style="width: 5%"> STT </th>
+      <td mat-cell *matCellDef="let i = index;"> {{i+1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef style="width: 30%"> Tiêu đề </th>
+      <td mat-cell *matCellDef="let element">
+        <p>{{element.title}}</p>
+        <p><strong>Lúc: </strong>{{element.createdTime | date: 'dd-MM-y, h:mm:ss a'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="content">
+      <th mat-header-cell *matHeaderCellDef style="width: 50%"> Nội dung </th>
+      <td mat-cell *matCellDef="let element">
+        <strong>{{element.content}}</strong>
+        <span *ngIf="element.params.before && element.params.after">
+          <p>Tài khoản chính 1: <strong><em>{{element.params.before.main1 | number: '.0-2'}} đ ->
+                {{element.params.after.main1 | number: '.0-2'}} đ</em></strong></p>
+          <p>Tài khoản chính 2: <strong><em>{{element.params.before.main2 | number: '.0-2'}} đ ->
+                {{element.params.after.main2 | number: '.0-2'}} đ</em></strong></p>
+          <p>Tài khoản khuyến mãi: <strong><em>{{element.params.before.promo | number: '.0-2'}} đ ->
+                {{element.params.after.promo | number: '.0-2'}} đ</em></strong></p>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="check">
+      <th mat-header-cell *matHeaderCellDef style="width: 15%"> Trạng thái </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <button *ngIf="element.status === NOTIFY_NONE" mat-raised-button color="primary"
+          (click)="onToggleSeen(n,i)">Đọc</button>
+        <button *ngIf="element.status === NOTIFY_SEEN" mat-button>Xong</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+
+  </table>
+  <mat-paginator [length]="meta.total" [pageSize]="10" (page)="updatePage($event)" *ngIf="data.length>0">
+  </mat-paginator>
+</div>
