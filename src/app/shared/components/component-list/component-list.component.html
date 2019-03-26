@@ -8,6 +8,13 @@
                       [icon]="usernameIcon"
                       [errors]="getErrorMessages(form, 'username')"></app-input-text>
     </div>
+    <div>
+      <h2>Input textarea</h2>
+      <app-input-textarea [formControlName]="'description'"
+                      [placeholder]="'Demo'"
+                      [title]="'Description'"
+                      [errors]="getErrorMessages(form, 'description')"></app-input-textarea>
+    </div>
 
     <div>
       <h2>Input password</h2>
@@ -16,6 +23,19 @@
                           [title]="'Password'"
                           [errors]="getErrorMessages(form, 'password')"></app-input-password>
     </div>
+    <div>
+      <h2>Input number</h2>
+      <app-input-number [formControlName]="'contactPhone'"
+      ></app-input-number>
+    </div>
+    <div>
+      <h2>Select Text</h2>
+    </div>
+    <app-select-text [itemsSource]="cityItemsSource"
+                     [displayPath]="'name'"
+                     [valuePath]="'value'"
+                     [title]="'--Chọn thanh pho--'"
+                     [formControlName]="'city1'"></app-select-text>
     <div>
       <h2>Radio group</h2>
       <app-radio-group [itemsSource]="radioGroupItemsSource"
@@ -60,6 +80,16 @@
                        [maxDay]="inputDate.maxDay"
                        [errors]="getErrorMessages(form, 'date')"
                        [minDay]="inputDate.minDay"></app-date-picker>
+    </div>
+    <div>
+      <h2>Image Uploader</h2>
+      <app-image-uploader [formControlName]="'images'"
+      ></app-image-uploader>
+    </div>
+    <div>
+      <h2>Captcha</h2>
+      <app-captcha
+      ></app-captcha>
     </div>
     <div>
       <h2>Dialog info</h2>

@@ -6,6 +6,20 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, timer } from 'rxjs';
 
+export namespace ErrorNames {
+  export const required = ['required', 'Bắt buộc'];
+  export const patternUrl = ['patternUrl', 'Url sai'];
+  export const patternNumber = ['patternNumber', 'Chỉ được phéo nhập số'];
+  export const patternHotlineNumber = ['patternHotlineNumber', 'Chỉ được phéo nhập số và khoảng trắng'];
+  export const fileNotLoad = ['fileNotLoad', 'Chưa có file'];
+  export const minLength = ['minLength', 'Quá ngắn'];
+  export const maxLength = ['maxLength', 'Quá dài'];
+  export const minNumberValue = ['minNumberValue', 'Quá thấp'];
+  export const maxNumberValue = ['maxMaxNumber', 'Quá cao'];
+  export const slug = ['slug', 'Slug sai'];
+  export const areStoreSelected = ['areaStore', 'Chưa chọn store nào'];
+}
+
 @Injectable()
 export class ValidatorService {
   constructor(
