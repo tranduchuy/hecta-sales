@@ -1,4 +1,98 @@
-<p>
-  recharge works!
-</p>
+<div>
+  <div fxLayout="column" fxLayoutGap="5px">
+    <div fxLayout="row">
+      <mat-card class="card">
+        <span style="font-weight: bold">CHỌN PHƯƠNG THỨC THANH TOÁN</span>
+        <hr>
+        <p>Mời bạn lựa chọn thao tác:</p>
+        <p><span style="font-weight: bold">Chuyển khoản thông thường </span><em style="color: grey">(phí ngân hàng thu,
+            hoàn thành trong vòng 48h)</em></p>
+        <hr>
+        <p><span style="font-weight: bold">Nộp tiền trực tiếp </span><em style="color: grey">(miễn phí, hoàn thành
+            1h)</em></p>
+        <div style="text-align: center">
+          Tầng 1, tòa nhà Packsimex, 52 Đông Du, P.Bến Nghé, Q.1, TP.HCM
+          <strong><a href="tel:02862703030">(028) 6270 3030</a></strong>
+        </div>
+      </mat-card>
+    </div>
+    <div fxLayout="row">
+      <h3 style="font-weight: bold">Chọn ngân hàng chuyển khoản</h3>
+    </div>
+    <div fxLayout="row">
+      <mat-card class="card">
+        <img [src]="srcACB">
+        <mat-card-header>
+          <mat-card-title>Ngân hàng thương mại cổ phần Á Châu - ACB</mat-card-title>
+          <mat-card-subtitle>Chi nhánh Ông Bích Khiêm - TP. Hồ Chí Minh</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <table>
+            <tbody>
+              <tr>
+                <td class="left-side">Người thụ hưởng</td>
+                <td class="hightlight">{{hecta.name}}</td>
+              </tr>
+              <tr>
+                <td class="left-side">Số tài khoản</td>
+                <td class="hightlight">{{hecta.account_number_acb}}</td>
+              </tr>
+              <tr>
+                <td class="left-side">Email của bạn</td>
+                <td>{{user?.email}}</td>
+              </tr>
+              <tr>
+                <td class="left-side">SĐT của bạn</td>
+                <td>{{user?.phone}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="end">
+          <button mat-button (click)="copyMessage(hecta.account_number_acb)">SAO CHÉP SỐ TÀI KHOẢN</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div fxLayout="row">
+      <mat-card class="card">
+        <img [src]="srcDongA">
+        <mat-card-header>
+          <mat-card-title>Ngân hàng thương mại cổ phần Đông Á - DAB</mat-card-title>
+          <mat-card-subtitle>Chi nhánh Quận 10 - TP. Hồ Chí Minh</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <table>
+            <tbody>
+              <tr>
+                <td class="left-side">Người thụ hưởng</td>
+                <td class="hightlight">{{hecta.name}}</td>
+              </tr>
+              <tr>
+                <td class="left-side">Số tài khoản</td>
+                <td class="hightlight">{{hecta.account_number_donga}}</td>
+              </tr>
+              <tr>
+                <td class="left-side">Email của bạn</td>
+                <td>{{user?.email}}</td>
+              </tr>
+              <tr>
+                <td class="left-side">SĐT của bạn</td>
+                <td>{{user?.phone}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="end">
+          <button mat-button (click)="copyMessage(hecta.account_number_donga)">SAO CHÉP SỐ TÀI KHOẢN</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <p>
+    <strong>Lưu ý:</strong> Để chúng tôi xác minh được bạn là người nạp tiền, bạn vui lòng ghi đúng Email, SĐT để trên
+    tin rao của bạn
+    vào <strong>Nội dung chuyển tiền</strong> như đã hướng dẫn.
+  </p>
+
+</div>
 <router-outlet></router-outlet>
