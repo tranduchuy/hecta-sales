@@ -13,8 +13,8 @@ export interface Transactions {
     fromUserId?: number;
     id?: number;
     info?: {
-        id: string;
-        title: string;
+        id?: string;
+        title?: string;
     };
     note?: string;
     type?: number;

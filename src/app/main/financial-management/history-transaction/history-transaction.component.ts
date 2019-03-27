@@ -34,6 +34,7 @@ export class HistoryTransactionComponent extends PageBaseComponent implements On
         if (res.status === HTTP_CODES.SUCCESS) {
           this.data = res.data.items;
           this.itemCount = res.data.itemCount;
+          console.log(this.data);
         }
         else {
           this._dialog.openInfo('Không lấy được dữ liệu!')
