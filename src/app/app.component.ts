@@ -183,9 +183,13 @@ export class AppComponent implements OnInit, OnDestroy {
   initCookie(): void {
     const accessToken = this.cookieService.get('accessToken');
     const userRoles = this.cookieService.get('userRoles');
+    const userInfo = this.cookieService.get('userInfo');
     this._userService.getUser().subscribe(
       res => {
-        if (res.status === 1 && (this.cookieService.get('userInfo')===(JSON.stringify(res.data.user)))) {
+        console.log(this.cookieService.get('userInfo').toString())
+        console.log(JSON.stringify(res.data.user))
+        console.log(this.cookieService.get('userInfo').toString()==JSON.stringify(res.data.user))
+        if (res.status === 1 && userInfo && accessToken && userRoles) {
           this.tokenStorage.setAccessToken(accessToken);
           this.tokenStorage.setUserRoles(userRoles);
           this.tokenStorage.setUserInfo(res.data.user);
