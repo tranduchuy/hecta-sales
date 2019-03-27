@@ -16,7 +16,6 @@ import { locale as localeEN } from 'app/locale/en';
 import { locale as localeVN } from 'app/locale/vi';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenStorage } from './core/auth/token-storage.service';
-import { init_app } from './main/auth/auth.module';
 import { UserService } from './main/user-management/shared/service/user.service';
 
 @Component({
@@ -186,9 +185,6 @@ export class AppComponent implements OnInit, OnDestroy {
     const userInfo = this.cookieService.get('userInfo');
     this._userService.getUser().subscribe(
       res => {
-        console.log(this.cookieService.get('userInfo').toString())
-        console.log(JSON.stringify(res.data.user))
-        console.log(this.cookieService.get('userInfo').toString()==JSON.stringify(res.data.user))
         if (res.status === 1 && userInfo && accessToken && userRoles) {
           this.tokenStorage.setAccessToken(accessToken);
           this.tokenStorage.setUserRoles(userRoles);
