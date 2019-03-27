@@ -1,4 +1,56 @@
-<div style="width: 100%">
+<div id="none-data">
+  <h2 class="page-header" *ngIf="data.length==0">CHƯA CÓ DỮ LIỆU</h2>
+</div>
+
+<div fxShow.lt-md fxShow="false" style="width: 100%">
+  <div class="content" *ngFor="let item of data; let i = index">
+    <div class="row">
+      <div class="key">Tiêu đề</div>
+      <div class="value" style="color: red">{{item.title}}</div>
+    </div>
+
+    <div class="row">
+      <div class="key">Vào lúc</div>
+      <div class="value">{{item.createdTime | date: 'dd-MM-y, h:mm:ss a'}}</div>
+    </div>
+
+    <ng-container *ngIf="item.type===3">
+      <div class="row">
+        <div class="key">Nội dung:</div>
+        <div class="value"></div>
+      </div>
+    </ng-container>
+
+    <ng-container>
+      <div class="row">
+        <div class="key">Nội dung:</div>
+        <div class="value">
+          {{item.content}}
+          <span *ngIf="item.params.before && item.params.after">
+            <p>Tài khoản chính 1: <strong><em>{{item.params.before.main1 | number: '.0-2'}} đ ->
+                  {{item.params.after.main1 | number: '.0-2'}} đ</em></strong></p>
+            <p>Tài khoản chính 2: <strong><em>{{item.params.before.main2 | number: '.0-2'}} đ ->
+                  {{item.params.after.main2 | number: '.0-2'}} đ</em></strong></p>
+            <p>Tài khoản khuyến mãi: <strong><em>{{item.params.before.promo | number: '.0-2'}} đ ->
+                  {{item.params.after.promo | number: '.0-2'}} đ</em></strong></p>
+          </span>
+        </div>
+      </div>
+    </ng-container>
+    <br>
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button *ngIf="item.status === NOTIFY_NONE" mat-raised-button color="primary"
+        (click)="onToggleSeen(n,i)">Đọc</button>
+      <button *ngIf="item.status === NOTIFY_SEEN" mat-button>Xong</button>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <button id="btn-more" mat-raised-button color="primary" *ngIf="data.length<meta.total" (click)="onLoadMoreTransactions()">Xem thêm
+    </button>
+  </div>
+</div>
+
+<div fxHide.lt-md style="width: 100%">
   <mat-paginator [length]="meta.total" [pageSize]="10" (page)="updatePage($event)" *ngIf="data.length>0">
   </mat-paginator>
   <table mat-table [dataSource]="data" style="width: 100%">
