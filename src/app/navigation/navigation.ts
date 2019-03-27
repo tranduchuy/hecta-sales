@@ -265,7 +265,7 @@ export const navigation: FuseNavigation[] = [
     translate: 'INBOX.TITLE',
     type: 'item',
     icon: 'chat',
-    url: '/sample'
+    url: '/tin-nhan'
   },
   {
     id: 'logout',
