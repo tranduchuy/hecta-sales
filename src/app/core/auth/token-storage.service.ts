@@ -85,9 +85,6 @@ export class TokenStorage {
    * Remove tokens
    */
   public clear() {
-    this.cookieService.delete('accessToken');
-    this.cookieService.delete('refreshToken');
-    this.cookieService.delete('userRoles');
-    this.cookieService.delete('userInfo');
+    this.cookieService.deleteAll();
   }
 }

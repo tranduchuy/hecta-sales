@@ -27,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../user-management/shared/service/user.service';
 
 export function init_app(userService: UserService) {
-  return () => userService.getUserInfoLoggedIn();
+  return () => userService.getUserInfoLoggedIn().then(result => {return result});
 }
 
 const routes: Routes = [
