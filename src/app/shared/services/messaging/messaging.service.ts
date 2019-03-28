@@ -20,16 +20,14 @@ export class MessagingService {
 
   constructor(public snackBar: MatSnackBar) {
     this.socket = sockectIo('https://api.hecta.vn/');
-    this.socket.emit('join', {token: localStorage['id_token']});
+    this.socket.emit('join', {userId: localStorage['id_token']});
 
-    this.socket.on('messaging', (notification) => {
+    this.socket.on('NOTIFY', (notification) => {
       this.snackBar.open(notification.title, 'OK', {
         duration: 2000
       });
     });
 
   }
-
-
 
 }
