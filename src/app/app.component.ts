@@ -14,8 +14,9 @@ import { Router } from '@angular/router';
 import { navigation } from 'app/navigation/navigation';
 import { locale as localeEN } from 'app/locale/en';
 import { locale as localeVN } from 'app/locale/vi';
-import {CookieService} from 'ngx-cookie-service';
-import {TokenStorage} from './core/auth/token-storage.service';
+import { CookieService } from 'ngx-cookie-service';
+import { TokenStorage } from './core/auth/token-storage.service';
+import { UserService } from './main/user-management/shared/service/user.service';
 
 @Component({
   selector: 'app',
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   fuseConfig: any;
   navigation: any;
 
+  status: boolean = true;
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -43,17 +45,18 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param {TranslateService} _translateService
    */
   constructor(@Inject(DOCUMENT) private document: any,
-              private _fuseConfigService: FuseConfigService,
-              private _fuseNavigationService: FuseNavigationService,
-              private _fuseSidebarService: FuseSidebarService,
-              private _fuseSplashScreenService: FuseSplashScreenService,
-              private _fuseTranslationLoaderService: FuseTranslationLoaderService,
-              private _translateService: TranslateService,
-              private _platform: Platform,
-              private cookieService: CookieService,
-              private router: Router,
-              private tokenStorage: TokenStorage) {
-   this.initCookie();
+    private _fuseConfigService: FuseConfigService,
+    private _fuseNavigationService: FuseNavigationService,
+    private _fuseSidebarService: FuseSidebarService,
+    private _fuseSplashScreenService: FuseSplashScreenService,
+    private _fuseTranslationLoaderService: FuseTranslationLoaderService,
+    private _translateService: TranslateService,
+    private _platform: Platform,
+    private cookieService: CookieService,
+    private router: Router,
+    private tokenStorage: TokenStorage,
+    private _userService: UserService) {
+    this.initCookie();
 
     // Get default navigation
     this.navigation = navigation;
@@ -179,13 +182,20 @@ export class AppComponent implements OnInit, OnDestroy {
   initCookie(): void {
     const accessToken = this.cookieService.get('accessToken');
     const userRoles = this.cookieService.get('userRoles');
-
-    if (accessToken && userRoles) {
-      this.tokenStorage.setAccessToken(accessToken);
-      this.tokenStorage.setUserRoles(userRoles);
-    } else {
-      this.tokenStorage.clear();
-      this.router.navigate(['auth/login']);
-    }
+    const userInfo = this.cookieService.get('userInfo');
+    this._userService.getUser().subscribe(
+      res => {
+        if (res.status === 1 && userInfo && accessToken && userRoles) {
+          this.tokenStorage.setAccessToken(accessToken);
+          this.tokenStorage.setUserRoles(userRoles);
+          this.tokenStorage.setUserInfo(res.data.user);
+        }
+        else {
+          this.tokenStorage.clear();
+          this.cookieService.deleteAll();
+          this.router.navigate(['auth/login']);
+        }
+      }
+    )
   }
 }
