@@ -4,7 +4,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatIconModule } from '@angular/material';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatIconModule, MatSnackBarModule} from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 import { FuseModule } from '@fuse/fuse.module';
@@ -52,6 +52,7 @@ import {environment} from '../environments/environment';
     // Material
     MatButtonModule,
     MatIconModule,
+    MatSnackBarModule,
     // Fuse modules
     FuseModule.forRoot(fuseConfig),
     FuseProgressBarModule,

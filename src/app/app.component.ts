@@ -191,6 +191,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.tokenStorage.setAccessToken(accessToken);
           this.tokenStorage.setUserRoles(userRoles);
           this.tokenStorage.setUserInfo(res.data.user);
+          this.messagingService.joinRoom();
         }
         else {
           this.tokenStorage.clear();

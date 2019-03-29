@@ -8,6 +8,8 @@ import {Subject} from 'rxjs/internal/Subject';
 
 import * as sockectIo from 'socket.io-client';
 import {UserService} from '../../../main/user-management/shared/service/user.service';
+import {SocketEvents} from '../../constants/socket-event';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,19 +22,26 @@ export class MessagingService {
   socket;
 
   constructor(public snackBar: MatSnackBar, private userService: UserService) {
-    this.socket = sockectIo('https://api.hecta.vn/');
-    if (this.userService.userInfo.id){
-      this.socket.emit('join', {userId: this.userService.userInfo._id});
-      this.socket.on('NOTIFY', (content) => {
-        this.showNotification(content);
-      });
-    }
+    this.socket = sockectIo(environment.apiEndpoint);
+    this.socket.on(SocketEvents.NOTIFY, (content) => {
+      this.showNotification(content);
+    });
   }
 
   showNotification(content) {
     this.snackBar.open(content.title, 'OK', {
       duration: 2000
     });
+  }
+
+  joinRoom(){
+    const userId = this.userService.userInfo.id;
+    if (userId){
+      console.log("JOIN emitted");
+      console.log(userId);
+      this.socket.emit(SocketEvents.JOIN, {userId: userId});
+      this.socket.emit('test');
+    }
   }
 
 }

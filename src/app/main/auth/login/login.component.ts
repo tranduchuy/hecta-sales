@@ -11,6 +11,7 @@ import { PageBaseComponent } from 'app/shared/components/base/page-base.componen
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 import { LeadType } from '../../lead/shared/lead.type';
+import {MessagingService} from '../../../shared/services/messaging/messaging.service';
 
 @Component({
   selector: 'login',
@@ -35,6 +36,7 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
     private _authService: AuthService,
     private _validatorService: ValidatorService,
     private _router: Router,
+    private messagingService: MessagingService
   ) {
     super();
     // Configure the layout
@@ -82,6 +84,7 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
     const sub = this._authService.login(credential).subscribe(res => {
       if (res.status === HTTP_CODES.SUCCESS) {
         this.isSuccess = true;
+        this.messagingService.joinRoom();
         this._router.navigate(['/khach-hang-tiem-nang'], {queryParams: {type: LeadType.NEW}});
       } else {
         this.isSuccess = false;
