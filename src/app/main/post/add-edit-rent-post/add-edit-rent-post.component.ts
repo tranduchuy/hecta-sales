@@ -8,6 +8,7 @@ import {StrService} from '../../../shared/services/helper/str.service';
 import { PostService } from '../post.service';
 import {Observable} from 'rxjs';
 import {HelperService} from '../../../shared/services/helper.service';
+import {FuseProgressBarService} from "../../../../@fuse/components/progress-bar/progress-bar.service";
 
 @Component({
   selector: 'app-add-edit-rent-post',
@@ -72,7 +73,8 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
               private helperService: HelperService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private dateService: DateService) {
+              private dateService: DateService,
+              private _fuseProgressingBarService: FuseProgressBarService) {
     super();
     const sub = this.activatedRoute.queryParams.subscribe(params => {
       if (params.id) {
@@ -83,7 +85,6 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     });
     this.subscriptions.push(sub);
   }
-
 
   ngAfterContentInit(){
     this.initForm();
@@ -106,7 +107,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     const today = new Date();
     const from = this.dateService.startOfDate(today);
     const to = this.dateService.addMonth(from, 1);
-
+    this._fuseProgressingBarService.show()
     this.form = this.fb.group({
       publishStartDate: [from, []],
       publishEndDate: [to, []],
@@ -133,9 +134,12 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
       captchaToken: [null, [Validators.required]],
       receiveMail: []
     });
+    this._fuseProgressingBarService.hide();
   }
 
   post(){
+
+    this._fuseProgressingBarService.show();
     const params = this.generatePostObject();
     let req: Observable<any>;
 
@@ -156,6 +160,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
         this.router.navigate(['/campaign']);
       });
     this.subscriptions.push(sub);
+    this._fuseProgressingBarService.hide();
   }
 
   onCatchTokenCaptcha(value: string) {
@@ -387,9 +392,11 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
   }
 
   loadPostsDetail() {
+
     if (this.params.id) {
       const sub = this.postService.getDetail({postId: this.params.id})
         .subscribe(res => {
+          this._fuseProgressingBarService.show();
           if (res.status !== 1) {
             alert([res.message]);
           } else {
@@ -397,6 +404,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
             this.setValueForm(res.data);
             this.disableSettings.btnInsert = false;
           }
+          this._fuseProgressingBarService.hide();
         });
       this.subscriptions.push(sub);
     }

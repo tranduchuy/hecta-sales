@@ -5,6 +5,7 @@ import { UserService } from 'app/main/user-management/shared/service/user.servic
 import { UserProfile } from 'app/main/user-management/shared/model/user-profile';
 import { PageBaseComponent } from 'app/shared/components/base/page-base.component';
 import { DialogService, DialogResult } from 'app/shared/components/dialog/dialog.service';
+import {FuseProgressBarService} from "../../../../@fuse/components/progress-bar/progress-bar.service";
 
 @Component({
   selector: 'app-recharge',
@@ -26,17 +27,19 @@ export class RechargeComponent extends PageBaseComponent implements OnInit {
     account_number_donga: '0101097130'
   };
 
-  constructor(private _userService: UserService, private _dialog: DialogService) {
+  constructor(private _userService: UserService, private _dialog: DialogService, private _fuseProgressBarService: FuseProgressBarService) {
     super();
   }
 
   ngOnInit() {
+    this._fuseProgressBarService.show();
     const sub = this._userService.getUser().subscribe(
       (res: any) => {
         this.user = res.data.user;
       }
     )
     this.subscriptions.push(sub);
+    this._fuseProgressBarService.hide();
   }
 
   copyMessage(val: string) {

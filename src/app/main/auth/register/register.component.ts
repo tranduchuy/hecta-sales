@@ -107,6 +107,7 @@ export class RegisterComponent extends PageBaseComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    this._fuseProgressBarService.show();
     this.registerForm = this._fb.group({
       username: [null, Validators.compose(
         [this._validatorService.getInputRequired()],
@@ -138,6 +139,7 @@ export class RegisterComponent extends PageBaseComponent implements OnInit {
       });
 
     this.subscriptions.push(sub);
+    this._fuseProgressBarService.hide();
 
   }
 

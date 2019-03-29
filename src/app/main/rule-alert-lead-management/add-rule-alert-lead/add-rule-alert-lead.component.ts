@@ -60,6 +60,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
   }
 
   ngOnInit(): void {
+    this.fuseProgressBarService.show();
     this.formalityConfig.itemSource = this.ruleAlertLeadService.getFormalityList();
     this.cityConfig.itemSource = this.ruleAlertLeadService.getCityList();
     this.initFormGroup();
@@ -89,6 +90,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
         this.initAddMode();
       }
     });
+    this.fuseProgressBarService.hide();
   }
 
   initAddMode(): void {
