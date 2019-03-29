@@ -4,19 +4,19 @@
       <table>
         <tr>
           <td class="balance">Tài khoản chính 1</td>
-          <td class="balance__value">{{balance.main1 | number: '.0-2'}} đ</td>
+          <td class="balance__value">{{balance?.main1 | number: '.0-2'}} đ</td>
         </tr>
         <tr>
           <td class="balance">Tài khoản chính 2</td>
-          <td class="balance__value">{{balance.main2 | number: '.0-2'}} đ</td>
+          <td class="balance__value">{{balance?.main2 | number: '.0-2'}} đ</td>
         </tr>
         <tr>
           <td class="balance">Tài khoản khuyến mãi</td>
-          <td class="balance__value">{{balance.promo | number: '.0-2'}} đ</td>
+          <td class="balance__value">{{balance?.promo | number: '.0-2'}} đ</td>
         </tr>
         <tr>
           <td class="balance">Tài khoản tín dụng</td>
-          <td class="balance__value">{{balance.credit | number: '.0-2'}} đ</td>
+          <td class="balance__value">{{balance?.credit | number: '.0-2'}} đ</td>
         </tr>
       </table>
     </div>
