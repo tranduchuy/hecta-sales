@@ -21,6 +21,7 @@ export class InputNumberComponent extends BaseComponent implements ControlValueA
   _value = '';
   _mask = '0*';
 
+  @Input() icon = '';
   @Input() placeholder = '';
 
   @Input()

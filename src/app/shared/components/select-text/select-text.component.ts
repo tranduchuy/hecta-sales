@@ -26,6 +26,7 @@ export class SelectTextComponent extends BaseComponent implements ControlValueAc
   @Input() displayPath = '';
   @Input() valuePath = '';
   @Input() isDisabled = false;
+  @Input() icon = '';
 
   @Input()
   set selectedItems(values: ISelectTextItem[]) {
