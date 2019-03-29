@@ -15,17 +15,18 @@ export class UserService {
   constructor(
     private _httpClient: HttpClient,
     private _cookieService: CookieService
-  ) { }
+  ) {
+  }
 
   public updatePassword(updatePassword: UpdatePassword): Observable<any> {
-    return this._httpClient.post<any>(URLs.UPDATE, updatePassword)
+    return this._httpClient.post<any>(URLs.UPDATE, updatePassword);
   }
 
   /**
    * updateProfile
    */
   public updateProfile(data: any): Observable<UserProfile> {
-    return this._httpClient.post<UserProfile>(URLs.UPDATE, data)
+    return this._httpClient.post<UserProfile>(URLs.UPDATE, data);
   }
 
   public uploadImage(image: File): Observable<any> {
@@ -45,7 +46,7 @@ export class UserService {
       headers: new HttpHeaders({
         'accessToken': this._cookieService.get('accessToken')
       })
-    })
+    });
   }
 
   getUserInfoLoggedIn(): Promise<any> {
@@ -61,5 +62,4 @@ export class UserService {
       });
     return promise;
   }
-
 }

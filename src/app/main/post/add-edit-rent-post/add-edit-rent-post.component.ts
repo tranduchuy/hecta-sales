@@ -1,14 +1,14 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
-import {EditableFormBaseComponent} from '../../../shared/components/base/editable-form-base.component';
-import {Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { EditableFormBaseComponent } from '../../../shared/components/base/editable-form-base.component';
+import { Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DateService } from '../../../shared/services/helper/date.service';
 import result from '../../../shared/constants/selector.constant';
-import {StrService} from '../../../shared/services/helper/str.service';
+import { StrService } from '../../../shared/services/helper/str.service';
 import { PostService } from '../post.service';
-import {Observable} from 'rxjs';
-import {HelperService} from '../../../shared/services/helper.service';
-import {FuseProgressBarService} from "../../../../@fuse/components/progress-bar/progress-bar.service";
+import { Observable } from 'rxjs';
+import { HelperService } from '../../../shared/services/helper.service';
+import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-add-edit-rent-post',
@@ -69,12 +69,12 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
   };
 
   constructor(
-              private postService: PostService,
-              private helperService: HelperService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private dateService: DateService,
-              private _fuseProgressingBarService: FuseProgressBarService) {
+    private postService: PostService,
+    private helperService: HelperService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private dateService: DateService,
+    private _fuseProgressingBarService: FuseProgressBarService) {
     super();
     const sub = this.activatedRoute.queryParams.subscribe(params => {
       if (params.id) {
@@ -86,7 +86,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     this.subscriptions.push(sub);
   }
 
-  ngAfterContentInit(){
+  ngAfterContentInit(): void {
     this.initForm();
     this.initItemsSourceCities();
     this.initItemsSourceArea();
@@ -94,7 +94,10 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     this.loadPostsDetail();
   }
 
-  private initItemsSourceCities() {
+  onPublishStartDateChanged(value: any): void {
+  }
+
+  private initItemsSourceCities(): void {
     this.itemsSource.cityOrProvinces = this.CityListOther1.map(city => {
       return {
         text: city.name,
@@ -103,11 +106,11 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     });
   }
 
-  initForm() {
+  initForm(): void {
     const today = new Date();
     const from = this.dateService.startOfDate(today);
     const to = this.dateService.addMonth(from, 1);
-    this._fuseProgressingBarService.show()
+    this._fuseProgressingBarService.show();
     this.form = this.fb.group({
       publishStartDate: [from, []],
       publishEndDate: [to, []],
@@ -137,7 +140,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     this._fuseProgressingBarService.hide();
   }
 
-  post(){
+  post(): void {
 
     this._fuseProgressingBarService.show();
     const params = this.generatePostObject();
@@ -163,24 +166,24 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     this._fuseProgressingBarService.hide();
   }
 
-  onCatchTokenCaptcha(value: string) {
+  onCatchTokenCaptcha(value: string): void {
     this.form.controls.captchaToken.setValue(value);
   }
 
-  onTitleChanged(value: any) {
+  onTitleChanged(value: any): void {
     this.basicForm.titleLengthRemind = 99 - value.toString().length;
   }
 
-  onDescriptionChanged(value: any) {
+  onDescriptionChanged(value: any): void {
     this.basicForm.descriptionLengthRemind = 3000 - value.toString().length;
   }
 
-  onKeywordChanged(value: any) {
+  onKeywordChanged(value: any): void {
     this.basicForm.keywordListshow = value.toString().split(',');
     this.basicForm.keywordRemind = this.basicForm.keywordListshow.length;
   }
 
-  onClickBtnSubmit() {
+  onClickBtnSubmit(): void {
     this.onSubmit();
   }
 
@@ -230,8 +233,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
   }
 
 
-
-  onChangedCity(city) {
+  onChangedCity(city): void {
     this.form.get('district').setValue(null);
     this.form.get('ward').setValue(null);
     this.form.get('street').setValue(null);
@@ -255,7 +257,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     }
   }
 
-  private initItemsSourceArea() {
+  private initItemsSourceArea(): void {
     this.itemsSource.area = this.AreaList.map(area => {
       return {
         text: area.Value,
@@ -266,19 +268,19 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     });
   }
 
-  onChangedWard() {
+  onChangedWard(): void {
     this.updateAddressInBasicInfo();
   }
 
-  onChangedStreet() {
+  onChangedStreet(): void {
     this.updateAddressInBasicInfo();
   }
 
-  onChangedProject() {
+  onChangedProject(): void {
     this.updateAddressInBasicInfo();
   }
 
-  onChangedDistrict(district) {
+  onChangedDistrict(district): void {
     this.form.get('ward').setValue(null);
     this.form.get('street').setValue(null);
     this.form.get('project').setValue(null);
@@ -316,7 +318,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     }
   }
 
-  private initItemsSourceForm() {
+  private initItemsSourceForm(): void {
     this.itemsSource.forms = this.CateBuyList.map(cate => {
       return {
         text: cate.name,
@@ -325,7 +327,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     });
   }
 
-  onSelectForm(form) {
+  onSelectForm(form): void {
     this.form.get('unit').setValue(null);
     this.form.get('type').setValue(null);
     this.form.get('price').setValue(null);
@@ -361,8 +363,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
   }
 
 
-
-  private updateAddressInBasicInfo() {
+  private updateAddressInBasicInfo(): void {
     let address = '';
     if (this.form.get('project').value) {
       address += this.form.get('project').value.text;
@@ -391,7 +392,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     this.form.controls.address.setValue(address);
   }
 
-  loadPostsDetail() {
+  loadPostsDetail(): void {
 
     if (this.params.id) {
       const sub = this.postService.getDetail({postId: this.params.id})
@@ -429,8 +430,8 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     });
   }
 
-  setValueForm(data: any) {
-    const params = { ...data };
+  setValueForm(data: any): void {
+    const params = {...data};
     params.from = new Date(params.from);
     params.to = new Date(params.to);
     if (params.receiveMail === true) {
@@ -442,7 +443,8 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
       params.formality = {
         text: _objFormality.name,
         value: _objFormality.id
-      }
+      };
+
       this.onSelectForm(params.formality);
 
       const _objType = this.helperService.getTypeByValue(_objFormality, params.type);
@@ -479,7 +481,7 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
     this.form.patchValue(params);
 
     const keyword = params.keywordList.map(key => {
-      var str = '';
+      let str = '';
       str += (str === '') ? key.keyword : (',' + key.keyword);
       return str;
     });
@@ -536,7 +538,6 @@ export class AddEditRentPostComponent extends EditableFormBaseComponent implemen
       }
     }
   }
-
 
 
 }

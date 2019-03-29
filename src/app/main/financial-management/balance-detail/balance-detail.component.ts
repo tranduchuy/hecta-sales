@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FinancialService} from '../shared/service/financial.service';
-import {FuseProgressBarService} from "../../../../@fuse/components/progress-bar/progress-bar.service";
-import {PageBaseComponent} from "../../../shared/components/base/page-base.component";
+import { Component, OnInit } from '@angular/core';
+import { FinancialService } from '../shared/service/financial.service';
+import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
+import { PageBaseComponent } from '../../../shared/components/base/page-base.component';
 
 @Component({
   selector: 'app-balance-detail',
@@ -10,7 +10,7 @@ import {PageBaseComponent} from "../../../shared/components/base/page-base.compo
 })
 export class BalanceDetailComponent extends PageBaseComponent implements OnInit {
 
-  balance: any;
+  balance: any = {};
 
   constructor(
     private _financialService: FinancialService,
@@ -19,7 +19,7 @@ export class BalanceDetailComponent extends PageBaseComponent implements OnInit 
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._fuseProgressBarService.show();
     const sub = this._financialService.getBalance().subscribe(
       (res: any) => {
