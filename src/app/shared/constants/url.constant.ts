@@ -17,7 +17,9 @@ export namespace URLs {
   }
   export const USER = environment.apiEndpoint + '/api/v1/users/info';
   export const IMAGE_UPLOAD = environment.apiStatic + '/images';
-  export const IMAGE = environment.apiStatic + '/images/using/150x150';
+  export const IMAGE = environment.apiStatic + '/images/using/200x200';
+  export const TRANSACTIONS_HISTORY = environment.apiEndpoint + '/api/v1/users/transaction/history';
+
   export namespace Lead {
     export const List = `${environment.apiEndpoint}/api/v1/leads`;
     export const BuyLead = `${environment.apiEndpoint}/api/v1/leads/purchase`;
