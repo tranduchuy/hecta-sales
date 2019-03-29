@@ -10,6 +10,7 @@ export namespace URLs {
   export const REGISTER = '/api/v1/users/register';
   export const UPDATE = environment.apiEndpoint + '/api/v1/users/update';
   export const CHECK = environment.apiEndpoint + '/api/v1/users/check';
+  export const INBOX = environment.apiEndpoint + '/api/v1/notifies';
   export namespace Post {
     export const postDetail = environment.apiEndpoint + '/api/v1/posts/detail/';
     export const createBuy = environment.apiEndpoint + '/api/v1/buys/add';

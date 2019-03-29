@@ -24,4 +24,9 @@ export namespace General {
     export const S164x170 ='164x170';
   }
 
+  export namespace Notification {
+    export const SEEN = 21;
+    export const NONE = 20;
+  }
+
 }

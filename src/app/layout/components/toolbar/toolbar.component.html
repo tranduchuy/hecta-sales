@@ -29,7 +29,7 @@
         <mat-icon class="secondary-text">monetization_on</mat-icon>
       </button></a>
 
-       <a routerLink="/sample"><button mat-icon-button class="navbar-toggle-button"
+       <a routerLink="/tin-nhan"><button mat-icon-button class="navbar-toggle-button"
               *ngIf="!hiddenNavbar && !rightNavbar && !isChild" fxHide.gt-md>
         <mat-icon class="secondary-text">chats</mat-icon>
       </button></a>
@@ -68,10 +68,10 @@
           <span>Đổi mật khẩu</span>
         </a>
 
-        <button mat-menu-item class="">
+        <a routerLink="/tin-nhan" mat-menu-item>
           <mat-icon>chats</mat-icon>
-          <span>Inbox</span>
-        </button>
+          <span>Hộp tin nhắn</span>
+        </a>
 
         <button mat-menu-item class="" (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
