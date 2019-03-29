@@ -10,7 +10,7 @@ import {PageBaseComponent} from "../../../shared/components/base/page-base.compo
 })
 export class BalanceDetailComponent extends PageBaseComponent implements OnInit {
 
-  balance: Object = {};
+  balance: any;
 
   constructor(
     private _financialService: FinancialService,
