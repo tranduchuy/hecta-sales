@@ -7,6 +7,7 @@ import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 import {Subject} from 'rxjs/internal/Subject';
 
 import * as sockectIo from 'socket.io-client';
+import {UserService} from '../../../main/user-management/shared/service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +19,20 @@ export class MessagingService {
 
   socket;
 
-  constructor(public snackBar: MatSnackBar) {
+  constructor(public snackBar: MatSnackBar, private userService: UserService) {
     this.socket = sockectIo('https://api.hecta.vn/');
-    this.socket.emit('join', {userId: localStorage['id_token']});
-
-    this.socket.on('NOTIFY', (notification) => {
-      this.snackBar.open(notification.title, 'OK', {
-        duration: 2000
+    if (this.userService.userInfo.id){
+      this.socket.emit('join', {userId: this.userService.userInfo._id});
+      this.socket.on('NOTIFY', (content) => {
+        this.showNotification(content);
       });
-    });
+    }
+  }
 
+  showNotification(content) {
+    this.snackBar.open(content.title, 'OK', {
+      duration: 2000
+    });
   }
 
 }

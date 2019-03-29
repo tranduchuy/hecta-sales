@@ -17,6 +17,7 @@ import { locale as localeVN } from 'app/locale/vi';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenStorage } from './core/auth/token-storage.service';
 import { UserService } from './main/user-management/shared/service/user.service';
+import {MessagingService} from './shared/services/messaging/messaging.service';
 
 @Component({
   selector: 'app',
@@ -55,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private cookieService: CookieService,
     private router: Router,
     private tokenStorage: TokenStorage,
+    private messagingService: MessagingService,
     private _userService: UserService) {
     this.initCookie();
 
