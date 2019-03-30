@@ -32,4 +32,8 @@ export class LeadService {
       }
     });
   }
+
+  returnLead(data: {}): Observable<any> {
+    return this._httpClient.post<any>(URLs.Lead.ReturnLead, data);
+  }
 }
