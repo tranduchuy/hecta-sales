@@ -5,12 +5,14 @@ import { Observable } from 'rxjs';
 import { URLs } from 'app/shared/constants/url.constant';
 import { UserProfile } from '../model/user-profile';
 import { CookieService } from 'ngx-cookie-service';
+import {HTTP_CODES} from '../../../../shared/constants/http-code.constant';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
+  public userInfo;
 
   constructor(
     private _httpClient: HttpClient,
@@ -56,9 +58,15 @@ export class UserService {
       })
     })
       .toPromise()
-      .then(settings => {
-        console.log(`Settings from API: `, settings);
-        return settings;
+      .then(res => {
+        if (res.status === HTTP_CODES.ERROR_AUTHORIZED){
+          this._cookieService.deleteAll();
+        } else {
+          const user = res.data.user;
+          this.userInfo = user;
+          this._cookieService.set('userInfo', user);
+          return res;
+        }
       });
     return promise;
   }
