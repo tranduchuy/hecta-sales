@@ -115,7 +115,7 @@
           <div class="input" style="position: relative">
             <app-input-text [formControlName]="'keywordList'"
                             (valueChanged)="onKeywordChanged($event)"
-                            [errors]="getErrorMessages('keyword')"
+                            [errors]="getErrorMessages(form, 'keyword')"
             ></app-input-text>
             <div class="txt-descripton">
               <img src="assets/images/arrow.png" alt="">

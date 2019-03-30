@@ -8,6 +8,7 @@ import { DialogResult, DialogService } from '../../../shared/components/dialog/d
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 import { LeadService } from '../shared/lead.service';
 import { CurrencyPipe } from '@angular/common';
+import {FuseProgressBarService} from "../../../../@fuse/components/progress-bar/progress-bar.service";
 
 @Component({
   selector: 'app-lead-list-item',
@@ -23,17 +24,20 @@ export class ListItemComponent extends PageBaseComponent {
   constructor(private router: Router,
               private leadService: LeadService,
               private currencyPipe: CurrencyPipe,
-              private dialog: DialogService) {
+              private dialog: DialogService,
+              private _fuseProgressingBarService: FuseProgressBarService) {
     super();
   }
 
   onClickByLead(): void {
     const confirmMessage = LeadMessages.CONFIRM_BUY_LEAD + this.currencyPipe.transform(this.lead.leadPrice, 'VND');
     const subConfirmDialog = this.dialog.openConfirm(confirmMessage)
+
       .subscribe((result: DialogResult) => {
         if (result === DialogResult.OK) {
           const httpSub = this.leadService.buyLead(this.lead._id)
             .subscribe(res => {
+              this._fuseProgressingBarService.show();
               if (res.status === HTTP_CODES.SUCCESS) {
                 const subDialog = this.dialog.openInfo(res.message)
                   .subscribe((result: DialogResult) => {
@@ -44,6 +48,7 @@ export class ListItemComponent extends PageBaseComponent {
               } else {
                 this.dialog.openWarning(res.message).subscribe().unsubscribe();
               }
+              this._fuseProgressingBarService.hide();
             }, err => {
               console.log(err);
             });

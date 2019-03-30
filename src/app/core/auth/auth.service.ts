@@ -183,7 +183,7 @@ export class AuthService {
   /**
    * Save access data in the storage
    * @private
-   * @param {AccessData} data
+   * @param {AccessData} accessData
    */
   private saveAccessData(accessData: AccessData): void {
     if (typeof accessData !== 'undefined') {

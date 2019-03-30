@@ -39,6 +39,10 @@ const appRoutes: Routes = [
     loadChildren: './main/financial-management/financial-management.module#FinancialManagementModule'
   },
   {
+    path: 'tin-nhan',
+    loadChildren: './main/messages/messages.module#MessagesModule'
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },

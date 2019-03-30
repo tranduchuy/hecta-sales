@@ -31,11 +31,13 @@ export class UserUpdatePasswordComponent extends PageBaseComponent implements On
   }
 
   ngOnInit(): void {
+    this.fuseProgressBarService.show();
     this.passwordForm = this.fb.group({
       oldPassword: ['', [this.validatorService.getInputRequired()]],
       password: ['', this.validatorService.getInputRequired()],
       confirmedPassword: ['', this.validatorService.getInputRequired()]
     });
+    this.fuseProgressBarService.hide();
   }
 
   updatePassword(): void {

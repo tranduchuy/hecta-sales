@@ -51,6 +51,7 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._fuseProgressBarService.show();
     this._userService.getUser().subscribe(res => {
       this.user = res.data.user;
       console.log(this.user);
@@ -65,6 +66,7 @@ export class UserDetailComponent extends PageBaseComponent implements OnInit {
       avatar: [''],
       url: ['']
     });
+    this._fuseProgressBarService.hide();
   }
 
   onUploadImage(event): void {

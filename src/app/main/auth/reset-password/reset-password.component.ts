@@ -64,6 +64,7 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit
      */
     ngOnInit(): void
     {
+      this.fuseProgressBarService.show();
         this.resetPasswordForm = this._formBuilder.group({
             password       : ['', [this.validatorService.getInputRequired()]],
             confirmedPassword: ['', [this.validatorService.getInputRequired(), confirmPasswordValidator]]
@@ -76,6 +77,7 @@ export class ResetPasswordComponent extends PageBaseComponent implements OnInit
                 this.resetPasswordForm.get('confirmedPassword').updateValueAndValidity();
             });
         this.subscriptions.push(sub);
+        this.fuseProgressBarService.hide();
     }
 
     resetPassword(): void
