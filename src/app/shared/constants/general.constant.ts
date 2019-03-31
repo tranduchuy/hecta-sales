@@ -29,4 +29,9 @@ export namespace General {
     export const NONE = 20;
   }
 
+  export namespace Notify {
+    export const NOT_CONFIRMED_LEAD = 22;
+    export const CONFIRMED_LEAD = 21;
+  }
+
 }

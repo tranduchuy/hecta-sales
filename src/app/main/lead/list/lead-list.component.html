@@ -6,9 +6,7 @@
     <mat-tab-group (selectedTabChange)="onChangedTab($event)"
                    [selectedIndex]="selectedTab.index"
                    (animationDone)="onFinishedAnimation()">
-      <mat-tab label="{{t.header}}"
-               [aria-label]="t.type"
-               *ngFor="let t of tabs">
+      <mat-tab label="{{t.header}}" [aria-label]="t.type" *ngFor="let t of tabs">
 
         <ng-container *ngIf="t.type !== LEAD_TYPE.NO_RETURN && t.type !== LEAD_TYPE.RETURN_AND_REFUND">
           <div class="empty-list-message" *ngIf="leadList.itemsSource.length === 0">Danh sách trống</div>
@@ -21,25 +19,31 @@
               </ul>
             </div>
 
-            <app-lead-list-item *ngFor="let lead of leadList.itemsSource"
-                                [leadType]="t.type"
-                                [lead]="lead">
+            <app-lead-list-item *ngFor="let lead of leadList.itemsSource" [leadType]="t.type" [lead]="lead">
             </app-lead-list-item>
           </div>
           <div class="actions">
-            <button mat-raised-button
-                    (click)="loadMore()"
-                    *ngIf="isShowLoadMoreButton()">Xem thêm
+            <button mat-raised-button (click)="loadMore()" *ngIf="isShowLoadMoreButton()">Xem thêm
             </button>
           </div>
         </ng-container>
 
-        <ng-container *ngIf="t.type === LEAD_TYPE.NO_RETURN">
-          <p class="empty-list-message"> Không được trả lead....</p>
+        <ng-container *ngIf="t.type === 22">
+          <!-- <p *ngIf="notifies?.length===0" class="empty-list-message"> Không được trả lead....</p> -->
+          <mat-card *ngIf="notifies?.length>0">
+            <mat-card-title>{{notifies?.title}}ádasdasdasdas</mat-card-title>
+            <mat-card-subtitle>Vào lúc: {{notifies?.updatedTime | date: 'dd-mm-y'}}</mat-card-subtitle>
+            <mat-card-content>{{notifies?.content}}ádasdasdas</mat-card-content>
+          </mat-card>
         </ng-container>
 
-        <ng-container *ngIf="t.type === LEAD_TYPE.RETURN_AND_REFUND">
-          <p class="empty-list-message">Trả lead và hoàn tiền ....</p>
+        <ng-container *ngIf="t.type === 21">
+          <!-- <p *ngIf="notifies?.length===0" class="empty-list-message">Trả lead và hoàn tiền ....</p> -->
+          <mat-card *ngIf="notifies?.length>0">
+            <mat-card-title>{{notifies?.title}}ádasdasdasdas</mat-card-title>
+            <mat-card-subtitle>Vào lúc: {{notifies?.updatedTime | date: 'dd-mm-y'}}</mat-card-subtitle>
+            <mat-card-content>{{notifies?.content}}ádasdasdas</mat-card-content>
+          </mat-card>
         </ng-container>
       </mat-tab>
     </mat-tab-group>
