@@ -28,8 +28,7 @@ import {MessagingService} from './shared/services/messaging/messaging.service';
 export class AppComponent implements OnInit, OnDestroy {
   fuseConfig: any;
   navigation: any;
-
-  status: boolean = true;
+  status = true;
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -44,6 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param {FuseTranslationLoaderService} _fuseTranslationLoaderService
    * @param {Platform} _platform
    * @param {TranslateService} _translateService
+   * @param {CookieService} _cookieService
+   * @param {Router} _router
    */
   constructor(@Inject(DOCUMENT) private document: any,
     private _fuseConfigService: FuseConfigService,
@@ -53,11 +54,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
     private _translateService: TranslateService,
     private _platform: Platform,
-    private cookieService: CookieService,
-    private router: Router,
-    private tokenStorage: TokenStorage,
-    private messagingService: MessagingService,
-    private _userService: UserService) {
+    private _cookieService: CookieService,
+    private _router: Router) {
     this.initCookie();
 
     // Get default navigation
@@ -182,23 +180,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   initCookie(): void {
-    const accessToken = this.cookieService.get('accessToken');
-    const userRoles = this.cookieService.get('userRoles');
-    const userInfo = this.cookieService.get('userInfo');
-    this._userService.getUser().subscribe(
-      res => {
-        if (res.status === 1 && userInfo && accessToken && userRoles) {
-          this.tokenStorage.setAccessToken(accessToken);
-          this.tokenStorage.setUserRoles(userRoles);
-          this.tokenStorage.setUserInfo(res.data.user);
-          this.messagingService.joinRoom();
-        }
-        else {
-          this.tokenStorage.clear();
-          this.cookieService.deleteAll();
-          this.router.navigate(['auth/login']);
-        }
-      }
-    )
+    const accessToken = this._cookieService.get('accessToken');
+    if (!accessToken) {
+      this._router.navigate(['auth/login']);
+    }
   }
 }

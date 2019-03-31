@@ -1,46 +1,34 @@
-import {Injectable} from '@angular/core';
-
-import {MatSnackBar} from '@angular/material';
-
-import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
-
-import {Subject} from 'rxjs/internal/Subject';
-
-import * as sockectIo from 'socket.io-client';
-import {UserService} from '../../../main/user-management/shared/service/user.service';
-import {SocketEvents} from '../../constants/socket-event';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import * as socketIO from 'socket.io-client';
+import { UserService } from '../../../main/user-management/shared/service/user.service';
+import { SocketEvents } from '../../constants/socket-event';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessagingService {
+  socket = null;
 
-  componentMethodCallSource = new Subject<any>();
-  componentMethodCalled$ = this.componentMethodCallSource.asObservable();
-
-  socket;
-
-  constructor(public snackBar: MatSnackBar, private userService: UserService) {
-    this.socket = sockectIo(environment.apiEndpoint);
+  constructor(public snackBar: MatSnackBar,
+              private userService: UserService) {
+    this.socket = socketIO(environment.apiEndpoint);
     this.socket.on(SocketEvents.NOTIFY, (content) => {
       this.showNotification(content);
     });
   }
 
-  showNotification(content) {
+  showNotification(content): void {
     this.snackBar.open(content.title, 'OK', {
       duration: 2000
     });
   }
 
-  joinRoom(){
+  joinRoom(): void {
     const userId = this.userService.userInfo.id;
-    if (userId){
-      console.log("JOIN emitted");
-      console.log(userId);
+    if (userId) {
       this.socket.emit(SocketEvents.JOIN, {userId: userId});
-      this.socket.emit('test');
     }
   }
 

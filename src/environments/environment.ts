@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-    hmr       : false,
-    apiEndpoint: 'https://api.hecta.vn',
+  production: false,
+  hmr: false,
+  apiEndpoint: 'http://localhost:3000',
   serverImage: 'https://static.hecta.vn/',
   staticImageSize: 'https://static.hecta.vn/images/using/',
   staticImageDemo: 'https://static.hecta.vn/images/temps/demo/',

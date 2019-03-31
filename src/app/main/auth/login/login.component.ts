@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
+import { AccessData } from '../../../core/auth/access-data';
 import { AuthService } from '../../../core/auth/auth.service';
 import { Credential } from '../../../core/auth/credential';
 import { Router } from '@angular/router';
@@ -11,7 +12,8 @@ import { PageBaseComponent } from 'app/shared/components/base/page-base.componen
 import { ValidatorService } from 'app/shared/services/validators/validator.service';
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 import { LeadType } from '../../lead/shared/lead.type';
-import {MessagingService} from '../../../shared/services/messaging/messaging.service';
+import { MessagingService } from '../../../shared/services/messaging/messaging.service';
+import { UserService } from '../../user-management/shared/service/user.service';
 
 @Component({
   selector: 'login',
@@ -23,12 +25,7 @@ import {MessagingService} from '../../../shared/services/messaging/messaging.ser
 export class LoginComponent extends PageBaseComponent implements OnInit {
   loginForm: FormGroup;
   isSuccess = true;
-  /**
-   * Constructor
-   *
-   * @param {FuseConfigService} _fuseConfigService
-   * @param {FormBuilder} _formBuilder
-   */
+
   constructor(
     private _fuseConfigService: FuseConfigService,
     private fuseProgressBarService: FuseProgressBarService,
@@ -36,7 +33,8 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
     private _authService: AuthService,
     private _validatorService: ValidatorService,
     private _router: Router,
-    private messagingService: MessagingService
+    private _messagingService: MessagingService,
+    private _userService: UserService
   ) {
     super();
     // Configure the layout
@@ -74,27 +72,28 @@ export class LoginComponent extends PageBaseComponent implements OnInit {
 
   login(): void {
     this.fuseProgressBarService.show();
-    console.log(this.loginForm.value);
 
     const credential: Credential = {
       username: this.loginForm.controls.username.value,
       password: this.loginForm.controls.password.value
     };
 
-    const sub = this._authService.login(credential).subscribe(res => {
-      if (res.status === HTTP_CODES.SUCCESS) {
-        this.isSuccess = true;
-        this.messagingService.joinRoom();
-        this._router.navigate(['/khach-hang-tiem-nang'], {queryParams: {type: LeadType.NEW}});
-      } else {
+    const sub = this._authService.login(credential)
+      .subscribe((res: any) => {
+        if (res.status === HTTP_CODES.SUCCESS) {
+          this.isSuccess = true;
+          this._userService.userInfo = res.userInfo;
+          this._messagingService.joinRoom();
+          this._router.navigate(['/khach-hang-tiem-nang'], {queryParams: {type: LeadType.NEW}});
+        } else {
+          this.isSuccess = false;
+        }
+        this.fuseProgressBarService.hide();
+      }, err => {
+        console.error(err);
         this.isSuccess = false;
-      }
-      this.fuseProgressBarService.hide();
-    }, err => {
-      console.error(err);
-      this.isSuccess = false;
-      this.fuseProgressBarService.hide();
-    });
+        this.fuseProgressBarService.hide();
+      });
     this.subscriptions.push(sub);
   }
 }
