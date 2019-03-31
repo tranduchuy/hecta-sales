@@ -9,6 +9,7 @@ import { ListLeadResponse } from '../shared/model/LeadListResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LeadMessages } from '../shared/messages';
 import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
+import { General } from 'app/shared/constants/general.constant';
 
 interface ITabConfig {
   header: string;
@@ -31,6 +32,9 @@ interface QueryParams {
   providers: [LeadService]
 })
 export class LeadListComponent extends PageBaseComponent implements OnInit {
+
+  notifies: any;
+
   selectedTab: { index: number; tab: ITabConfig | null } = {
     index: -1,
     tab: null
@@ -59,12 +63,12 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
     },
     {
       header: 'Không được trả lead',
-      type: LeadType.NO_RETURN,
+      type: General.Notify.NOT_CONFIRMED_LEAD,
       filterCondition: {}
     },
     {
       header: 'Trả lead/Hoàn tiền',
-      type: LeadType.RETURN_AND_REFUND,
+      type: General.Notify.CONFIRMED_LEAD,
       filterCondition: {}
     }
   ];
@@ -110,9 +114,12 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
       tab: this.tabs[tabIndex]
     };
 
-    if (this.selectedTab.tab.type === LeadType.NO_RETURN
-      || this.selectedTab.tab.type === LeadType.RETURN_AND_REFUND) {
-      return;
+    if (this.selectedTab.tab.type === General.Notify.NOT_CONFIRMED_LEAD){
+      this.getListNotReturning(1);
+    }
+
+    if (this.selectedTab.tab.type === General.Notify.CONFIRMED_LEAD){
+      this.getListReturning(1);
     }
 
     this.leadList.page = 1;
@@ -134,6 +141,30 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
 
   isShowLoadMoreButton(): boolean {
     return this.leadList.totalItems > this.leadList.page * this.leadList.limit;
+  }
+
+  getListNotReturning(page=1){
+    const query = {
+      type: General.Notify.NOT_CONFIRMED_LEAD,
+      page: page
+    }
+    this.leadService.getListNotify(query).subscribe(
+      (res: any) => {
+        this.notifies = res.data.entries;
+      }
+    )
+  }
+
+  getListReturning(page=1){
+    const query = {
+      type: General.Notify.CONFIRMED_LEAD,
+      page: page
+    }
+    this.leadService.getListNotify(query).subscribe(
+      (res: any) => {
+        this.notifies = res.data.entries;
+      }
+    )
   }
 
   private _loadLeads(params: QueryParams): void {

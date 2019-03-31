@@ -26,5 +26,8 @@ export namespace URLs {
     export const BuyLead = `${environment.apiEndpoint}/api/v1/leads/purchase`;
     export const ReturnLead = `${environment.apiEndpoint}/api/v1/leads/refund`;
   }
+
+  export const NOTIFY = `${environment.apiEndpoint}/api/v1/notifies/return-lead`;
+
   export const RESEND_EMAIL = environment.apiEndpoint + '/api/v1/users/confirm/resend';
 }

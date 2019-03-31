@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { URLs } from '../../../shared/constants/url.constant';
 import { LeadResponse } from './model/LeadResponse';
@@ -31,6 +31,13 @@ export class LeadService {
         lead.timeToDownPriceInMMss = '-1';
       }
     });
+  }
+
+  getListNotify(query): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('type', String(query.type));
+    params = params.append('page', String(query.page));
+    return this._httpClient.get<any>(URLs.NOTIFY, {params: params});
   }
 
   returnLead(data: {}): Observable<any> {
