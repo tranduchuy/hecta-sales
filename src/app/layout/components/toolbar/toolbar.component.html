@@ -1,87 +1,104 @@
 <mat-toolbar class="p-0 mat-elevation-z1">
 
-  <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+  <div fxFlex fxFill
+       fxLayout="row"
+       fxLayoutAlign="start center">
 
-    <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+    <div fxFlex="1 0 auto"
+         fxLayout="row"
+         fxLayoutAlign="start center">
 
-      <button mat-icon-button class="navbar-toggle-button"
+      <button mat-icon-button
+              class="navbar-toggle-button"
               *ngIf="!hiddenNavbar && !rightNavbar" (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
         <mat-icon class="secondary-text">menu</mat-icon>
       </button>
 
-      <button mat-icon-button class="navbar-toggle-button"
+      <button mat-icon-button
+              class="navbar-toggle-button"
               *ngIf="!hiddenNavbar && !rightNavbar && isChild" (click)="toggleBack()" fxHide.gt-md>
         <mat-icon class="secondary-text">arrow_back</mat-icon>
       </button>
 
-      <a routerLink="/sample"><button mat-icon-button class="navbar-toggle-button"
-              *ngIf="!hiddenNavbar && !rightNavbar && !isChild" fxHide.gt-md>
-        <mat-icon class="secondary-text">face</mat-icon>
-      </button></a>
+      <a routerLink="/khach-hang-tiem-nang">
+        <button mat-icon-button
+                class="navbar-toggle-button"
+                *ngIf="!hiddenNavbar && !rightNavbar && !isChild" fxHide.gt-md>
+          <mat-icon class="secondary-text">face</mat-icon>
+        </button>
+      </a>
 
-       <a routerLink="/sample"><button mat-icon-button class="navbar-toggle-button"
-              *ngIf="!hiddenNavbar && !rightNavbar && !isChild" fxHide.gt-md>
-        <mat-icon class="secondary-text">settings</mat-icon>
-      </button></a>
+      <a routerLink="/user/me">
+        <button mat-icon-button
+                class="navbar-toggle-button"
+                *ngIf="!hiddenNavbar && !rightNavbar && !isChild" fxHide.gt-md>
+          <mat-icon class="secondary-text">settings</mat-icon>
+        </button>
+      </a>
 
-       <a routerLink="/sample"><button mat-icon-button class="navbar-toggle-button"
-              *ngIf="!hiddenNavbar && !rightNavbar && !isChild" fxHide.gt-md>
-        <mat-icon class="secondary-text">monetization_on</mat-icon>
-      </button></a>
+      <a routerLink="/quan-ly-tai-chinh">
+        <button mat-icon-button
+                class="navbar-toggle-button"
+                *ngIf="!hiddenNavbar && !rightNavbar && !isChild" fxHide.gt-md>
+          <mat-icon class="secondary-text">monetization_on</mat-icon>
+        </button>
+      </a>
 
-
-       <a routerLink="/tin-nhan"><button mat-icon-button class="navbar-toggle-button"
-              *ngIf="!hiddenNavbar && !rightNavbar && !isChild" fxHide.gt-md>
-        <mat-icon class="secondary-text">chats</mat-icon>
-       </button></a>
+      <a routerLink="/tin-nhan">
+        <button mat-icon-button class="navbar-toggle-button"
+                *ngIf="!hiddenNavbar && !rightNavbar && !isChild" fxHide.gt-md>
+          <mat-icon class="secondary-text">chats</mat-icon>
+        </button>
+      </a>
       <!-- <div class="px-8 px-md-16">
         <fuse-shortcuts [navigation]="navigation"></fuse-shortcuts>
       </div> -->
 
     </div>
 
-    <div class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
-
+    <div fxFlex="0 1 auto"
+         fxLayout="row"
+         fxLayoutAlign="start center">
       <button mat-button [matMenuTriggerFor]="userMenu"
               class="user-button">
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <img class="avatar mr-0 mr-sm-16" src="assets/images/avatars/Velazquez.jpg">
-          <span class="username mr-12" fxHide fxShow.gt-sm>Charlie Adams</span>
+        <div fxLayout="row"
+             fxLayoutAlign="center center">
+          <img class="avatar mr-0 mr-sm-16"
+               src="assets/images/avatars/Velazquez.jpg">
+          <span class="username mr-12"
+                fxHide
+                fxShow.gt-sm>Charlie Adams</span>
+
           <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
         </div>
       </button>
 
-      <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
-
-        <a routerLink="/user/me" mat-menu-item>
-          <mat-icon>account_circle</mat-icon>
-          <span>Tài khoản</span>
-        </a>
-
-        <a routerLink="/user/update" mat-menu-item>
+      <mat-menu #userMenu="matMenu"
+                [overlapTrigger]="false">
+        <a routerLink="/user/update"
+           mat-menu-item>
           <mat-icon>settings</mat-icon>
           <span>Thay đổi thông tin cá nhân</span>
         </a>
 
-        <a routerLink="/user/update-password" mat-menu-item>
+        <a routerLink="/user/update-password"
+           mat-menu-item>
           <mat-icon>lock_open</mat-icon>
           <span>Đổi mật khẩu</span>
         </a>
 
-        <a routerLink="/tin-nhan" mat-menu-item>
+        <a routerLink="/tin-nhan"
+           mat-menu-item>
           <mat-icon>chats</mat-icon>
           <span>Hộp tin nhắn</span>
         </a>
 
-        <button mat-menu-item class="" (click)="logout()">
+        <button mat-menu-item
+                (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           <span>Logout</span>
         </button>
-
       </mat-menu>
-
     </div>
-
   </div>
-
 </mat-toolbar>

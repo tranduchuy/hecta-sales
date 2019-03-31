@@ -275,22 +275,22 @@ export const navigation: FuseNavigation[] = [
     icon: 'exit_to_app',
     url: '/logout'
   },
-  {
-    id: 'applications',
-    title: 'Applications',
-    translate: 'NAV.APPLICATIONS',
-    type: 'group',
-    children: [
-      {
-        id: 'rule-alert-lead',
-        title: 'Rule alert lead',
-        translate: 'RULE_ALERT_LEAD.TITLE',
-        type: 'item',
-        icon: '',
-        url: '/rule-alert-lead/list'
-      }
-    ]
-  }
+  // {
+  //   id: 'applications',
+  //   title: 'Applications',
+  //   translate: 'NAV.APPLICATIONS',
+  //   type: 'group',
+  //   children: [
+  //     {
+  //       id: 'rule-alert-lead',
+  //       title: 'Rule alert lead',
+  //       translate: 'RULE_ALERT_LEAD.TITLE',
+  //       type: 'item',
+  //       icon: '',
+  //       url: '/rule-alert-lead/list'
+  //     }
+  //   ]
+  // }
 ];
 
 if (!environmentDev.production) {

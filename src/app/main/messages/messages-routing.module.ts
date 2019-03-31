@@ -6,7 +6,10 @@ const routes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    component: MessagesComponent
+    component: MessagesComponent,
+    data: {
+      level: 1
+    }
   }
 ];
 
