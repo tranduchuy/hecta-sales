@@ -4,7 +4,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatIconModule, MatSnackBarModule} from '@angular/material';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSnackBarModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 import { FuseModule } from '@fuse/fuse.module';
@@ -27,21 +27,26 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { ServiceLocator } from './shared/services/service-locator';
 import {environment} from '../environments/environment';
+import { TextDialogComponent } from './shared/components/dialog/text/text-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
     InfoDialogComponent,
     WarningDialogComponent,
     ConfirmDialogComponent,
+    TextDialogComponent,
   ],
   entryComponents: [
     InfoDialogComponent,
     WarningDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TextDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
     BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot(),

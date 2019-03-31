@@ -25,7 +25,7 @@ export class ListItemComponent extends PageBaseComponent {
               private leadService: LeadService,
               private currencyPipe: CurrencyPipe,
               private dialog: DialogService,
-              private _fuseProgressingBarService: FuseProgressBarService) {
+              private _fuseProgressingBarService: FuseProgressBarService,) {
     super();
   }
 
@@ -64,6 +64,36 @@ export class ListItemComponent extends PageBaseComponent {
   }
 
   onClickReturnLead(): void {
-
+    const sub = this.dialog.openText('Nhập lý do của bạn').subscribe(
+      (res: any) => {
+        if(res === 1 || res === undefined || !res){
+          //nothing to do
+        }
+        else{
+          const sub = this.dialog.openConfirm('Bạn có chắc chưa?').subscribe(
+            (res: any)=>{
+              if(res === DialogResult.OK){
+                this._fuseProgressingBarService.show();
+                const data = {
+                  leadId: this.lead._id,
+                  reason: res
+                }
+                this.leadService.returnLead(data).subscribe(
+                  (res: any) => {
+                    console.log(res);
+                  }
+                );
+                  setTimeout(() => {
+                    this.router.navigate(['/khach-hang-tiem-nang'], {queryParams: {type: LeadType.RETURNING}});
+                  }, 200);
+              }
+            }
+          )
+          this.subscriptions.push(sub);
+        }
+      }
+    );
+    this.subscriptions.push(sub);
+    this._fuseProgressingBarService.hide();
   }
 }

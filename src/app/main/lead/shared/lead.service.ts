@@ -39,4 +39,8 @@ export class LeadService {
     params = params.append('page', String(query.page));
     return this._httpClient.get<any>(URLs.NOTIFY, {params: params});
   }
+
+  returnLead(data: {}): Observable<any> {
+    return this._httpClient.post<any>(URLs.Lead.ReturnLead, data);
+  }
 }
