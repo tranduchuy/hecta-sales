@@ -99,13 +99,13 @@
       <button mat-raised-button color="accent" (click)="buyLead()"> Nhận thông tin lead</button>
     </div>
 
-    <div class="actions" *ngIf="lead?.status === LEAD_TYPE.SOLD">
-      <div class="left">
+    <div class="actions" *ngIf="lead?.status === LEAD_TYPE.SOLD" fxLayoutAlign="end">
+      <div>
         <button mat-raised-button color="warn" (click)="returnLead()">Trả lead</button>
       </div>
-      <div class="right">
+      <!-- <div class="right">
         <button mat-raised-button color="primary" (click)="finishLead()">Hoàn thành</button>
-      </div>
+      </div> -->
     </div>
 
   </div>

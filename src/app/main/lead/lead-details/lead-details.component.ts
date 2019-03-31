@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PageBaseComponent } from '../../../shared/components/base/page-base.component';
 import { LeadService } from '../shared/lead.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +21,8 @@ export class LeadDetailsComponent extends PageBaseComponent implements OnInit {
   lead: LeadDetails;
   LEAD_TYPE = LeadType;
   MESSAGES = LeadMessages;
+
+  reason;
 
   constructor(private leadService: LeadService,
               private dialog: DialogService,
@@ -88,6 +90,37 @@ export class LeadDetailsComponent extends PageBaseComponent implements OnInit {
   }
 
   returnLead(): void {
+    const sub = this.dialog.openText('Nhập lý do của bạn').subscribe(
+      (res: any) => {
+        if(res === 1 || res === undefined || !res){
+          //nothing to do
+        }
+        else{
+          const sub = this.dialog.openConfirm('Bạn có chắc chưa?').subscribe(
+            (res: any)=>{
+              if(res === DialogResult.OK){
+                this.fuseProgressBarService.show();
+                const data = {
+                  leadId: this.lead._id,
+                  reason: res
+                }
+                this.leadService.returnLead(data).subscribe(
+                  (res: any) => {
+                    console.log(res);
+                  }
+                );
+                  setTimeout(() => {
+                    this.router.navigate(['/khach-hang-tiem-nang'], {queryParams: {type: LeadType.RETURNING}});
+                  }, 200);
+              }
+            }
+          )
+          this.subscriptions.push(sub);
+        }
+      }
+    );
+    this.subscriptions.push(sub);
+    this.fuseProgressBarService.hide();
   }
 
   finishLead(): void {
