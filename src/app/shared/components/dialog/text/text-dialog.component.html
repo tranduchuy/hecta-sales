@@ -5,15 +5,28 @@
     </div>
     <form [formGroup]="form">
       <mat-form-field>
-        <textarea rows="5" matInput formControlName="text" [(ngModel)]="text" placeholder="Tối thiểu 50 ký tự..."></textarea>
-        <small class="form-text text-muted"><code>{{text?.value?.length}}</code><code>{{text?.length}}</code> ký tự</small>
+        <textarea rows="5"
+                  matInput
+                  formControlName="text"
+                  [(ngModel)]="text"
+                  placeholder="Tối thiểu 50 ký tự..."></textarea>
+
+        <small class="form-text text-muted"><code>{{text?.length}}</code><code>{{text?.length}}</code> ký tự</small>
       </mat-form-field>
     </form>
   </div>
 </div>
 <div mat-dialog-actions style="text-align: center">
-  <button mat-raised-button (click)="onClickBtnCancel()">Cancel
+  <button mat-raised-button
+          (click)="onClickBtnCancel()">
+    Cancel
   </button>
-  <button mat-raised-button style="margin-left: 8px;" color="primary" (click)="onClickBtnOk()" [disabled]="form.invalid">Ok
+
+  <button mat-raised-button
+          style="margin-left: 8px;"
+          color="primary"
+          (click)="onClickBtnOk()"
+          [disabled]="form.invalid">
+    Ok
   </button>
 </div>

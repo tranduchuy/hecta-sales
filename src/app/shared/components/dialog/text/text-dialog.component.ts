@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DialogResult } from '../dialog.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,8 +8,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './text-dialog.component.html'
 })
 export class TextDialogComponent implements OnInit {
-
+  text = '';
   form: FormGroup;
+
   constructor(
     public dialogRef: MatDialogRef<TextDialogComponent>,
     private _fb: FormBuilder,
@@ -19,14 +20,14 @@ export class TextDialogComponent implements OnInit {
   ngOnInit(): void {
     this.form = this._fb.group({
       text: ['', [Validators.required, Validators.minLength(50)]]
-    })
+    });
   }
 
-  onClickBtnOk() {
+  onClickBtnOk(): void {
     this.dialogRef.close(this.form.value);
   }
 
-  onClickBtnCancel() {
+  onClickBtnCancel(): void {
     this.dialogRef.close(DialogResult.CANCEL);
   }
 }
