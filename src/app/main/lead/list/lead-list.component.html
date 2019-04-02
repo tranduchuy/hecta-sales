@@ -8,7 +8,8 @@
                    (animationDone)="onFinishedAnimation()">
       <mat-tab label="{{t.header}}" [aria-label]="t.type" *ngFor="let t of tabs">
 
-        <ng-container *ngIf="t.type !== LEAD_TYPE.NO_RETURN && t.type !== LEAD_TYPE.RETURN_AND_REFUND">
+        <ng-container
+          *ngIf="t.type !== NOTIFY_TYPE.RETURN_LEAD_SUCCESSFULLY && t.type !== NOTIFY_TYPE.RETURN_LEAD_FAIL">
           <div class="empty-list-message" *ngIf="leadList.itemsSource.length === 0">Danh sách trống</div>
 
           <div *ngIf="leadList.itemsSource.length > 0">
@@ -19,30 +20,33 @@
               </ul>
             </div>
 
-            <app-lead-list-item *ngFor="let lead of leadList.itemsSource" [leadType]="t.type" [lead]="lead">
-            </app-lead-list-item>
+            <app-lead-list-item *ngFor="let lead of leadList.itemsSource"
+                                [leadType]="t.type"
+                                [lead]="lead"></app-lead-list-item>
           </div>
           <div class="actions">
-            <button mat-raised-button (click)="loadMore()" *ngIf="isShowLoadMoreButton()">Xem thêm
+            <button mat-raised-button
+                    (click)="loadMore()"
+                    *ngIf="isShowLoadMoreButton()">Xem thêm
             </button>
           </div>
         </ng-container>
 
-        <ng-container *ngIf="t.type === 22">
+        <ng-container
+          *ngIf="t.type === NOTIFY_TYPE.RETURN_LEAD_SUCCESSFULLY || t.type === NOTIFY_TYPE.RETURN_LEAD_FAIL">
           <!-- <p *ngIf="notifies?.length===0" class="empty-list-message"> Không được trả lead....</p> -->
-          <mat-card *ngIf="notifies?.length>0">
-            <mat-card-title>{{notifies?.title}}ádasdasdasdas</mat-card-title>
-            <mat-card-subtitle>Vào lúc: {{notifies?.updatedTime | date: 'dd-mm-y'}}</mat-card-subtitle>
-            <mat-card-content>{{notifies?.content}}ádasdasdas</mat-card-content>
-          </mat-card>
-        </ng-container>
-
-        <ng-container *ngIf="t.type === 21">
-          <!-- <p *ngIf="notifies?.length===0" class="empty-list-message">Trả lead và hoàn tiền ....</p> -->
-          <mat-card *ngIf="notifies?.length>0">
-            <mat-card-title>{{notifies?.title}}ádasdasdasdas</mat-card-title>
-            <mat-card-subtitle>Vào lúc: {{notifies?.updatedTime | date: 'dd-mm-y'}}</mat-card-subtitle>
-            <mat-card-content>{{notifies?.content}}ádasdasdas</mat-card-content>
+          <mat-card *ngFor="let notify of notifies"
+                    style="margin-top: 10px"
+          >
+            <mat-card-content>
+              <h4 style="margin: 0; font-weight: 500">
+                {{notify.title}}
+              </h4>
+              <h6 style="margin: 0">Vào lúc: {{notify?.updatedTime | date: 'dd-mm-y'}}</h6>
+              <div>
+                {{notify?.content}}. Tên <b>{{notify.params.lead.name}}</b>
+              </div>
+            </mat-card-content>
           </mat-card>
         </ng-container>
       </mat-tab>

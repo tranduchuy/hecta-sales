@@ -40,8 +40,8 @@
         <div class="key">Giá hiện tại:</div>
         <div class="value">{{lead?.leadPrice | currency : 'VND'}}</div>
       </div>
-      <div class="row">
-        <div class="key">Giảm sau:</div>
+      <div class="row" *ngIf="lead.isFinishDownPrice === false">
+        <div class="key">Giảm sau: ::{{lead.isFinishDownPrice}}</div>
         <div class="value">{{lead?.timeToDownPriceInMMss}}</div>
       </div>
       <div class="row">

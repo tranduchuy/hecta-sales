@@ -24,10 +24,15 @@ export class TextDialogComponent implements OnInit {
   }
 
   onClickBtnOk(): void {
-    this.dialogRef.close(this.form.value);
+    this.dialogRef.close({
+      result: DialogResult.OK,
+      reason: this.form.value.text.trim()
+    });
   }
 
   onClickBtnCancel(): void {
-    this.dialogRef.close(DialogResult.CANCEL);
+    this.dialogRef.close({
+      result: DialogResult.CANCEL
+    });
   }
 }

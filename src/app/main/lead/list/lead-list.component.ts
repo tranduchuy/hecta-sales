@@ -63,17 +63,18 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
     },
     {
       header: 'Không được trả lead',
-      type: General.Notify.NOT_CONFIRMED_LEAD,
+      type: General.Notify.RETURN_LEAD_FAIL,
       filterCondition: {}
     },
     {
       header: 'Trả lead/Hoàn tiền',
-      type: General.Notify.CONFIRMED_LEAD,
+      type: General.Notify.RETURN_LEAD_SUCCESSFULLY,
       filterCondition: {}
     }
   ];
 
   LEAD_TYPE = LeadType;
+  NOTIFY_TYPE = General.Notify;
   MESSAGES = LeadMessages;
 
   leadList = {
@@ -114,18 +115,19 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
       tab: this.tabs[tabIndex]
     };
 
-    if (this.selectedTab.tab.type === General.Notify.NOT_CONFIRMED_LEAD){
-      this.getListNotReturning(1);
+    if (this.selectedTab.tab.type === General.Notify.RETURN_LEAD_FAIL) {
+      this.getListNotReturningFail(1);
+      return;
     }
 
-    if (this.selectedTab.tab.type === General.Notify.CONFIRMED_LEAD){
-      this.getListReturning(1);
+    if (this.selectedTab.tab.type === General.Notify.RETURN_LEAD_SUCCESSFULLY) {
+      this.getListReturnSuccess(1);
+      return;
     }
 
     this.leadList.page = 1;
     this.leadList.totalItems = 0;
     this.leadList.itemsSource = [];
-
     this._loadLeads(this._generateParamGetLeads());
   }
 
@@ -143,28 +145,34 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
     return this.leadList.totalItems > this.leadList.page * this.leadList.limit;
   }
 
-  getListNotReturning(page=1){
+  getListNotReturningFail(page: number = 1): void {
     const query = {
-      type: General.Notify.NOT_CONFIRMED_LEAD,
+      type: General.Notify.RETURN_LEAD_FAIL,
       page: page
-    }
-    this.leadService.getListNotify(query).subscribe(
+    };
+
+    const sub = this.leadService.getListNotify(query).subscribe(
       (res: any) => {
         this.notifies = res.data.entries;
       }
-    )
+    );
+
+    this.subscriptions.push(sub);
   }
 
-  getListReturning(page=1){
+  getListReturnSuccess(page: number = 1): void {
     const query = {
-      type: General.Notify.CONFIRMED_LEAD,
+      type: General.Notify.RETURN_LEAD_SUCCESSFULLY,
       page: page
-    }
-    this.leadService.getListNotify(query).subscribe(
+    };
+
+    const sub = this.leadService.getListNotify(query).subscribe(
       (res: any) => {
         this.notifies = res.data.entries;
       }
-    )
+    );
+
+    this.subscriptions.push(sub);
   }
 
   private _loadLeads(params: QueryParams): void {
@@ -178,6 +186,7 @@ export class LeadListComponent extends PageBaseComponent implements OnInit {
           const leadList = res.data.entries;
           this.leadService.convertTimeToDownPriceToMMss(leadList);
           this.leadList.itemsSource.push(...leadList);
+
           Object.assign(this.leadList, {
             page: res.data.meta.page,
             limit: res.data.meta.limit,

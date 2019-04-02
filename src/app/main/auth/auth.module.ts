@@ -1,4 +1,5 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { InputTextareaModule } from '../../shared/components/input-textarea/input-textarea.module';
 import { LoginComponent } from './login/login.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '../../../@fuse/shared.module';
@@ -70,6 +71,7 @@ const routes: Routes = [
     MatInputModule,
     InputTextModule,
     InputPasswordModule,
+    InputTextareaModule,
     RadioGroupModule,
     CheckboxGroupModule,
     ComboBoxModule,

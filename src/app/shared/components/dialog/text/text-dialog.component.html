@@ -10,10 +10,11 @@
                   formControlName="text"
                   [(ngModel)]="text"
                   placeholder="Tối thiểu 50 ký tự..."></textarea>
-
-        <small class="form-text text-muted"><code>{{text?.length}}</code><code>{{text?.length}}</code> ký tự</small>
       </mat-form-field>
     </form>
+    <div>
+      <small class="form-text text-muted"><code>{{text.length}}</code> ký tự</small>
+    </div>
   </div>
 </div>
 <div mat-dialog-actions style="text-align: center">

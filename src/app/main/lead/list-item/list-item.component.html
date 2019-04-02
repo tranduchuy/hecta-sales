@@ -15,7 +15,7 @@
       <div class="value">{{lead?.leadPrice | currency: 'VND'}}</div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="lead.isFinishDownPrice === false">
       <div class="key">Giảm sau:</div>
       <div class="value">{{lead?.timeToDownPriceInMMss}}</div>
     </div>

@@ -8,7 +8,7 @@ import { DialogResult, DialogService } from '../../../shared/components/dialog/d
 import { HTTP_CODES } from '../../../shared/constants/http-code.constant';
 import { LeadService } from '../shared/lead.service';
 import { CurrencyPipe } from '@angular/common';
-import {FuseProgressBarService} from "../../../../@fuse/components/progress-bar/progress-bar.service";
+import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
 
 @Component({
   selector: 'app-lead-list-item',
@@ -25,14 +25,13 @@ export class ListItemComponent extends PageBaseComponent {
               private leadService: LeadService,
               private currencyPipe: CurrencyPipe,
               private dialog: DialogService,
-              private _fuseProgressingBarService: FuseProgressBarService,) {
+              private _fuseProgressingBarService: FuseProgressBarService) {
     super();
   }
 
   onClickByLead(): void {
     const confirmMessage = LeadMessages.CONFIRM_BUY_LEAD + this.currencyPipe.transform(this.lead.leadPrice, 'VND');
     const subConfirmDialog = this.dialog.openConfirm(confirmMessage)
-
       .subscribe((result: DialogResult) => {
         if (result === DialogResult.OK) {
           const httpSub = this.leadService.buyLead(this.lead._id)
@@ -40,8 +39,7 @@ export class ListItemComponent extends PageBaseComponent {
               this._fuseProgressingBarService.show();
               if (res.status === HTTP_CODES.SUCCESS) {
                 const subDialog = this.dialog.openInfo(res.message)
-                  .subscribe((result: DialogResult) => {
-                    console.log(result);
+                  .subscribe(() => {
                     this.router.navigate(['/khach-hang-tiem-nang'], {queryParams: {type: LeadType.SOLD}});
                   });
                 this.subscriptions.push(subDialog);
@@ -66,31 +64,34 @@ export class ListItemComponent extends PageBaseComponent {
   onClickReturnLead(): void {
     const sub = this.dialog.openText('Nhập lý do của bạn').subscribe(
       (res: any) => {
-        if(res === 1 || res === undefined || !res){
-          //nothing to do
+        if (res.result === DialogResult.CANCEL) {
+          return;
         }
-        else{
-          const sub = this.dialog.openConfirm('Bạn có chắc chưa?').subscribe(
-            (res: any)=>{
-              if(res === DialogResult.OK){
-                this._fuseProgressingBarService.show();
-                const data = {
-                  leadId: this.lead._id,
-                  reason: res
-                }
-                this.leadService.returnLead(data).subscribe(
-                  (res: any) => {
-                    console.log(res);
-                  }
-                );
+
+        const sub1 = this.dialog.openConfirm('Bạn có chắc chưa?')
+          .subscribe((result: DialogResult) => {
+            if (result === DialogResult.OK) {
+              this._fuseProgressingBarService.show();
+              const data = {
+                leadId: this.lead._id,
+                reason: res.reason
+              };
+
+              this.leadService.returnLead(data).subscribe((response: any) => {
+                if (response.status === HTTP_CODES.SUCCESS) {
                   setTimeout(() => {
                     this.router.navigate(['/khach-hang-tiem-nang'], {queryParams: {type: LeadType.RETURNING}});
                   }, 200);
-              }
+                } else {
+                 this.dialog.openWarning(response.message);
+                }
+
+                this._fuseProgressingBarService.hide();
+              });
             }
-          )
-          this.subscriptions.push(sub);
-        }
+          });
+
+        this.subscriptions.push(sub1);
       }
     );
     this.subscriptions.push(sub);

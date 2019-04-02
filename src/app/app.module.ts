@@ -17,6 +17,7 @@ import { SampleModule } from 'app/main/sample/sample.module';
 import { ConfirmDialogComponent } from './shared/components/dialog/confirm/confirm-dialog.component';
 import { InfoDialogComponent } from './shared/components/dialog/info/info-dialog.component';
 import { WarningDialogComponent } from './shared/components/dialog/warning/warning-dialog.component';
+import { InputTextareaModule } from './shared/components/input-textarea/input-textarea.module';
 import { MessageService } from './shared/services/message/message.service';
 import { ValidatorService } from './shared/services/validators/validator.service';
 import { AuthModule } from './main/auth/auth.module';
