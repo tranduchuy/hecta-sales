@@ -5,7 +5,6 @@ import { VerticalLayout2Module } from 'app/layout/vertical/layout-2/layout-2.mod
 import { VerticalLayout3Module } from 'app/layout/vertical/layout-3/layout-3.module';
 
 import { HorizontalLayout1Module } from 'app/layout/horizontal/layout-1/layout-1.module';
-import {MessagingService} from '../shared/services/messaging/messaging.service';
 
 @NgModule({
     imports: [
@@ -23,7 +22,7 @@ import {MessagingService} from '../shared/services/messaging/messaging.service';
         HorizontalLayout1Module
     ],
   providers: [
-    MessagingService
+
   ]
 })
 export class LayoutModule

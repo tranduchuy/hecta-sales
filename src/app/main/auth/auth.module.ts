@@ -4,7 +4,15 @@ import { LoginComponent } from './login/login.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '../../../@fuse/shared.module';
 import { RouterModule, Routes } from '@angular/router';
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatGridListModule, MatListModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatGridListModule,
+  MatListModule
+} from '@angular/material';
 import { AuthService } from '../../core/auth/auth.service';
 import { TokenStorage } from '../../core/auth/token-storage.service';
 import { RegisterComponent } from './register/register.component';
@@ -27,9 +35,11 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../user-management/shared/service/user.service';
 
-export function init_app(userService: UserService) {
-  return () => userService.getUserInfoLoggedIn().then(result => {return result});
-}
+export const initApp = (userService: UserService): Function => {
+  return () => userService.getUserInfoLoggedIn().then(result => {
+    return result;
+  });
+};
 
 const routes: Routes = [
   {
@@ -90,8 +100,9 @@ const routes: Routes = [
     ValidatorService,
     MessageService,
     DialogService,
-    { provide: APP_INITIALIZER, useFactory: init_app, deps: [UserService], multi: true }
+    {provide: APP_INITIALIZER, useFactory: initApp, deps: [UserService], multi: true}
   ]
 })
 
-export class AuthModule {}
+export class AuthModule {
+}

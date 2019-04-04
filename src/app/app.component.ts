@@ -32,20 +32,6 @@ export class AppComponent implements OnInit, OnDestroy {
   // Private
   private _unsubscribeAll: Subject<any>;
 
-  /**
-   * Constructor
-   *
-   * @param {DOCUMENT} document
-   * @param {FuseConfigService} _fuseConfigService
-   * @param {FuseNavigationService} _fuseNavigationService
-   * @param {FuseSidebarService} _fuseSidebarService
-   * @param {FuseSplashScreenService} _fuseSplashScreenService
-   * @param {FuseTranslationLoaderService} _fuseTranslationLoaderService
-   * @param {Platform} _platform
-   * @param {TranslateService} _translateService
-   * @param {CookieService} _cookieService
-   * @param {Router} _router
-   */
   constructor(@Inject(DOCUMENT) private document: any,
     private _fuseConfigService: FuseConfigService,
     private _fuseNavigationService: FuseNavigationService,
@@ -55,6 +41,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private _translateService: TranslateService,
     private _platform: Platform,
     private _cookieService: CookieService,
+    private _userService: UserService,
+    private _messagingService: MessagingService,
     private _router: Router) {
     this.initCookie();
 
@@ -184,5 +172,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (!accessToken) {
       this._router.navigate(['auth/login']);
     }
+
+    this._messagingService.joinRoom();
   }
 }

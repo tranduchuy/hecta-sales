@@ -40,13 +40,19 @@ export class RuleAlertLeadService {
   }
 
   getRuleAlertLeadFullDetails(rule: RuleAlertLeadResponse): any {
+    let _project = {};
+
+    if (rule.project) {
+      _project = this.getProjectByCityCodeAndDistrictIdAndProjectId(rule.city, rule.district, rule.project._id);
+    }
+
     return {
       id: rule._id,
       formality: this.getFormalityById(rule.formality) || {},
       type: this.getTypeByFormalityIdAndTypeId(rule.formality, rule.type) || {},
       city: this.getCityByCode(rule.city) || {},
       district: this.getDistrictByCityCodeAndDistrictId(rule.city, rule.district) || {},
-      project: this.getProjectByCityCodeAndDistrictIdAndProjectId(rule.city, rule.district, rule.project._id) || {}
+      project: _project || {}
     };
   }
 
@@ -58,7 +64,7 @@ export class RuleAlertLeadService {
       typeName: ruleFullDetails.type.name,
       cityName: ruleFullDetails.city.name,
       districtName: ruleFullDetails.district.name,
-      projectName: ruleFullDetails.project.name
+      projectName: ruleFullDetails.project ? ruleFullDetails.project.name : ''
     };
   }
 

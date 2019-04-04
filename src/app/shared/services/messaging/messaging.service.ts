@@ -5,9 +5,7 @@ import { UserService } from '../../../main/user-management/shared/service/user.s
 import { SocketEvents } from '../../constants/socket-event';
 import { environment } from '../../../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MessagingService {
   socket = null;
 
@@ -19,10 +17,16 @@ export class MessagingService {
     });
   }
 
-  showNotification(content): void {
-    this.snackBar.open(content.title, 'OK', {
-      duration: 2000
-    });
+  showNotification(content: string): void {
+    try {
+      const _content = JSON.parse(content);
+      console.log(_content);
+      this.snackBar.open(_content.title, 'OK', {
+        duration: 5000
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   joinRoom(): void {

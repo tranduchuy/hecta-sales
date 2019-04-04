@@ -246,7 +246,7 @@ export class AddRuleAlertLeadComponent extends PageBaseComponent implements OnIn
       type: [null, this.validatorService.getInputRequired()],
       city: [null, this.validatorService.getInputRequired()],
       district: [null, this.validatorService.getInputRequired()],
-      project: [null, this.validatorService.getInputRequired()]
+      project: [null]
     });
   }
 

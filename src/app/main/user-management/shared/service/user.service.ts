@@ -5,12 +5,9 @@ import { Observable } from 'rxjs';
 import { URLs } from 'app/shared/constants/url.constant';
 import { UserProfile } from '../model/user-profile';
 import { CookieService } from 'ngx-cookie-service';
-import {HTTP_CODES} from '../../../../shared/constants/http-code.constant';
+import { HTTP_CODES } from '../../../../shared/constants/http-code.constant';
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable()
 export class UserService {
   public userInfo;
 
@@ -59,7 +56,7 @@ export class UserService {
     })
       .toPromise()
       .then(res => {
-        if (res.status === HTTP_CODES.ERROR_AUTHORIZED){
+        if (res.status === HTTP_CODES.ERROR_AUTHORIZED) {
           this._cookieService.deleteAll();
         } else {
           const user = res.data.user;
