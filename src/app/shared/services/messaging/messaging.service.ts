@@ -20,7 +20,6 @@ export class MessagingService {
   showNotification(content: string): void {
     try {
       const _content = JSON.parse(content);
-      console.log(_content);
       this.snackBar.open(_content.title, 'OK', {
         duration: 5000
       });

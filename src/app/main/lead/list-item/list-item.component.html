@@ -1,4 +1,8 @@
 <div class="content">
+  <mat-icon *ngIf="lead.isPrivate === true"
+            [title]="'Lead bí mật, rành riêng cho bạn'"
+            [color]="'blue--fg'"
+            style="position: absolute; right: 5px; font-size: 14px">lock</mat-icon>
   <div class="row">
     <div class="key">Loại:</div>
     <div class="value">{{lead?.type}}</div>
@@ -27,7 +31,7 @@
   </ng-container>
 
   <ng-container *ngIf="leadType !== LEAD_TYPE.NEW">
-    <div class="row">
+    <div class="row" *ngIf="lead.leadPrice">
       <div class="key">Giá:</div>
       <div class="value">{{lead?.leadPrice | currency: 'VND'}}</div>
     </div>
@@ -41,7 +45,7 @@
       <div class="key">Số điện thoại:</div>
       <div class="value">{{lead?.phone}}</div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="lead.email">
       <div class="key">Email:</div>
       <div class="value">{{lead?.email}}</div>
     </div>
