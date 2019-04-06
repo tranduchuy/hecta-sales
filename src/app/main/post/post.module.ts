@@ -17,8 +17,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import {CaptchaModule} from '../../shared/components/captcha/captcha.module';
+import { ListSalePostComponent } from './list-sale-post/list-sale-post.component';
 @NgModule({
-  declarations: [AddEditRentPostComponent],
+  declarations: [AddEditRentPostComponent, ListSalePostComponent],
   imports: [
     CommonModule,
     FormsModule,

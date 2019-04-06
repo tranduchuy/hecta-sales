@@ -171,8 +171,8 @@ export class AppComponent implements OnInit, OnDestroy {
     const accessToken = this._cookieService.get('accessToken');
     if (!accessToken) {
       this._router.navigate(['auth/login']);
+    }else{
+      this._messagingService.joinRoom();
     }
-
-    this._messagingService.joinRoom();
   }
 }
