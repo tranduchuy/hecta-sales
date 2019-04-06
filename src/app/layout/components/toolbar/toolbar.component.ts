@@ -11,6 +11,8 @@ import {FuseSidebarService} from '@fuse/components/sidebar/sidebar.service';
 import {navigation} from 'app/navigation/navigation';
 import {AuthService} from '../../../core/auth/auth.service';
 import {Router, ActivationStart} from '@angular/router';
+import { UserService } from 'app/main/user-management/shared/service/user.service';
+import { environment } from 'environments/environment.hmr';
 
 @Component({
   selector: 'toolbar',
@@ -32,6 +34,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   selectedLanguage: any;
   userStatusOptions: any[];
 
+  userName: any;
+  avatar: string = '';
+
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -48,7 +53,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private _translateService: TranslateService,
     private _authService: AuthService,
     private _router: Router,
-    private _location: Location
+    private _location: Location,
+    private _userService: UserService
   ) {
     // Set the defaults
     this.userStatusOptions = [
@@ -120,6 +126,20 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     //check is child
     this.checkThisRouteIsChild();
+
+    //update toolbar user info
+    this.getUserInfo();
+  }
+
+  getUserInfo(): void
+  {
+    this._userService.userInfo$().subscribe(
+      (res: any) =>
+      {
+        this.userName = res.name;
+        this.avatar = `${environment.staticImageSize}150x150/${res.avatar}`;
+      }
+    )
   }
 
   checkThisRouteIsChild(): void
