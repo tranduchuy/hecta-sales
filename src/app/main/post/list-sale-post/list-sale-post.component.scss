@@ -147,4 +147,28 @@ mat-table {
   width: 550px;
   overflow: auto;
 }
+.mat-column-id {
+  flex: 0 0 100px;
+}
+.mat-column-title {
+  flex: 0 0 300px;
+}
+.mat-column-action {
+  flex: 0 0 200px;
+}
+.mat-column-refesh {
+  flex: 0 0 200px;
+}
+.mat-column-to {
+  flex: 0 0 200px;
+}
+.mat-column-from {
+   flex: 0 0 200px;
+ }
+.mat-column-view {
+  flex: 0 0 100px;
+}
+.mat-column-form {
+  flex: 0 0 200px;
+}
 

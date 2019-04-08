@@ -25,7 +25,9 @@
       <div class="search-wrapper mx-32 mx-md-0">
         <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
           <mat-icon>search</mat-icon>
-          <input #filter placeholder="Search for a product">
+          <mat-form-field>
+          <input matInput #filter placeholder="Tìm kiếm tin đăng">
+          </mat-form-field>
         </div>
       </div>
       <!-- / SEARCH -->
@@ -51,7 +53,7 @@
                  fusePerfectScrollbar>
 
         <!-- ID Column -->
-        <ng-container matColumnDef="id" sticky>
+        <ng-container matColumnDef="id" >
           <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
           <mat-cell *matCellDef="let post">
             <p class="text-truncate">1</p>
@@ -63,12 +65,12 @@
           <mat-cell *matCellDef="let post">
             <div *ngIf="post.paidForm === GlobalConstant.PAID_FORM.VIEW">
               <p>Theo lượt xem</p>
-              <p>{{post.cpv}}</p>
-              <p>{{post.budgetPerDay}}</p>
+              <p>{{post.cpv | number}}đ/view</p>
+              <p>{{post.budgetPerDay | number}}đ/ngày</p>
               <p>{{post.adStatusText}}
                 <button mat-button (click)="updateAdStatus(post)">
-                  <mat-icon *ngIf="post.adStatus === GlobalConstant.AdStatus.PAID_FORM_VIEW_ACTIVE">pause_circle_filled</mat-icon>
-                  <mat-icon *ngIf="post.adStatus === GlobalConstant.AdStatus.PAID_FORM_VIEW_STOP ">play_circle_filled</mat-icon>
+                  <mat-icon *ngIf="post.adStatus === GlobalConstant.AdStatus.PAID_FORM_VIEW_ACTIVE">pause_circle_outline</mat-icon>
+                  <mat-icon *ngIf="post.adStatus === GlobalConstant.AdStatus.PAID_FORM_VIEW_STOP ">play_circle_outline</mat-icon>
                 </button>
               </p>
             </div>
@@ -83,7 +85,7 @@
         <!-- Title Column -->
         <ng-container matColumnDef="title">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Tiêu đề</mat-header-cell>
-          <mat-cell *matCellDef="let post">
+          <mat-cell  *matCellDef="let post">
             <a class="unlink" target="_blank" href="{{environment.hectaEndpoint + post.link}}">
               <img class="avatar-img" [src]="post.image | appStaticImage : GlobalConstant.SizeImage.S82x82" alt="">
               {{post.title}}
@@ -95,7 +97,9 @@
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Hành động</mat-header-cell>
           <mat-cell *matCellDef="let post">
-            <button *ngIf="post.paidForm === GlobalConstant.PAID_FORM.DAY" (click)="upNew(post)" mat-raised-button>Up tin</button>
+            <div class="text-center">
+              <button *ngIf="post.paidForm === GlobalConstant.PAID_FORM.DAY" (click)="upNew(post)" mat-raised-button>Up tin</button>
+            </div>
           </mat-cell>
         </ng-container>
         <!-- Action Column -->
@@ -128,11 +132,11 @@
           </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns; "></mat-header-row>
+        <mat-header-row style="min-width: 1500px" *matHeaderRowDef="displayedColumns; "></mat-header-row>
 
-        <mat-row *matRowDef="let product; columns: displayedColumns;"
+        <mat-row style="min-width: 1500px" *matRowDef="let post; columns: displayedColumns;"
                  class="product"
-                 matRipple>
+                 >
         </mat-row>
 
       </mat-table>
