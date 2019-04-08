@@ -1,3 +1,151 @@
-<p>
-  list-sale-post works!
-</p>
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- HEADER -->
+    <div class="header accent"
+         fxLayout="column" fxLayoutAlign="center center"
+         fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+      <!-- APP TITLE -->
+      <div class="logo mb-24 mb-md-0"
+           fxLayout="row" fxLayoutAlign="start center">
+        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Tin Rao Bán, Cho Thuê
+                </span>
+      </div>
+      <!-- / APP TITLE -->
+
+      <!-- SEARCH -->
+      <div class="search-wrapper mx-32 mx-md-0">
+        <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon>search</mat-icon>
+          <input #filter placeholder="Search for a product">
+        </div>
+      </div>
+      <!-- / SEARCH -->
+
+      <!-- ADD BUTTON -->
+      <button mat-raised-button
+              [routerLink]="'/post/post-buy-article'"
+              class="add-product-button fuse-white mt-24 mt-md-0">
+        <span>Thêm tin mới</span>
+      </button>
+      <!-- / ADD BUTTON -->
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card  mat-elevation-z8">
+
+      <mat-table class="products-table"
+                 #table [dataSource]="posts"
+                 matSort
+                 [@animateStagger]="{value:'50'}"
+                 fusePerfectScrollbar>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id" sticky>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+          <mat-cell *matCellDef="let post">
+            <p class="text-truncate">1</p>
+          </mat-cell>
+        </ng-container>
+        <!-- ID Column -->
+        <ng-container matColumnDef="form">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Mã tin</mat-header-cell>
+          <mat-cell *matCellDef="let post">
+            <div *ngIf="post.paidForm === GlobalConstant.PAID_FORM.VIEW">
+              <p>Theo lượt xem</p>
+              <p>{{post.cpv}}</p>
+              <p>{{post.budgetPerDay}}</p>
+              <p>{{post.adStatusText}}
+                <button mat-button (click)="updateAdStatus(post)">
+                  <mat-icon *ngIf="post.adStatus === GlobalConstant.AdStatus.PAID_FORM_VIEW_ACTIVE">pause_circle_filled</mat-icon>
+                  <mat-icon *ngIf="post.adStatus === GlobalConstant.AdStatus.PAID_FORM_VIEW_STOP ">play_circle_filled</mat-icon>
+                </button>
+              </p>
+            </div>
+            <div *ngIf="post.paidForm === GlobalConstant.PAID_FORM.DAY">
+              <p>{{post.priorityText}}</p>
+              <p>{{post.statusText}}</p>
+              <p>{{post.status}}</p>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Title Column -->
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Tiêu đề</mat-header-cell>
+          <mat-cell *matCellDef="let post">
+            <a class="unlink" target="_blank" href="{{environment.hectaEndpoint + post.link}}">
+              <img class="avatar-img" [src]="post.image | appStaticImage : GlobalConstant.SizeImage.S82x82" alt="">
+              {{post.title}}
+            </a>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Hành động</mat-header-cell>
+          <mat-cell *matCellDef="let post">
+            <button *ngIf="post.paidForm === GlobalConstant.PAID_FORM.DAY" (click)="upNew(post)" mat-raised-button>Up tin</button>
+          </mat-cell>
+        </ng-container>
+        <!-- Action Column -->
+        <ng-container matColumnDef="viewCount">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Lượt xem</mat-header-cell>
+          <mat-cell *matCellDef="let post">
+            <p>{{post.viewCount}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Refesh Column -->
+        <ng-container matColumnDef="refresh">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày Up tin</mat-header-cell>
+          <mat-cell *matCellDef="let post">
+            <p>{{post.refresh | date:"dd-MM-yyyy"}}</p>
+          </mat-cell>
+        </ng-container>
+        <!-- From Column -->
+        <ng-container matColumnDef="from">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày bắt đầu</mat-header-cell>
+          <mat-cell *matCellDef="let post">
+            <p>{{post.from | date:"dd-MM-yyyy"}}</p>
+          </mat-cell>
+        </ng-container>
+        <!-- To Column -->
+        <ng-container matColumnDef="to" >
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày kết thúc</mat-header-cell>
+          <mat-cell *matCellDef="let post">
+            <p>{{post.to | date:"dd-MM-yyyy"}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; "></mat-header-row>
+
+        <mat-row *matRowDef="let product; columns: displayedColumns;"
+                 class="product"
+                 matRipple>
+        </mat-row>
+
+      </mat-table>
+
+      <mat-paginator #paginator
+                     [length]="total"
+                     [pageIndex]="0"
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+    </div>
+    <!-- / CONTENT CARD -->
+  </div>
+  <!-- / CENTER -->
+</div>

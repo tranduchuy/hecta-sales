@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   hmr: false,
   apiEndpoint: 'https://api.hecta.vn',
+  hectaEndpoint: 'https://hecta.vn',
   serverImage: 'https://static.hecta.vn/',
   staticImageSize: 'https://static.hecta.vn/images/using/',
   staticImageDemo: 'https://static.hecta.vn/images/temps/demo/',

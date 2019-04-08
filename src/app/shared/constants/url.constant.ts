@@ -11,10 +11,14 @@ export namespace URLs {
   export const UPDATE = environment.apiEndpoint + '/api/v1/users/update';
   export const CHECK = environment.apiEndpoint + '/api/v1/users/check';
   export const INBOX = environment.apiEndpoint + '/api/v1/notifies';
+  export const updateAdStatus = environment.apiEndpoint + '/api/v1/sales/updateAdStatus/{id}';
+  export const upNew = environment.apiEndpoint + '/api/v1/sales/upnew/{id}';
   export namespace Post {
     export const postDetail = environment.apiEndpoint + '/api/v1/posts/detail/';
     export const createBuy = environment.apiEndpoint + '/api/v1/buys/add';
     export const updateBuy = environment.apiEndpoint + '/api/v1/buys/update/{id}';
+    export const listPost = environment.apiEndpoint + '/api/v1/posts/list';
+
   }
   export const USER = environment.apiEndpoint + '/api/v1/users/info';
   export const IMAGE_UPLOAD = environment.apiStatic + '/images';
