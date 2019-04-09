@@ -26,7 +26,7 @@
         <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
           <mat-icon>search</mat-icon>
           <mat-form-field>
-          <input matInput #filter placeholder="Tìm kiếm tin đăng">
+            <input matInput #filter placeholder="Tìm kiếm tin đăng">
           </mat-form-field>
         </div>
       </div>
@@ -44,7 +44,7 @@
     <!-- / HEADER -->
 
     <!-- CONTENT CARD -->
-    <div class="content-card  mat-elevation-z8">
+    <div class="content-card content  mat-elevation-z8">
 
       <mat-table class="products-table"
                  #table [dataSource]="posts"
@@ -55,20 +55,20 @@
         <!-- ID Column -->
         <ng-container matColumnDef="id" >
           <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-          <mat-cell *matCellDef="let post">
-            <p class="text-truncate">1</p>
+          <mat-cell *matCellDef="let post; let i = index;">
+            <p class="text-truncate">{{((query.page - 1)*20) + i + 1}}</p>
           </mat-cell>
         </ng-container>
         <!-- ID Column -->
         <ng-container matColumnDef="form">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Mã tin</mat-header-cell>
-          <mat-cell *matCellDef="let post">
+          <mat-cell *matCellDef="let post; let i = index">
             <div *ngIf="post.paidForm === GlobalConstant.PAID_FORM.VIEW">
               <p>Theo lượt xem</p>
               <p>{{post.cpv | number}}đ/view</p>
               <p>{{post.budgetPerDay | number}}đ/ngày</p>
               <p>{{post.adStatusText}}
-                <button mat-button (click)="updateAdStatus(post)">
+                <button mat-button (click)="updateAdStatus(post, i)">
                   <mat-icon *ngIf="post.adStatus === GlobalConstant.AdStatus.PAID_FORM_VIEW_ACTIVE">pause_circle_outline</mat-icon>
                   <mat-icon *ngIf="post.adStatus === GlobalConstant.AdStatus.PAID_FORM_VIEW_STOP ">play_circle_outline</mat-icon>
                 </button>
@@ -96,9 +96,9 @@
         <!-- Action Column -->
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Hành động</mat-header-cell>
-          <mat-cell *matCellDef="let post">
-            <div class="text-center">
-              <button *ngIf="post.paidForm === GlobalConstant.PAID_FORM.DAY" (click)="upNew(post)" mat-raised-button>Up tin</button>
+          <mat-cell *matCellDef="let post; let i = index;">
+            <div class="action">
+              <button *ngIf="post.paidForm === GlobalConstant.PAID_FORM.DAY" (click)="upNew(post, i)" mat-raised-button>Up tin</button>
             </div>
           </mat-cell>
         </ng-container>
@@ -132,9 +132,9 @@
           </mat-cell>
         </ng-container>
 
-        <mat-header-row style="min-width: 1500px" *matHeaderRowDef="displayedColumns; "></mat-header-row>
+        <mat-header-row style="min-width: 1400px" *matHeaderRowDef="displayedColumns; "></mat-header-row>
 
-        <mat-row style="min-width: 1500px" *matRowDef="let post; columns: displayedColumns;"
+        <mat-row style="min-width: 1400px" *matRowDef="let post; columns: displayedColumns;let i = index;"
                  class="product"
                  >
         </mat-row>
@@ -142,10 +142,9 @@
       </mat-table>
 
       <mat-paginator #paginator
-                     [length]="total"
-                     [pageIndex]="0"
-                     [pageSize]="10"
-                     [pageSizeOptions]="[5, 10, 25, 100]">
+                     [length]="total * 20"
+                     [pageSize]="20"
+                     (page)="onChangedPage($event)">
       </mat-paginator>
 
     </div>
