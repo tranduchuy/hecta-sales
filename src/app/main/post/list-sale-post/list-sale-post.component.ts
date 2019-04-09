@@ -96,7 +96,6 @@ export class ListSalePostComponent extends PageBaseComponent implements AfterCon
     this._fuseProgressingBarService.show();
     const sub = this.listSalePostService.getList(this.query)
       .subscribe((res: any) => {
-        console.log(res);
         if (res.status === HTTP_CODES.SUCCESS) {
           this.mapItems(res.data.items);
           this.total = res.data.items.length;
@@ -114,7 +113,6 @@ export class ListSalePostComponent extends PageBaseComponent implements AfterCon
       const _item = this.helperService.mapFullInfoForPostForProfile(item);
       return _item;
     });
-    console.log(this.posts);
   }
 
   private upNew(item, index) {
