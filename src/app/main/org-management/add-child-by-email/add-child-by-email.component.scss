@@ -1,0 +1,32 @@
+@import "src/@fuse/scss/fuse";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 16px;
+  border-radius: 4px;
+  width: 100%;
+  @include mat-elevation(1);
+  background: #fff;
+
+  .row {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: row;
+
+    .key {
+      flex-basis: calc(30%);
+      text-align: left;
+      color: #777;
+    }
+
+    .value {
+      flex-basis: calc(70%);
+      text-align: left;
+      font-weight: bold;
+    }
+  }
+}

@@ -43,6 +43,10 @@ const appRoutes: Routes = [
     loadChildren: './main/messages/messages.module#MessagesModule'
   },
   {
+    path: 'quan-ly-tai-khoan-doanh-nghiep',
+    loadChildren: './main/org-management/org-management.module#OrgManagementModule'
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },

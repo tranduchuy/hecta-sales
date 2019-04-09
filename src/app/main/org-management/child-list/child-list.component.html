@@ -1,0 +1,101 @@
+<div fxLayout="column" fxFlexAlign="center" fxFlexFill>
+
+  <div fxFlexAlign="center">
+    <h2>Danh sách tài khoản con</h2>
+  </div>
+
+  <form novalidate [formGroup]="form" *ngIf="form">
+    <div fxLayout="column">
+      <app-input-text [title]="'Email'"
+                      [formControlName]="'email'">
+      </app-input-text>
+      <div fxFlexAlign="center">
+        <button mat-raised-button
+                color="primary"
+                (click)="onClickBtnSearch()"
+                [disabled]="form.invalid">Tìm kiếm
+        </button>
+      </div>
+    </div>
+  </form>
+
+
+  <div *ngIf="childList.length === 0 && !searchedChild"
+       style="margin-top: 20px;"
+       fxFlexAlign="center">Chưa có dữ liệu</div>
+
+  <div class="content" *ngIf="searchedChild">
+    <div class="row">
+      <div class="key">Tên đăng nhập</div>
+      <div class="value">{{searchedChild.username}}</div>
+    </div>
+    <div class="row">
+      <div class="key">Tên</div>
+      <div class="value">{{searchedChild.name}}</div>
+    </div>
+    <div class="row">
+      <div class="key">Email</div>
+      <div class="value">{{searchedChild.email}}</div>
+    </div>
+    <div fxFlexAlign="end">
+      <button mat-raised-button (click)="onClickBtnDelete(searchedChild.id)">
+        <span>Xóa</span>
+      </button>
+    </div>
+  </div>
+
+  <!--<div fxShow.lt-md fxShow="false" *ngIf="childList.length > 0">-->
+  <div *ngIf="childList.length > 0">
+    <div class="content" *ngFor="let child of childList">
+      <div class="row">
+        <div class="key">Tên đăng nhập</div>
+        <div class="value">{{child.username}}</div>
+      </div>
+      <div class="row">
+        <div class="key">Tên</div>
+        <div class="value">{{child.name}}</div>
+      </div>
+      <div class="row">
+        <div class="key">Email</div>
+        <div class="value">{{child.email}}</div>
+      </div>
+
+      <div class="row">
+        <div class="key">Đã chuyển</div>
+        <div class="value">{{child.balance.credit | currency : 'VND'}}</div>
+      </div>
+      <div class="row">
+        <div class="key">Đã dùng</div>
+        <div class="value">{{child.balance.creditUsed | currency: 'VND'}}</div>
+      </div>
+
+      <div class="row">
+        <div class="key">Xác nhận</div>
+        <div class="value">{{child.status | childStatus}}</div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end">
+        <div>
+          <button mat-icon-button [matMenuTriggerFor]="card22Menu" aria-label="more">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #card22Menu="matMenu">
+            <button mat-menu-item>
+              <span>Lịch sử giao dịch</span>
+            </button>
+            <button mat-menu-item>
+              <span>Danh sách tin rao</span>
+            </button>
+            <button mat-menu-item (click)="onClickBtnTransfer(child.id)">
+              <span>Chuyển tiền</span>
+            </button>
+            <button mat-menu-item (click)="onClickBtnDelete(child.id)">
+              <span>Xóa</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

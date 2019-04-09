@@ -221,7 +221,7 @@ export const navigation: FuseNavigation[] = [
         type: 'item',
         icon: '',
         exactMatch: true,
-        url: '/home'
+        url: '/quan-ly-tai-khoan-doanh-nghiep'
       },
       {
         id: 'recharge-account',
