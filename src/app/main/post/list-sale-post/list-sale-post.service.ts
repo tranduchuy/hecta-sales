@@ -67,13 +67,21 @@ export class ListSalePostService implements Resolve<any>
     }
 
   upNew(id: any): Observable<any> {
-      const url =  URLs.upNew.replace('{id}', id);
+      const url =  URLs.Sale.upNew.replace('{id}', id);
       console.log(url);
     return this._httpClient.post(url, {id: id});
   }
 
   updateAdStatus(id: any, status: any): Observable<any> {
-    const url =  URLs.updateAdStatus.replace('{id}', id);
+    const url =  URLs.Sale.updateAdStatus.replace('{id}', id);
     return this._httpClient.post(url, {id: id, adStatus: status});
+  }
+  updateCPV(id: any, cpv: any): Observable<any> {
+    const url =  URLs.Sale.updateCPV.replace('{id}', id);
+    return this._httpClient.post(url, {id: id, cpv: cpv});
+  }
+  updateBudgetPerDay(id: any, budgetPerDay: any): Observable<any> {
+    const url =  URLs.Sale.updateBudgetPerDay.replace('{id}', id);
+    return this._httpClient.post(url, {id: id, budgetPerDay: budgetPerDay});
   }
 }

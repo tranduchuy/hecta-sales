@@ -127,6 +127,44 @@ export class ListSalePostComponent extends PageBaseComponent implements AfterCon
     this.subscriptions.push(sub);
   }
 
+  private updateAdStatus(item, index) {
+    const position = index + 1 + ((this.query.page - 1) * 20);
+    const status = item.adStatus === this.GlobalConstant.AdStatus.PAID_FORM_VIEW_ACTIVE ? 'Kích hoạt' : 'Tạm dừng';
+    const message = 'Bạn có chắc chắn muốn ' + status + ' Tin đăng số: ' + position;
+    const sub = this.dialog.openConfirm(message)
+      .subscribe(value =>{
+        if (value === 0){
+          this.sendRequestUpdateAdStatus(item);
+        }
+      });
+    this.subscriptions.push(sub);
+  }
+
+  private updateBudgetPerDay(item, index) {
+    const position = index + 1 + ((this.query.page - 1) * 20);
+    const message = 'Ngân sách mỗi ngày đ/ngày cho Tin đăng số: ' + position;
+    const sub = this.dialog.openNumber(message, item.budgetPerDay)
+      .subscribe((res:any) =>{
+        if(res.result === 0){
+          this.sendRequestUpdateBudgetPerDay(item, res.value);
+        }
+      });
+    this.subscriptions.push(sub);
+  }
+
+  private upCpv(item, index) {
+    const position = index + 1 + ((this.query.page - 1) * 20);
+    const message = 'Giá thầu đ/ngày cho Tin đăng số: ' + position;
+    const sub = this.dialog.openNumber(message, item.cpv)
+      .subscribe((res:any) => {
+          if (res.result === 0) {
+            this.sendRequestUpdateCPV(item, res.value);
+          }
+        }
+        );
+    this.subscriptions.push(sub);
+  }
+
   private sendRequestUpdateAdStatus(item){
     const status = item.adStatus === this.GlobalConstant.AdStatus.PAID_FORM_VIEW_ACTIVE ? this.GlobalConstant.AdStatus.PAID_FORM_VIEW_STOP : this.GlobalConstant.AdStatus.PAID_FORM_VIEW_ACTIVE;
     this._fuseProgressingBarService.show();
@@ -158,15 +196,32 @@ export class ListSalePostComponent extends PageBaseComponent implements AfterCon
     this.subscriptions.push(sub);
   }
 
-  private updateAdStatus(item, index) {
-    const position = index + 1 + ((this.query.page - 1) * 20);
-    const status = item.adStatus === this.GlobalConstant.AdStatus.PAID_FORM_VIEW_ACTIVE ? 'Kích hoạt' : 'Tạm dừng';
-    const message = 'Bạn có chắc chắn muốn ' + status + ' Tạm dừng Tin đăng số: ' + position;
-    const sub = this.dialog.openConfirm(message)
-      .subscribe(value =>{
-        if (value === 0){
-          this.sendRequestUpdateAdStatus(item);
+  private sendRequestUpdateBudgetPerDay(item, budgetPerDay){
+    this._fuseProgressingBarService.show();
+    const sub = this.listSalePostService.updateBudgetPerDay(item.id, budgetPerDay)
+      .subscribe((res: any) => {
+        if (res.status === HTTP_CODES.SUCCESS) {
+          this.dialog.openInfo(res.message).subscribe().unsubscribe();
+          this.loadPosts();
+        } else {
+          this.dialog.openWarning(res.message).subscribe().unsubscribe();
         }
+        this._fuseProgressingBarService.hide();
+      });
+    this.subscriptions.push(sub);
+  }
+
+  private sendRequestUpdateCPV(item, cpv){
+    this._fuseProgressingBarService.show();
+    const sub = this.listSalePostService.updateCPV(item.id, cpv)
+      .subscribe((res: any) => {
+        if (res.status === HTTP_CODES.SUCCESS) {
+          this.dialog.openInfo(res.message).subscribe().unsubscribe();
+          this.loadPosts();
+        } else {
+          this.dialog.openWarning(res.message).subscribe().unsubscribe();
+        }
+        this._fuseProgressingBarService.hide();
       });
     this.subscriptions.push(sub);
   }

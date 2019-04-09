@@ -65,8 +65,16 @@
           <mat-cell *matCellDef="let post; let i = index">
             <div *ngIf="post.paidForm === GlobalConstant.PAID_FORM.VIEW">
               <p>Theo lượt xem</p>
-              <p>{{post.cpv | number}}đ/view</p>
-              <p>{{post.budgetPerDay | number}}đ/ngày</p>
+              <p>{{post.cpv | number}}đ/view
+                <button mat-button (click)="upCpv(post, i)">
+                  <mat-icon>create</mat-icon>
+                </button>
+              </p>
+              <p>{{post.budgetPerDay | number}}đ/ngày
+                <button mat-button (click)="updateBudgetPerDay(post, i)">
+                  <mat-icon>create</mat-icon>
+                </button>
+              </p>
               <p>{{post.adStatusText}}
                 <button mat-button (click)="updateAdStatus(post, i)">
                   <mat-icon *ngIf="post.adStatus === GlobalConstant.AdStatus.PAID_FORM_VIEW_ACTIVE">pause_circle_outline</mat-icon>
