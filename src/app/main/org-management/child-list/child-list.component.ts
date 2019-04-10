@@ -7,6 +7,8 @@ import { PageBaseComponent } from '../../../shared/components/base/page-base.com
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ValidatorService } from '../../../shared/services/validators/validator.service';
 import { FuseProgressBarService } from '../../../../@fuse/components/progress-bar/progress-bar.service';
+import { Router } from '@angular/router';
+import { ChildStatus } from '../shared/child-status';
 
 @Component({
   selector: 'app-child-list',
@@ -18,11 +20,13 @@ export class ChildListComponent extends PageBaseComponent implements OnInit {
   childList: ChildResponse[] = [];
   form: FormGroup;
   searchedChild: ChildResponse;
+  CHILD_STATUS = ChildStatus;
 
   constructor(private orgService: OrgManagementService,
               private fb: FormBuilder,
               private validator: ValidatorService,
               private fuseProgressBarService: FuseProgressBarService,
+              private router: Router,
               private dialog: DialogService) {
     super();
     this.initForm();
@@ -44,7 +48,7 @@ export class ChildListComponent extends PageBaseComponent implements OnInit {
   }
 
   onClickBtnTransfer(id: number): void {
-
+    this.router.navigate(['/quan-ly-tai-khoan-doanh-nghiep/chuyen-khoan', id]);
   }
 
   onClickBtnDelete(id: number): void {

@@ -20,7 +20,7 @@ export class OrgManagementService {
   }
 
   addExistedChild(id: number): Observable<any> {
-    return this._http.post(URLs.OrgManagement.AddExisedChild + '/' + id, {});
+    return this._http.post(URLs.OrgManagement.AddExistedChild + '/' + id, {});
   }
 
   searchChildByEmail(email: string): Observable<any> {
@@ -30,4 +30,13 @@ export class OrgManagementService {
   deleteChildById(id: number): Observable<any> {
     return this._http.post(URLs.OrgManagement.DeleteChild + '/' + id, {});
   }
+
+  getChildDetails(id: number): Observable<any> {
+    return this._http.get(URLs.OrgManagement.ChildDetails + '/' + id);
+  }
+
+  transfer(id: number, data: { amount: number, note: string }): Observable<any> {
+    return this._http.post(URLs.OrgManagement.TransferMoney + '/' + id, data);
+  }
+
 }

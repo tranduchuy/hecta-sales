@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { ChildStatus } from '../child-status';
 
 @Pipe({
   name: 'childStatus'
@@ -7,11 +8,11 @@ export class ChildStatusPipe implements PipeTransform {
 
   transform(type: any): string {
     switch (type) {
-      case 8:
+      case ChildStatus.ACCEPTED:
         return 'Accepted';
-      case 9:
+      case ChildStatus.WAITING:
         return 'Waiting';
-      case 10:
+      case ChildStatus.REJECTED:
         return 'Rejected';
       default:
         break;

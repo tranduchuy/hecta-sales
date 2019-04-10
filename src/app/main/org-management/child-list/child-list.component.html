@@ -22,7 +22,8 @@
 
   <div *ngIf="childList.length === 0 && !searchedChild"
        style="margin-top: 20px;"
-       fxFlexAlign="center">Chưa có dữ liệu</div>
+       fxFlexAlign="center">Chưa có dữ liệu
+  </div>
 
   <div class="content" *ngIf="searchedChild">
     <div class="row">
@@ -38,8 +39,9 @@
       <div class="value">{{searchedChild.email}}</div>
     </div>
     <div fxFlexAlign="end">
-      <button mat-raised-button (click)="onClickBtnDelete(searchedChild.id)">
-        <span>Xóa</span>
+      <button mat-raised-button
+              (click)="onClickBtnDelete(searchedChild.id)"
+              color="warn">Xóa
       </button>
     </div>
   </div>
@@ -81,15 +83,17 @@
           </button>
 
           <mat-menu #card22Menu="matMenu">
-            <button mat-menu-item>
-              <span>Lịch sử giao dịch</span>
-            </button>
-            <button mat-menu-item>
-              <span>Danh sách tin rao</span>
-            </button>
-            <button mat-menu-item (click)="onClickBtnTransfer(child.id)">
-              <span>Chuyển tiền</span>
-            </button>
+            <ng-container *ngIf="child.status === CHILD_STATUS.ACCEPTED">
+              <button mat-menu-item>
+                <span>Lịch sử giao dịch</span>
+              </button>
+              <button mat-menu-item>
+                <span>Danh sách tin rao</span>
+              </button>
+              <button mat-menu-item (click)="onClickBtnTransfer(child.id)">
+                <span>Chuyển tiền</span>
+              </button>
+            </ng-container>
             <button mat-menu-item (click)="onClickBtnDelete(child.id)">
               <span>Xóa</span>
             </button>

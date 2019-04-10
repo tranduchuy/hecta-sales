@@ -1,13 +1,44 @@
 <div fxLayout="column" fxFlexFill fxFlexAlign="center">
   <h2 fxFlexAlign="center">Chuyển tiền cho tài khoản khác</h2>
 
-  <div>
-    <span>Thông tin người nhận</span>
+  <div class="content">
+    <h3>Thông tin người nhận</h3>
+    <div class="row">
+      <div class="key">Email:</div>
+      <div class="value">{{childDetails?.email}}</div>
+    </div>
+    <div class="row">
+      <div class="key">Username:</div>
+      <div class="value">{{childDetails?.username}}</div>
+    </div>
+    <div class="row">
+      <div class="key">Name:</div>
+      <div class="value">{{childDetails?.name}}</div>
+    </div>
 
-    <span>Thông tin tài khoản của bạn</span>
+    <h3>Thông tin tài khoản của bạn</h3>
+    <div class="row">
+      <div class="key">Tài khoản chính:</div>
+      <div class="value">{{currentUser?.balance?.main2 | currency: 'VND'}}</div>
+    </div>
+    <div class="row">
+      <div class="key">Tài khoản khuyến mãi:</div>
+      <div class="value">{{currentUser?.balance?.promo | currency : 'VND'}}</div>
+    </div>
 
-    <span>Số tiền cần chuyển</span>
-
+    <h3>Số tiền cần chuyển</h3>
+    <form novalidate *ngIf="form" [formGroup]="form">
+      <div fxLayout="column">
+        <app-input-number [title]="'Số tiền'"
+                          [formControlName]="'amount'"
+                          [errors]="getErrorMessagesFromControlName(form,'amount')">
+        </app-input-number>
+        <div>Số tiền cẩn chuyển >= 1,000 VND</div>
+        <div fxFlexAlign="center">
+          <button mat-raised-button color="accent" (click)="onClickBtnTransfer()">Chuyển</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 

@@ -34,8 +34,9 @@ export namespace URLs {
   export namespace OrgManagement {
     export const ChildList = `${environment.apiEndpoint}/api/v1/users/children`;
     export const FindByEmail = `${environment.apiEndpoint}/api/v1/users/find`;
+    export const ChildDetails = `${environment.apiEndpoint}/api/v1/users/child/detail`;
     export const AddNewChild = `${environment.apiEndpoint}/api/v1/users/child/register`;
-    export const AddExisedChild = `${environment.apiEndpoint}/api/v1/users/child/request`;
+    export const AddExistedChild = `${environment.apiEndpoint}/api/v1/users/child/request`;
     export const TransferMoney = `${environment.apiEndpoint}/api/v1/users/child/credit/share`;
     export const DeleteChild = `${environment.apiEndpoint}/api/v1/users/child/remove`;
   }

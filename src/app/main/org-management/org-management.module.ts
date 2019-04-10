@@ -12,7 +12,7 @@ import { MoneyTransferComponent } from './money-transfer/money-transfer.componen
 import { OrgManagementService } from './shared/service/org-management-service';
 import { ChildStatusPipe } from './shared/pipe/child-status.pipe';
 import { InputTextModule } from '../../shared/components/input-text/input-text.module';
-import { ChildItemComponent } from './child-item/child-item.component';
+import { InputNumberModule } from '../../shared/components/input-number/input-number.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +21,7 @@ import { ChildItemComponent } from './child-item/child-item.component';
     AddChildByEmailComponent,
     DashboardComponent,
     MoneyTransferComponent,
-    ChildStatusPipe,
-    ChildItemComponent
+    ChildStatusPipe
   ],
   imports: [
     CommonModule,
@@ -33,6 +32,7 @@ import { ChildItemComponent } from './child-item/child-item.component';
     MatButtonModule,
     MatMenuModule,
     InputTextModule,
+    InputNumberModule,
     MatFormFieldModule
   ],
   exports: [
