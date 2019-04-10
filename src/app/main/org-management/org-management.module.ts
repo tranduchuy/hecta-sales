@@ -13,6 +13,10 @@ import { OrgManagementService } from './shared/service/org-management-service';
 import { ChildStatusPipe } from './shared/pipe/child-status.pipe';
 import { InputTextModule } from '../../shared/components/input-text/input-text.module';
 import { InputNumberModule } from '../../shared/components/input-number/input-number.module';
+import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
+import { InputPasswordModule } from '../../shared/components/input-password/input-password.module';
+import { RadioGroupModule } from '../../shared/components/radio-group/radio-group.module';
+import { ComboBoxModule } from '../../shared/components/combo-box/combo-box.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import { InputNumberModule } from '../../shared/components/input-number/input-nu
     MatMenuModule,
     InputTextModule,
     InputNumberModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    DatePickerModule,
+    InputPasswordModule,
+    RadioGroupModule,
+    ComboBoxModule
   ],
   exports: [
     ChildStatusPipe
