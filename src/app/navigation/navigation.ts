@@ -16,7 +16,7 @@ export const componentList: FuseNavigation[] = [
 export const navigation: FuseNavigation[] = [
   {
     id: 'main-account-1',
-    title: 'Tài khoản chính 1',
+    title: 'TK chính 1',
     translate: 'MAIN_ACCOUNT_1.TITLE',
     type: 'item',
     icon: 'label',
@@ -29,7 +29,7 @@ export const navigation: FuseNavigation[] = [
   },
   {
     id: 'main-account-2',
-    title: 'Tài khoản chính 2',
+    title: 'TK chính 2',
     translate: 'MAIN_ACCOUNT_2.TITLE',
     type: 'item',
     icon: 'label',
@@ -42,7 +42,7 @@ export const navigation: FuseNavigation[] = [
   },
   {
     id: 'promotion-account',
-    title: 'Tài khoản khuyến mãi',
+    title: 'TK khuyến mãi',
     translate: 'PROMOTION_ACCOUNT.TITLE',
     type: 'item',
     icon: 'label',
@@ -55,7 +55,7 @@ export const navigation: FuseNavigation[] = [
   },
   {
     id: 'credit-account',
-    title: 'Tài khoản tín dụng',
+    title: 'TK tín dụng',
     translate: 'CREDIT_ACCOUNT.TITLE',
     type: 'item',
     icon: 'label',
