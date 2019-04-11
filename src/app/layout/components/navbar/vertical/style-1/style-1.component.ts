@@ -7,6 +7,8 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
+import { UserService } from 'app/main/user-management/shared/service/user.service';
+import { environment } from 'environments/environment.hmr';
 
 @Component({
     selector     : 'navbar-vertical-style-1',
@@ -18,6 +20,9 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
 {
     fuseConfig: any;
     navigation: any;
+
+    user: any;
+    url: string = '';
 
     // Private
     private _fusePerfectScrollbar: FusePerfectScrollbarDirective;
@@ -35,7 +40,8 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
-        private _router: Router
+        private _router: Router,
+        private _userService: UserService
     )
     {
         // Set the private defaults
@@ -128,6 +134,8 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
             .subscribe(() => {
                 this.navigation = this._fuseNavigationService.getCurrentNavigation();
             });
+
+        this.getUserInfo();
     }
 
     /**
@@ -138,6 +146,16 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
+    }
+
+    getUserInfo(): void
+    {
+        this._userService.userInfo$().subscribe(
+            res=>{
+                this.user = res;
+                this.url = `${environment.staticImageSize}150x150/${res.avatar}`;
+            }
+        )
     }
 
     // -----------------------------------------------------------------------------------------------------

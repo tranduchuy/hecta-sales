@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, isDevMode } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, DecimalPipe } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
@@ -17,12 +17,13 @@ import { locale as localeVN } from 'app/locale/vi';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenStorage } from './core/auth/token-storage.service';
 import { UserService } from './main/user-management/shared/service/user.service';
-import {MessagingService} from './shared/services/messaging/messaging.service';
+import { MessagingService } from './shared/services/messaging/messaging.service';
+
 
 @Component({
   selector: 'app',
   templateUrl: './app.component.html',
-  providers: [TranslateService],
+  providers: [TranslateService, DecimalPipe],
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -43,7 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private _cookieService: CookieService,
     private _userService: UserService,
     private _messagingService: MessagingService,
-    private _router: Router) {
+    private _router: Router,
+    private _decimalPipe: DecimalPipe) {
     this.initCookie();
 
     // Get default navigation
@@ -143,6 +145,43 @@ export class AppComponent implements OnInit, OnDestroy {
 
         this.document.body.classList.add(this.fuseConfig.colorTheme);
       });
+
+    //update navigation
+    this.updateNavigation();
+  }
+
+  updateNavigation() {
+
+    let data;
+    this._userService.userInfo$()
+      .subscribe((res: any)=>{
+        data = res.balance;
+      });
+
+    // Update the badge title
+    this._fuseNavigationService.updateNavigationItem('main-account-1', {
+      badge: {
+        title: this._decimalPipe.transform(data.main1,'.0-2')+'đ'
+      }
+    });
+
+    this._fuseNavigationService.updateNavigationItem('main-account-2', {
+      badge: {
+        title: this._decimalPipe.transform(data.main2,'.0-2')+'đ'
+      }
+    });
+
+    this._fuseNavigationService.updateNavigationItem('promotion-account', {
+      badge: {
+        title: this._decimalPipe.transform(data.promo,'.0-2')+'đ'
+      }
+    });
+
+    this._fuseNavigationService.updateNavigationItem('credit-account', {
+      badge: {
+        title: this._decimalPipe.transform(data.sharedCredit,'.0-2')+'đ'
+      }
+    });
   }
 
   /**
@@ -171,8 +210,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const accessToken = this._cookieService.get('accessToken');
     if (!accessToken) {
       this._router.navigate(['auth/login']);
-    }else{
-      this._messagingService.joinRoom();
+      return;
     }
   }
 }
