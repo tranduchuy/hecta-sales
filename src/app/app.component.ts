@@ -153,10 +153,11 @@ export class AppComponent implements OnInit, OnDestroy {
   updateNavigation() {
 
     let data;
-    this._userService.userInfo$()
-      .subscribe((res: any)=>{
+    this._userService.userInfo$().subscribe((res: any | null) => {
+      if (res) {
         data = res.balance;
-      });
+      }
+    });
 
     // Update the badge title
     this._fuseNavigationService.updateNavigationItem('main-account-1', {
