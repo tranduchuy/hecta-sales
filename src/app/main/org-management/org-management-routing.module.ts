@@ -5,33 +5,40 @@ import { AddChildComponent } from './add-child/add-child.component';
 import { AddChildByEmailComponent } from './add-child-by-email/add-child-by-email.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MoneyTransferComponent } from './money-transfer/money-transfer.component';
+import { OrgManagementGuard } from '../../shared/services/guard/org-management.guard';
 
 const routes: Routes = [
   {
     path: 'danh-sach',
-    component: ChildListComponent
+    component: ChildListComponent,
+    canActivate: [OrgManagementGuard]
   },
   {
     path: 'them-tai-khoan-con',
-    component: AddChildComponent
+    component: AddChildComponent,
+    canActivate: [OrgManagementGuard]
   },
   {
     path: 'them-tai-khoan-con-co-san',
-    component: AddChildByEmailComponent
+    component: AddChildByEmailComponent,
+    canActivate: [OrgManagementGuard]
   },
   {
     path: 'chuyen-khoan/:id',
-    component: MoneyTransferComponent
+    component: MoneyTransferComponent,
+    canActivate: [OrgManagementGuard]
   },
   {
     path: '',
     pathMatch: 'full',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [OrgManagementGuard]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [OrgManagementGuard]
 })
 export class OrgManagementRoutingModule {}
