@@ -26,8 +26,9 @@ import {
 import {HelperService} from '../../shared/services/helper.service';
 import {AppStaticImageModule} from '../../shared/pipes/app-static-image-pipe/app-static-image.module';
 import {DialogService} from '../../shared/components/dialog/dialog.service';
+import { AddEditSalePostComponent } from './add-edit-sale-post/add-edit-sale-post.component';
 @NgModule({
-  declarations: [AddEditRentPostComponent, ListSalePostComponent],
+  declarations: [AddEditRentPostComponent, ListSalePostComponent, AddEditSalePostComponent],
   imports: [
     CommonModule,
     FormsModule,
