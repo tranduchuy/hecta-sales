@@ -53,13 +53,6 @@ export class AddChildComponent extends PageBaseComponent implements OnInit {
     super();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
     this._fuseProgressBarService.show();
     this.form = this._fb.group({
@@ -80,13 +73,6 @@ export class AddChildComponent extends PageBaseComponent implements OnInit {
       birth: ['', [this._validatorService.getInputRequired()]]
     });
 
-    // const sub = this.form.valueChanges
-    //   .pipe(distinctUntilChanged())
-    //   .subscribe((value: any) => {
-    //     console.log('form value', value);
-    //   });
-    //
-    // this.subscriptions.push(sub);
     this._fuseProgressBarService.hide();
 
   }
@@ -114,8 +100,7 @@ export class AddChildComponent extends PageBaseComponent implements OnInit {
         this.subscriptions.push(subDialog);
       } else {
         this.isSuccess = false;
-        const subDialog = this._dialog.openWarning(res.message).subscribe().unsubscribe();
-        this.subscriptions.push(subDialog);
+        this._dialog.openWarning(res.message).subscribe().unsubscribe();
       }
       this._fuseProgressBarService.hide();
     }, err => {
