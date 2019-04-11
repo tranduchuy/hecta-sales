@@ -150,12 +150,12 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
 
     getUserInfo(): void
     {
-        this._userService.userInfo$().subscribe(
-            res=>{
-                this.user = res;
-                this.url = `${environment.staticImageSize}150x150/${res.avatar}`;
-            }
-        )
+      this._userService.userInfo$().subscribe((res: any | null) => {
+        if (res) {
+          this.user = res;
+          this.url = `${environment.staticImageSize}150x150/${res.avatar}`;
+        }
+      });
     }
 
     // -----------------------------------------------------------------------------------------------------

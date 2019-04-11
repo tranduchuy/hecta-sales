@@ -134,10 +134,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   getUserInfo(): void
   {
     this._userService.userInfo$().subscribe(
-      (res: any) =>
+      (res: any | null) =>
       {
-        this.userName = res.name;
-        this.avatar = `${environment.staticImageSize}150x150/${res.avatar}`;
+        if (res) {
+          this.userName = res.name;
+          this.avatar = `${environment.staticImageSize}150x150/${res.avatar}`;
+        }
       }
     )
   }
@@ -163,7 +165,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleBack(): void 
+  toggleBack(): void
   {
     this._location.back();
   }
