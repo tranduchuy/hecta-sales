@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import result from '../../shared/constants/selector.constant';
 import { General } from 'app/shared/constants/general.constant';
 import {StatusCd2Nm} from '../constants/status';
+import directions from '../constants/direction.constant';
 
 @Injectable()
 export class HelperService {
@@ -12,6 +13,16 @@ export class HelperService {
   getCityByCode(cd: string): any {
     return this.CityListOther1.find(city => {
       return city.code === cd;
+    });
+  }
+
+  getDirectionsByValue(value: number | string): any {
+    if (this.isUndefinedOrNull(value)) {
+      return null;
+    }
+
+    return directions.find(d => {
+      return d.value.toString() === value.toString();
     });
   }
 

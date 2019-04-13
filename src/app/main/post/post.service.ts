@@ -12,9 +12,19 @@ export class PostService {
   createBuy(data: any): Observable<any> {
     return this._http.post(URLs.Post.createBuy, data);
   }
+  createSale(data: any): Observable<any> {
+    return this._http.post(URLs.Sale.createSale, data);
+  }
+  getVipTypes(): Observable<any> {
+    return this._http.get(URLs.vipTypeList);
+  }
 
   updateBuyInfo(id: string, data: any): Observable<any> {
     const url = URLs.Post.updateBuy.replace('{id}', id);
+    return this._http.post(url, data);
+  }
+  updateSaleInfo(id: string, data: any): Observable<any> {
+    const url = URLs.Sale.updatePostSale.replace('{id}', id);
     return this._http.post(url, data);
   }
   getDetail(params): Observable<any> {

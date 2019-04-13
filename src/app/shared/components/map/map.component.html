@@ -1,0 +1,13 @@
+<agm-map style="height: 400px"
+         [zoom]="16"
+         [latitude]="_location.latitude"
+         [longitude]="_location.longitude">
+  <agm-marker [latitude]="_location.latitude"
+              [longitude]="_location.longitude"
+              [markerDraggable]="true"
+              (dragEnd)="markerDragEnd($event)">
+    <agm-info-window [isOpen]="true">
+      <div [innerHTML]="windowInfo"></div>
+    </agm-info-window>
+  </agm-marker>
+</agm-map>

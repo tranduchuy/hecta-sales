@@ -168,7 +168,7 @@ export const navigation: FuseNavigation[] = [
         translate: 'POST_SALE_ARTICLE.TITLE',
         type: 'item',
         icon: '',
-        url: '/sample'
+        url: '/post/post-sale-article'
       },
       {
         id: 'buy-article-management',

@@ -27,6 +27,8 @@ import {HelperService} from '../../shared/services/helper.service';
 import {AppStaticImageModule} from '../../shared/pipes/app-static-image-pipe/app-static-image.module';
 import {DialogService} from '../../shared/components/dialog/dialog.service';
 import { AddEditSalePostComponent } from './add-edit-sale-post/add-edit-sale-post.component';
+import {MapModule} from '../../shared/components/map/map.module';
+import {RadioGroupModule} from '../../shared/components/radio-group/radio-group.module';
 @NgModule({
   declarations: [AddEditRentPostComponent, ListSalePostComponent, AddEditSalePostComponent],
   imports: [
@@ -61,7 +63,9 @@ import { AddEditSalePostComponent } from './add-edit-sale-post/add-edit-sale-pos
     MatChipsModule,
     FuseSharedModule,
     FuseWidgetModule,
-    AppStaticImageModule
+    AppStaticImageModule,
+    RadioGroupModule,
+    MapModule
   ],
   providers: [
     HelperService,

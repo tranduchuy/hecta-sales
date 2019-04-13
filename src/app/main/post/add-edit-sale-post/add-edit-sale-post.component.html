@@ -1,3 +1,634 @@
-<p>
-  add-edit-sale-post works!
-</p>
+<div class="clearfix"></div>
+
+
+<!--Post info-->
+<form [formGroup]="form" novalidate>
+
+  <div class="selling-land-wrapper rent-land">
+    <div class="post-title">
+      <h1>ĐĂNG TIN RAO RAO BÁN, CHO THUÊ NHÀ ĐẤT</h1>
+      <div class="color-gray">(Quý vị nhập thông tin nhà đất cần bán hoặc cho thuê vào các mục dưới đây)</div>
+    </div>
+    <nav mat-tab-nav-bar class="dang-tin-rao-tab">
+      <a mat-tab-link routerLink="/post/post-rent-article" title="Cần bán/Cho thuê">
+        Cần bán/Cho thuê
+      </a>
+
+      <a mat-tab-link class="active" routerLink="/post/post-sale-article" title="Cần mua/Cần thuê">
+        Cần mua/Cần thuê
+      </a>
+    </nav>
+    <mat-divider></mat-divider>
+    <div class="form-wrapper">
+      <div class="form-header">
+        <h2>Thông tin cơ bản</h2>
+      </div>
+      <div class="form-content">
+        <div class="row-post">
+          <label class="header-create-form">Tiêu đề </label>(<span class="color-red">*</span>)
+        </div>
+        <div class="row-post">
+          <div class="input" style="position: relative">
+            <app-input-text [formControlName]="'title'"
+                            (mouseOver)="basicForm.showTitleTooltip = true"
+                            (mouseLeave)="basicForm.showTitleTooltip = false"
+                            (valueChanged)="onTitleChanged($event)"
+                            [errors]="getMessageErrors('title')"
+            ></app-input-text>
+            <span class="count-length"
+                  [class.string-red]="basicForm.titleLengthRemind > 68 || basicForm.titleLengthRemind < 0"
+                  style="position: absolute; top: 0; right: 0" >
+              {{basicForm.titleLengthRemind}}
+            </span>
+            <div class="helper-message" style="display: block" *ngIf="basicForm.showTitleTooltip">
+              <img src="assets/images/arrow.png" alt="">Vui lòng nhập tiêu đề tin đăng của bạn. Tối thiểu là 30 ký tự và
+              tối đa là 99 ký tự.
+            </div>
+          </div>
+        </div>
+        <div class="row-post mar-bottom-10">
+          <div>Bạn chỉ chọn được thông tin Phường/Xã, Đường/Phố hay Dự án khi chọn 1 Quận/Huyện. Trường hợp bạn chọn nhiều Quận/Huyện thì không được chọn các tiêu chí còn lại.</div>
+        </div>
+        <mat-grid-list [rowHeight]="'125'"  cols="2" >
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Hình thức(<span class="color-red">*</span>)</label>
+              </div>
+              <app-select-text [itemsSource]="itemsSource.forms"
+                               [displayPath]="'text'"
+                               [valuePath]="'value'"
+                               [title]="'--Chọn hình thức--'"
+                               [formControlName]="'formality'"
+                               [errors]="getMessageErrors('formality')"
+                               (valueChanged)="onSelectForm($event.value)"></app-select-text>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Loại(<span class="color-red">*</span>)</label>
+              </div>
+              <app-select-text [itemsSource]="itemsSource.categories"
+                               [displayPath]="'text'"
+                               [valuePath]="'value'"
+                               [title]="'--Chọn loại--'"
+                               [formControlName]="'type'"
+                               [errors]="getMessageErrors('type')"></app-select-text>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [rowHeight]="'125'"  cols="2" >
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Tỉnh/Thành phố(<span class="color-red">*</span>)</label>
+              </div>
+              <app-select-text [title]="'--Chọn tỉnh/thành phố--'"
+                               [isDisabled]="false"
+                               [itemsSource]="itemsSource.cityOrProvinces"
+                               [displayPath]="'text'"
+                               [valuePath]="'value'"
+                               [errors]="getMessageErrors('city')"
+                               (valueChanged)="onChangedCity($event.value)"
+                               [formControlName]="'city'"></app-select-text>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Quận/Huyện(<span class="color-red">*</span>)</label>
+              </div>
+              <app-select-text [itemsSource]="itemsSource.districts"
+                               [displayPath]="'text'"
+                               [valuePath]="'value'"
+                               [title]="'--Chọn quận / huyện--'"
+                               [formControlName]="'district'"
+                               [errors]="getMessageErrors('district')"
+                               (valueChanged)="onChangedDistrict($event.value)"></app-select-text>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [rowHeight]="'125'"  cols="2" >
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Phường/Xã</label>
+              </div>
+              <app-select-text [itemsSource]="itemsSource.wards"
+                               [displayPath]="'text'"
+                               [valuePath]="'value'"
+                               [title]="'--Chọn phường / xã--'"
+                               [formControlName]="'ward'"
+                               [errors]="getMessageErrors('ward')"
+                               (valueChanged)="onChangedWard()"></app-select-text>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Đường/Phố</label>
+              </div>
+              <app-select-text [itemsSource]="itemsSource.streets"
+                               [displayPath]="'text'"
+                               [valuePath]="'value'"
+                               [title]="'--Chọn đường--'"
+                               [formControlName]="'ward'"
+                               [errors]="getMessageErrors('street')"
+                               (valueChanged)="onChangedStreet()"></app-select-text>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [rowHeight]="'150'"  cols="2" >
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Dự án</label>
+              </div>
+              <app-select-text [itemsSource]="itemsSource.projects"
+                               [displayPath]="'text'"
+                               [valuePath]="'value'"
+                               [title]="'--Chọn dự án--'"
+                               [formControlName]="'project'"
+                               [errors]="getMessageErrors('project')"
+                               (valueChanged)="onChangedProject()"></app-select-text>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Diện tích</label>
+              </div>
+              <app-input-number [formControlName]="'area'"
+                                [errors]="getErrorMessages(form, 'area')"
+              ></app-input-number>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [rowHeight]="'150'"  cols="2" >
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Giá</label>
+              </div>
+              <app-input-number (valueChanged)="onPriceChanged($event)"
+                                [errors]="getMessageErrors('price')"
+                                [isDisabled]="basicForm.priceIsDisabled"
+                                [formControlName]="'price'"></app-input-number>
+              </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Đơn vị</label>
+              </div>
+              <app-select-text [itemsSource]="itemsSource.units"
+                          [formControlName]="'unit'"
+                          [displayPath]="'text'"
+                          [valuePath]="'value'"
+                          [title]="'--Chọn đơn vị--'"
+                          (valueChanged)="onSelectUnitPrice($event)"
+                          [errors]="getErrorMessages(form, 'unit')"></app-select-text>
+
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <div class="row-post">
+          <div class="label-title">
+            <label>Tổng giá tiền:</label>
+          </div>
+          <div class="color-red txttotalprice">
+            {{basicForm.totalValue}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="label-title">
+            <label>Địa chỉ:(<span class="color-red">*</span>)</label>
+          </div>
+          <div class="input-3">
+            <app-input-text [formControlName]="'address'"
+                            [errors]="getMessageErrors('address')"
+            ></app-input-text>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="form-wrapper">
+      <div class="form-header">
+        <h2>THÔNG TIN MÔ TẢ</h2>
+      </div>
+      <div class="form-content">
+        <div class="row-post">
+          <label class="header-create-form">Nội dung tin đăng</label>(<span class="color-red">*</span>) tối đa chỉ 3000 ký tự
+        </div>
+        <div class="row-post">
+          <app-input-textarea [formControlName]="'description'"
+                              (valueChanged)="onDescriptionChanged($event)"
+                              [errors]="getMessageErrors('description')"></app-input-textarea>
+
+          <span class="txtDescription_count"
+                style="float: left;margin-left: 10px;"
+                [class.string-red]="basicForm.descriptionLengthRemind > 2969 || basicForm.descriptionLengthRemind < 0" >
+            {{basicForm.descriptionLengthRemind}}
+          </span>
+
+          <div class="txt-descripton">
+
+            <img src="assets/images/arrow.png" alt="">Giới thiệu chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí
+            thuận lợi: Gần công viên, gần trường học ...
+            Tổng diện tích 52m2, đường đi ô tô vào tận cửa.
+            <div class="color-red">Lưu ý: tin rao chỉ để mệnh giá tiền Việt Nam Đồng.</div>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row-post">
+          <label class="header-create-form">Từ khóa cho tin đăng </label>
+        </div>
+        <div class="row-post">
+          <div class="input" style="position: relative">
+            <app-input-text [formControlName]="'keywordList'"
+                            (valueChanged)="onKeywordChanged($event)"
+                            [errors]="getErrorMessages(form,'keywordList')"
+            ></app-input-text>
+            <div class="txt-descripton">
+              <img src="assets/images/arrow.png" alt="">
+              Nhập từ khóa cho tin đăng của bạn, mỗi từ khóa cách nhau bằng dấu "," .
+            </div>
+            <span class="count-length">
+              Bạn đã nhập: <b>{{basicForm.keywordRemind}}</b> từ khóa.
+              <!--TODO show list từ khóa đã nhập-->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="form-wrapper">
+      <div class="form-header">
+        <h2>THÔNG TIN KHÁC</h2>
+      </div>
+      <div class="form-content">
+        <mat-grid-list [rowHeight]="'125'"  cols="2" >
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Mặt tiền (m)</label>
+              </div>
+              <app-input-number [formControlName]="'frontSize'"
+                              [errors]="getMessageErrors('frontSize')"></app-input-number>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Đường vào (m)</label>
+              </div>
+              <app-input-number [formControlName]="'streetWidth'"
+                              [errors]="getMessageErrors('streetWidth')"></app-input-number>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [rowHeight]="'125'"  cols="2">
+        <mat-grid-tile>
+          <div class="input input-2">
+            <div>
+              <label>Hướng nhà</label>
+            </div>
+            <app-select-text [itemsSource]="itemsSource.directions"
+                             [displayPath]="'text'"
+                             [valuePath]="'value'"
+                             [title]="'--Chọn hướng--'"
+                             [formControlName]="'direction'"
+                             [errors]="getMessageErrors('direction')"></app-select-text>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="input input-2">
+            <div>
+              <label>Hướng ban công</label>
+            </div>
+            <app-select-text [itemsSource]="itemsSource.directions"
+                             [displayPath]="'text'"
+                             [valuePath]="'value'"
+                             [title]="'--Chọn hướng--'"
+                             [errors]="getMessageErrors('balconyDirection')"
+                             [formControlName]="'balconyDirection'"></app-select-text>
+          </div>
+        </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [rowHeight]="'125'"  cols="2" >
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Số phòng ngủ</label>
+              </div>
+              <app-input-text [formControlName]="'bedroomCount'"
+                              [errors]="getMessageErrors('bedroomCount')"></app-input-text>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Số toilet</label>
+              </div>
+              <app-input-text [formControlName]="'toiletCount'"
+                               [errors]="getMessageErrors('toiletCount')"></app-input-text>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [rowHeight]="'125'"  cols="2" >
+          <mat-grid-tile>
+            <div class="input input-2">
+              <div>
+                <label>Số tầng</label>
+              </div>
+              <app-input-text [formControlName]="'floorCount'"
+                              [errors]="getMessageErrors('floorCount')"></app-input-text>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <div>
+          <div class="input input-2">
+            <div>
+              <label>Nội thất</label>
+            </div>
+            <app-input-textarea [formControlName]="'furniture'"
+                               [errors]="getMessageErrors('furniture')"></app-input-textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="form-wrapper post-product">
+      <div class="form-header">
+        <h2>Hình ảnh và video</h2>
+      </div>
+      <div class="form-content">
+        <div class="row-post">
+          <div class="text-desc">
+            <p>Tối đa 8 ảnh với tin thường và 16 với tin VIP. Mỗi ảnh tối đa 2MB</p>
+            <p>Tin rao có trên 5 ảnh sẽ được liên hệ nhiều hơn so với các tin khác. Hãy đăng nhiều ảnh để giao dịch
+              nhanh chóng!
+            </p>
+          </div>
+          <app-image-uploader [formControlName]="'images'"
+          ></app-image-uploader>
+
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="form-wrapper map-info">
+      <div class="form-header">
+        <h2>Bản đồ</h2>
+      </div>
+      <div class="form-content">
+        <div class="row-post product-map">
+          <div class="map-notify">Để tăng độ tin cậy và tin rao được nhiều người quan tâm hơn, hãy sửa vị trí tin rao
+            của bạn trên bản đồ bằng cách
+            kéo icon
+            <img src="../assets/images/map-icon-detail.png" width="14">tới đúng vị trí của tin rao.
+          </div>
+          <app-map [address]="'157 D2, binh thanh'" (valueChanged)="googleAddress=$event"></app-map>
+          <div class="map-notify">Có thể dữ liệu bản đồ không chính xác. Vì vậy nếu có bất kỳ sai xót nào xin bạn hãy
+            báo cho chúng tôi để khắc phục
+            kịp thời.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="form-wrapper">
+      <div class="form-header">
+        <h2>Liên hệ</h2>
+      </div>
+      <div class="form-content">
+        <div class="row">
+          <div class="label-title">
+            <label>Tên liên hệ:</label>
+          </div>
+          <div class="input input-2">
+            <app-input-text [formControlName]="'contactName'"
+                            [errors]="getMessageErrors('contactName')"
+            ></app-input-text>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label-title">
+            <label>Địa chỉ:</label>
+          </div>
+          <div class="input input-2">
+            <app-input-text [formControlName]="'contactAddress'"
+                            [errors]="getMessageErrors('contactAddress')"
+            ></app-input-text>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label-title">
+            <label>Điện thoại:</label>
+          </div>
+          <div class="input input-4">
+            <app-input-number [formControlName]="'contactPhone'"
+                              [errors]="getMessageErrors('contactPhone')"
+            ></app-input-number>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label-title">
+            <label>Di động: (<span class="color-red">*</span>)</label>
+          </div>
+          <div class="input input-4">
+            <app-input-number [formControlName]="'contactMobile'"
+                              [errors]="getMessageErrors('contactMobile')"
+            ></app-input-number>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label-title">
+            <label>Email:</label>
+          </div>
+          <div class="input input-4">
+            <app-input-text [formControlName]="'contactEmail'"
+                            [errors]="getMessageErrors('contactEmail')"
+            ></app-input-text>
+          </div>
+          <app-checkbox-group [formControlName]="'receiveMail'"
+                              [itemsSource]="itemsSource.receiveMail"
+                              [displayPath]="'text'"
+                              [valuePath]="'value'"
+          ></app-checkbox-group>
+        </div>
+      </div>
+    </div>
+    <div class="form-wrapper">
+      <div class="form-header">
+        <h2>Lịch đăng tin</h2>
+      </div>
+      <div class="form-content product-vipconfig">
+        <div class="row-post">
+          <label><strong>Hình thức</strong></label>
+          <div style="padding-right: 40px; margin-top: 5px;">
+            <app-radio-group [formControlName]="'paidForm'"
+                             [displayPath]="'text'"
+                             [valuePath]="'value'"
+                             (valueChange)="onPaidFormChange($event.value)"
+                             [itemsSource]="itemsSource.paidForm">
+            </app-radio-group>
+          </div>
+        </div>
+        <div *ngIf="showPaidForm === GlobalConstant.PAID_FORM.DAY">
+          <div class="row-post">
+            <div class="item-pro-vip">
+              <label>Loại tin rao</label>
+              <div class="dp-inline" style="width: 200px;">
+                <app-select-text [itemsSource]="itemsSource.infoTypes"
+                            [formControlName]="'priority'"
+                                 [displayPath]="'text'"
+                                 [valuePath]="'value'"
+                            [errors]="getMessageErrors('priority')"
+                            (valueChanged)="onPublishTypeChanged($event)"></app-select-text>
+              </div>
+              <div class="product-unitprice">
+                <label>Đơn giá: </label>
+                <span>{{publishInfoScheduleForm.unitValue.text | number : '1.0-0'}} đ / ngày</span>
+              </div>
+            </div>
+            <div class="item-pro-vip">
+              <label>Ngày bắt đầu</label>
+              <div class="dp-inline" style="width: 200px;">
+                <app-date-picker [formControlName]="'from'"
+                                 [errors]="getMessageErrors('from')"
+                                 [minDay]="minDateFor.startDate"
+                                 (valueChange)="onPublishStartDateChanged($event)"
+                                 [id]="'from'"></app-date-picker>
+              </div>
+              <div class="product-totaldate">
+                <label>Số ngày: </label>
+                <span>{{publishInfoScheduleForm.dateRange}} ngày</span>
+              </div>
+            </div>
+            <div class="item-pro-vip">
+              <label>Ngày kết thúc</label>
+              <div class="dp-inline" style="width: 200px;">
+                <app-date-picker [formControlName]="'to'"
+                                 [errors]="getMessageErrors('to')"
+                                 [minDay]="minDateFor.endDate"
+                                 [id]="'to'"
+                                 (valueChange)="onPublishEndDateChanged($event)"></app-date-picker>
+              </div>
+            </div>
+          </div>
+          <div class="row-post mar-top-10">
+            <div class="vip-cofig-info-explain" [innerHTML]="publishInfoScheduleForm.unitValue.description">
+            </div>
+          </div>
+          <div class="row-post">
+            <div class="product-vipnotice">
+              <img alt="vip icon" src="../assets/images/vip-icon.jpg">
+              <div>
+                Quý khách nên chọn đăng tin Vip để có hiệu quả cao hơn, ví dụ: tin Vip1 có lượt xem trung bình cao hơn
+                <strong>20 lần</strong> so với tin thường
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showPaidForm === GlobalConstant.PAID_FORM.VIEW">
+          <div class="row-post">
+            <div class="item-pro-vip">
+              <label>Giá thầu trên mỗi lượt xem (đ/lượt xem)</label>
+              <div class="dp-inline input input-4" style="width: 200px;">
+                <app-input-number [formControlName]="'cpv'"
+                                  [errors]="getMessageErrors('cpv')"
+                ></app-input-number>
+              </div>
+            </div>
+            <div class="item-pro-vip">
+              <label>Ngân sách mỗi ngày (đ/ngày) </label>
+              <div class="dp-inline input input-4" style="width: 200px;">
+                <app-input-number [formControlName]="'budgetPerDay'"
+                                  [errors]="getMessageErrors('budgetPerDay')"
+                ></app-input-number>
+              </div>
+            </div>
+            <div class="item-pro-vip">
+              <label>Ngày bắt đầu</label>
+              <div class="dp-inline" style="width: 200px;">
+                <app-date-picker [formControlName]="'fromPaidFormView'"
+                                 [errors]="getMessageErrors('fromPaidFormView')"
+                                 [id]="'fromPaidFormView'"></app-date-picker>
+              </div>
+            </div>
+          </div>
+          <div class="row-post mar-top-10">
+            <div class="vip-cofig-info-explain">
+              <strong>Trả theo lượt xem tin</strong>: Là loại tin đăng tiêu đề bằng chữ <font color="#FF6600"><strong>IN HOA MÀU CAM</strong></font>, khung <font color="#FF6600"><strong>màu cam</strong></font>, hiển thị ở 3 vị trí cuối các trang tìm kiếm tin đăng.
+            </div>
+          </div>
+          <div class="row-post">
+            <div class="product-vipnotice">
+              <img alt="vip icon" src="../assets/images/vip-icon.jpg">
+              <div>
+                Quý khách nên đặt giá thầu trên mỗi lượt xem cao hơn để có hiệu quả tối đa.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-wrapper" *ngIf="showPaidForm == GlobalConstant.PAID_FORM.DAY">
+      <div class="form-header">
+        <h2>Thành tiền</h2>
+      </div>
+      <div class="form-content product-cost">
+        <div class="table-price clearfix">
+          <div class="left-price">
+            <div class="width-50">
+              <div class="head">Phí đăng tin</div>
+              <div class="price price-old">
+                {{totalPrice.before}}
+              </div>
+            </div>
+            <div class="width-50">
+              <div class="head">VAT(10%)</div>
+              <div class="price price-vat">
+                {{totalPrice.vat}}
+              </div>
+            </div>
+          </div>
+          <div class="right-price">
+            <div class="head">Thành tiền</div>
+            <div class="price price-total">
+              {{totalPrice.after}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-wrapper">
+      <div style="display: inline-block;">
+        <app-captcha (catchToken)="onCatchTokenCaptcha($event)"
+        ></app-captcha>
+      </div>
+      <div class="error-message color-red" *ngIf="basicForm.errorSubmit" >Có thông tin bị lỗi. bạn cần hoàn thành hết các nội dung cần thiết.</div>
+      <div class="center">
+        <app-button
+          (triggerClick)="onClickBtnSubmit()"
+          [color]="'primary'"
+          [title]="onFlowEdit ? 'Lưu lại' : 'Đăng tin'"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+
+</form>
+<!--End post info-->
+
+<div class="clearfix"></div>
