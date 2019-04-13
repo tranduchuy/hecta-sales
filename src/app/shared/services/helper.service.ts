@@ -132,7 +132,7 @@ export class HelperService {
     result.link = '/chi-tiet-bds/' + item.url;
     result.priority = result.priority ? result.priority : null;
     result.postId = item.postId ? item.postId : '';
-
+    result.id = item.id ? item.id : '';
     //get priority
     result.priorityText = result.priority ? General.PriorityList.find(p => {return p.id === item.priority}).name : '';
 

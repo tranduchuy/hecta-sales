@@ -113,6 +113,7 @@ export class ListSalePostComponent extends PageBaseComponent implements AfterCon
       const _item = this.helperService.mapFullInfoForPostForProfile(item);
       return _item;
     });
+    console.log(this.posts);
   }
 
   private upNew(item, index) {

@@ -98,6 +98,10 @@
               <img class="avatar-img" [src]="post.image | appStaticImage : GlobalConstant.SizeImage.S82x82" alt="">
               {{post.title}}
             </a>
+            <button mat-button [routerLink]="['/post/post-sale-article-modify']"
+                    [queryParams]="{id: post.id}">
+              <mat-icon>create</mat-icon>
+            </button>
           </mat-cell>
         </ng-container>
 
