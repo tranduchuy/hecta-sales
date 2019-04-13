@@ -583,6 +583,7 @@ export class AddEditSalePostComponent extends  EditableFormBaseComponent impleme
 
     this.showPaidForm = params.paidForm;
 
+
     // get formality
     const _objFormality = this.helperService.getFormilitySaleByValue(params.formality);
     if (_objFormality) {
@@ -590,6 +591,8 @@ export class AddEditSalePostComponent extends  EditableFormBaseComponent impleme
         text: _objFormality.name,
         value: _objFormality.id
       };
+
+      this.initItemsSourceForm();
 
       const _objType = this.helperService.getTypeByValue(_objFormality, params.type);
       if (_objType) {
@@ -657,22 +660,26 @@ export class AddEditSalePostComponent extends  EditableFormBaseComponent impleme
     const _objCity = this.helperService.getCityByCode(data.city);
     if (_objCity) {
       setTimeout(() => {
-        this.form.controls.city.setValue({
+        const city = {
           text: _objCity.name,
           value: _objCity.code
-        });
+        };
+        this.form.controls.city.setValue(city);
+        this.onChangedCity(city);
       }, 50);
 
       const _objDistrict = this.helperService.getDistrictByValue(_objCity, data.district);
       if (_objDistrict) {
         setTimeout(() => {
-          this.form.controls.district.setValue({
+          const district = {
             text: _objDistrict.name,
             value: _objDistrict.id
-          });
+          };
+          this.form.controls.district.setValue(district);
+          this.onChangedDistrict(district);
 
           setTimeout(() => {
-            const _objWard = this.helperService.getWardByValue(_objDistrict, data.ward);
+            const _objWard = this.helperService.getWardByValue(_objDistrict, data.ward || '');
             if (_objWard) {
               this.form.controls.ward.setValue({
                 text: _objWard.name,
@@ -680,21 +687,19 @@ export class AddEditSalePostComponent extends  EditableFormBaseComponent impleme
               });
             }
 
-            const _objStreet = this.helperService.getStreetByValue(_objDistrict, data.street);
+            const _objStreet = this.helperService.getStreetByValue(_objDistrict, data.street || '');
             if (_objStreet) {
-              this.form.controls.street.setValue(
-
-                {
+              this.form.controls.street.setValue({
                 text: _objStreet.name,
                 value: _objStreet.id
               });
             }
 
-            const _objProject = this.helperService.getProjectByValue(_objDistrict, data.project);
+            const _objProject = this.helperService.getProjectByValue(_objDistrict, data.project || '');
             if (_objProject) {
               this.form.controls.project.setValue({
                 text: _objProject.name,
-                value: _objProject._id
+                value: _objProject.id
               });
             }
           }, 100);
