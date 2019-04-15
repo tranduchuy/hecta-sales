@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import result from '../../shared/constants/selector.constant';
+import { General } from 'app/shared/constants/general.constant';
+import {StatusCd2Nm} from '../constants/status';
+import directions from '../constants/direction.constant';
 
 @Injectable()
 export class HelperService {
@@ -10,6 +13,16 @@ export class HelperService {
   getCityByCode(cd: string): any {
     return this.CityListOther1.find(city => {
       return city.code === cd;
+    });
+  }
+
+  getDirectionsByValue(value: number | string): any {
+    if (this.isUndefinedOrNull(value)) {
+      return null;
+    }
+
+    return directions.find(d => {
+      return d.value.toString() === value.toString();
     });
   }
 
@@ -109,4 +122,70 @@ export class HelperService {
     }
     return title;
   }
+
+  mapFullInfoForPostForProfile(item: any) {
+    let result = item;
+
+    result.refresh = item.refresh ? new Date(item.refresh) : '';
+    result.from = item.refresh ? new Date(item.from) : '';
+    result.to = item.refresh ? new Date(item.to) : '';
+    result.link = '/chi-tiet-bds/' + item.url;
+    result.priority = result.priority ? result.priority : null;
+    result.postId = item.postId ? item.postId : '';
+    result.id = item.id ? item.id : '';
+    //get priority
+    result.priorityText = result.priority ? General.PriorityList.find(p => {return p.id === item.priority}).name : '';
+
+    result.status = StatusCd2Nm(result.status);
+    result.adStatusText = StatusCd2Nm(result.adStatus);
+
+    if(result.to.getTime() - new Date().getTime() > 0) result.statusText = 'Còn hạn';
+    else result.statusText = 'Hết hạn';
+
+    // image: get first link or use default link
+    if (item.images && item.images.length > 0) {
+      result.image = item.images[0];
+    } else {
+      result.image = 'assets/images/thumb-1.jpg';
+    }
+
+    return result;
+  }
+  mapFullInfoForPost(item: any) {
+    const result = {
+      address: item.address || '',
+      date: item.date ? new Date(item.date) : new Date(),
+      type: (item.priority || '').toString(),
+      title: item.title || '',
+      content: item.description || '',
+      price: item.price || '',
+      image: '',
+      link: '',
+      area: item.area || '',
+      unit: ''
+    };
+
+    // find unit
+    const formality = this.getFormilitySaleByValue(item.formality);
+    if (formality) {
+      const unit = item.unit ? this.getUnitByValue(formality, item.unit) : null;
+      result.unit = unit ? unit.name : '';
+    }
+
+    // find city
+    const city = this.getCityByCode(item.city);
+    if (city) {
+      // TODO: maybe need to show info city, district, ward
+    }
+
+    // image: get first link or use default link
+    if (item.images && item.images.length > 0) {
+      result.image = item.images[0];
+    } else {
+      result.image = 'assets/images/thumb-1.jpg';
+    }
+
+    return result;
+  }
+
 }

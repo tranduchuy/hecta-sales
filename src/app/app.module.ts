@@ -35,6 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ServiceLocator } from './shared/services/service-locator';
 import { environment } from '../environments/environment';
 import { TextDialogComponent } from './shared/components/dialog/text/text-dialog.component';
+import {NumberDialogComponent} from './shared/components/dialog/number/number-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,12 +44,14 @@ import { TextDialogComponent } from './shared/components/dialog/text/text-dialog
     WarningDialogComponent,
     ConfirmDialogComponent,
     TextDialogComponent,
+    NumberDialogComponent
   ],
   entryComponents: [
     InfoDialogComponent,
     WarningDialogComponent,
     ConfirmDialogComponent,
-    TextDialogComponent
+    TextDialogComponent,
+    NumberDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -40,6 +40,7 @@ export class DatePickerComponent extends BaseComponent implements OnInit, Contro
   @Input() minDay: Date;
   @Input() maxDay: Date;
 
+
   @Input()
   set value(val: Date | null) {
     this.inputDate = val;
@@ -74,6 +75,7 @@ export class DatePickerComponent extends BaseComponent implements OnInit, Contro
     this.writeValue(newDate);
     this.onModelTouched();
     this.onModelChange(newDate);
+    this.valueChange.emit(this.inputDate);
   }
 
   onLostFocus(): void {

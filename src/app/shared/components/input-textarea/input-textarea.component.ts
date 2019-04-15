@@ -3,6 +3,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ControlValueAccessor } from '@angular/forms/src/directives/control_value_accessor';
 import {MatLabel} from '@angular/material';
 import {InputTextBaseComponent} from '../base/input-base.component';
+import {BaseComponent} from '../base/base.componen';
 
 @Component({
   selector: 'app-input-textarea',
@@ -17,7 +18,7 @@ import {InputTextBaseComponent} from '../base/input-base.component';
   ]
 })
 
-export class InputTextareaComponent extends InputTextBaseComponent implements ControlValueAccessor {
+export class InputTextareaComponent extends BaseComponent implements ControlValueAccessor {
   innerValue = '';
 
   @Input()

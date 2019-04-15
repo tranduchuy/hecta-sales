@@ -14,11 +14,23 @@ import {InputNumberModule} from '../../shared/components/input-number/input-numb
 import {ButtonModule} from '../../shared/components/button/button.module';
 import {MatDividerModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
-
-import {MatTabsModule} from '@angular/material/tabs';
+import { FuseSharedModule } from '@fuse/shared.module';
+import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 import {CaptchaModule} from '../../shared/components/captcha/captcha.module';
+import { ListSalePostComponent } from './list-sale-post/list-sale-post.component';
+import {
+  MatButtonModule, MatChipsModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, MatPaginatorModule, MatRippleModule, MatSelectModule, MatSnackBarModule,
+  MatSortModule,
+  MatTableModule, MatTabsModule
+} from '@angular/material';
+import {HelperService} from '../../shared/services/helper.service';
+import {AppStaticImageModule} from '../../shared/pipes/app-static-image-pipe/app-static-image.module';
+import {DialogService} from '../../shared/components/dialog/dialog.service';
+import { AddEditSalePostComponent } from './add-edit-sale-post/add-edit-sale-post.component';
+import {MapModule} from '../../shared/components/map/map.module';
+import {RadioGroupModule} from '../../shared/components/radio-group/radio-group.module';
 @NgModule({
-  declarations: [AddEditRentPostComponent],
+  declarations: [AddEditRentPostComponent, ListSalePostComponent, AddEditSalePostComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -36,7 +48,28 @@ import {CaptchaModule} from '../../shared/components/captcha/captcha.module';
     MatTabsModule,
     MatDividerModule,
     MatGridListModule,
-    CaptchaModule
+    CaptchaModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSortModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatButtonModule,
+    MatChipsModule,
+    FuseSharedModule,
+    FuseWidgetModule,
+    AppStaticImageModule,
+    RadioGroupModule,
+    MapModule
+  ],
+  providers: [
+    HelperService,
+    DialogService
   ]
 })
 export class PostModule { }
