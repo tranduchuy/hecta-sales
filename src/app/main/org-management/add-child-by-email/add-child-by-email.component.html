@@ -1,0 +1,40 @@
+<div fxLayout="column" fxFlexFill fxFlexAlign="center">
+  <h2 fxFlexAlign="center">Thêm tài khoản con đã đăng kí</h2>
+
+  <form novalidate [formGroup]="form" *ngIf="form">
+    <div fxLayout="column">
+      <app-input-text [title]="'Email'"
+                      [formControlName]="'email'"
+                      [errors]="getErrorMessages(form, 'email')">
+      </app-input-text>
+
+      <div fxFlexAlign="center">
+        <button mat-raised-button
+                color="primary"
+                (click)="onClickBtnSearch()"
+                [disabled]="form.invalid">Tìm kiếm
+        </button>
+      </div>
+    </div>
+  </form>
+  <mat-error *ngIf="isNotFound" fxFlexAlign="center" style="margin-top: 20px;">Không tìm thấy</mat-error>
+
+  <div class="content" *ngIf="child">
+    <div class="row">
+      <div class="key">Tên đăng nhập</div>
+      <div class="value">{{child.username}}</div>
+    </div>
+    <div class="row">
+      <div class="key">Tên</div>
+      <div class="value">{{child.name}}</div>
+    </div>
+    <div class="row">
+      <div class="key">Email</div>
+      <div class="value">{{child.email}}</div>
+    </div>
+    <div class="row" fxFlexAlign="end">
+      <button mat-raised-button (click)="onClickChoseChild()" color="accent">Chọn</button>
+    </div>
+  </div>
+
+</div>

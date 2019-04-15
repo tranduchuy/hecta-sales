@@ -1,4 +1,4 @@
-import {environment} from 'environments/environment';
+import { environment } from 'environments/environment';
 
 export namespace URLs {
   export const uploadImage = environment.serverImage + 'images';
@@ -42,4 +42,14 @@ export namespace URLs {
   export const NOTIFY = `${environment.apiEndpoint}/api/v1/notifies/return-lead`;
 
   export const RESEND_EMAIL = environment.apiEndpoint + '/api/v1/users/confirm/resend';
+
+  export namespace OrgManagement {
+    export const ChildList = `${environment.apiEndpoint}/api/v1/users/children`;
+    export const FindByEmail = `${environment.apiEndpoint}/api/v1/users/find`;
+    export const ChildDetails = `${environment.apiEndpoint}/api/v1/users/child/detail`;
+    export const AddNewChild = `${environment.apiEndpoint}/api/v1/users/child/register`;
+    export const AddExistedChild = `${environment.apiEndpoint}/api/v1/users/child/request`;
+    export const TransferMoney = `${environment.apiEndpoint}/api/v1/users/child/credit/share`;
+    export const DeleteChild = `${environment.apiEndpoint}/api/v1/users/child/remove`;
+  }
 }

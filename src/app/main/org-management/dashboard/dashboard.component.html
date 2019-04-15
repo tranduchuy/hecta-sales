@@ -1,0 +1,13 @@
+<div style="width: 100%" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h2 class="page-header">Quản lý tài khoản doanh nghiệp</h2>
+  </div>
+  <div fxLayout="row">
+    <mat-action-list>
+      <button mat-list-item (click)="navigateToChildList()">Danh sách tài khoản</button>
+      <button mat-list-item (click)="navigateToAddChild()">Thêm mới tài khoản con</button>
+      <button mat-list-item (click)="navigateToAddChildByEmail()">Thêm mới tài khoản con đã đăng kí</button>
+      <!--<button mat-list-item (click)="navigateToMoneyTransfer()">Chuyển tiền cho tài khoản khác</button>-->
+    </mat-action-list>
+  </div>
+</div>

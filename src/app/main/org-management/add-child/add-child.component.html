@@ -1,0 +1,94 @@
+<div fxLayout="column">
+  <div fxFlexAlign="center">
+    <h2>Đăng kí tài khoản con mới</h2>
+  </div>
+
+  <form id="form" [formGroup]="form" novalidate>
+    <app-input-text [formControlName]="'username'"
+                    [placeholder]="'Tên đăng nhập của bạn'"
+                    [title]="'Tên đăng nhập'"
+                    [icon]="'account_circle'"
+                    [errors]="getErrorMessages(form, 'username')"></app-input-text>
+
+    <mat-error *ngIf="form.get('username').errors?.exists">Tài khoản đã có người tạo</mat-error>
+
+    <app-input-text [formControlName]="'email'"
+                    [placeholder]="'example@gmail.com'"
+                    [title]="'Địa chỉ email'"
+                    [icon]="'mail'"
+                    [errors]="getErrorMessages(form, 'email')"></app-input-text>
+
+    <mat-error *ngIf="form.get('email').errors?.exists">Email đã có người tạo</mat-error>
+
+    <app-input-password [formControlName]="'password'"
+                        [title]="'Mật khẩu'"
+                        [icon]="'vpn_key'"
+                        [errors]="getErrorMessages(form, 'password')"></app-input-password>
+
+    <app-input-password [formControlName]="'retypePassword'"
+                        [title]="'Nhập lại mật khẩu'"
+                        [icon]="'vpn_key'"
+                        [errors]="getErrorMessages(form, 'retypePassword')"></app-input-password>
+
+    <app-input-text [formControlName]="'phone'"
+                    [placeholder]="'0123456789'"
+                    [title]="'Số điện thoại'"
+                    [icon]="'phone'"
+                    [errors]="getErrorMessages(form, 'phone')"></app-input-text>
+
+    <app-input-text [formControlName]="'name'"
+                    [placeholder]="'Nguyễn Văn A'"
+                    [title]="'Họ và tên'"
+                    [icon]="'supervisor_account'"
+                    [errors]="getErrorMessages(form, 'name')"></app-input-text>
+
+    <app-date-picker [title]="'Sinh nhật'"
+                     [formControlName]="'birth'"
+                     [maxDay]="inputDate.maxDay"
+                     [minDay]="inputDate.minDay"
+                     [errors]="getErrorMessages(form, 'birth')"></app-date-picker>
+
+    <h3>Chọn giới tính</h3>
+    <app-radio-group [itemsSource]="genderItemsSource"
+                     [formControlName]="'gender'"
+                     [displayPath]="'name'"
+                     (valueChange)="onRadioChange($event)"
+                     [errors]="getErrorMessages(form, 'gender')"
+                     [direction]="'row'"
+                     [isDisabled]="false"
+                     [valuePath]="'value'"></app-radio-group>
+
+    <app-combo-box [itemsSource]="cityItemsSource"
+                   [title]="'Tỉnh/Thành'"
+                   [formControlName]="'city'"
+                   (valueChange)="onChangeCity($event)"
+                   [displayPath]="'name'"
+                   [errors]="getErrorMessages(form, 'city')"
+                   [icon]="'language'"
+                   [valuePath]="'code'"></app-combo-box>
+
+
+    <app-combo-box [itemsSource]="district"
+                   [title]="'Quận/Huyện'"
+                   [formControlName]="'district'"
+                   (valueChange)="onChangeWard($event)"
+                   [displayPath]="'name'"
+                   [errors]="getErrorMessages(form, 'district')"
+                   [valuePath]="'id'"></app-combo-box>
+
+    <app-combo-box [itemsSource]="ward"
+                   [title]="'Phường/Xã'"
+                   [formControlName]="'ward'"
+                   [displayPath]="'name'"
+                   [errors]="getErrorMessages(form, 'ward')"
+                   [valuePath]="'id'"></app-combo-box>
+  </form>
+
+  <div fxFlexAlign="center">
+    <button id="register-btn"
+            mat-raised-button
+            color="accent"
+            (click)="onClickBtnAddNewChild()">Thêm
+    </button>
+  </div>
+</div>

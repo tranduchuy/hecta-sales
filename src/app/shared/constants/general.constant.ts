@@ -5,8 +5,8 @@ export namespace General {
   }
 
   export namespace Type {
-    export const TYPE_PERSONAL = 1;
-    export const TYPE_BUSINESS = 2;
+    export const TYPE_BUSINESS = 1;
+    export const TYPE_PERSONAL = 2;
   }
 
   export namespace AdStatus {
