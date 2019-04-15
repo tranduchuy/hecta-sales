@@ -9,6 +9,11 @@ export namespace General {
     export const TYPE_BUSINESS = 2;
   }
 
+  export namespace AdStatus {
+    export const PAID_FORM_VIEW_ACTIVE =  40;
+    export const PAID_FORM_VIEW_STOP =  50;
+  }
+
   export namespace BankLogo {
     export const DONG_A = 'https://hecta.vn/assets/images/bank-donga.png';
     export const ACB = 'https://hecta.vn/assets/images/bank-acb.png'
@@ -29,9 +34,24 @@ export namespace General {
     export const NONE = 20;
   }
 
+  export namespace PAID_FORM {
+    export const DAY = 1;
+    export const VIEW = 2;
+  }
+
   export namespace Notify {
     export const RETURN_LEAD_FAIL = 22;
     export const RETURN_LEAD_SUCCESSFULLY = 21;
   }
+
+  export const PriorityList = [
+    {id: -1, name: 'Chọn loại tin'},
+    {id: 1, name: 'Tin vip đặc biệt'},
+    {id: 2, name: 'Tin vip 1'},
+    {id: 3, name: 'Tin vip 2'},
+    {id: 4, name: 'Tin vip 3'},
+    {id: 5, name: 'Tin ưu đãi'},
+    {id: 6, name: 'Tin thường'},
+  ];
 
 }

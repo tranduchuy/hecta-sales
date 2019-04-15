@@ -213,7 +213,5 @@ export class AppComponent implements OnInit, OnDestroy {
       this._router.navigate(['auth/login']);
       return;
     }
-
-    this._messagingService.joinRoom();
   }
 }
