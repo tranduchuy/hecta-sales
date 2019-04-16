@@ -121,7 +121,7 @@
                                [title]="'--Chọn phường / xã--'"
                                [formControlName]="'ward'"
                                [errors]="getMessageErrors('ward')"
-                               (valueChanged)="onChangedWard()"></app-select-text>
+                               (valueChanged)="onChangedWard($event)"></app-select-text>
             </div>
           </mat-grid-tile>
           <mat-grid-tile>
@@ -135,7 +135,7 @@
                                [title]="'--Chọn đường--'"
                                [formControlName]="'ward'"
                                [errors]="getMessageErrors('street')"
-                               (valueChanged)="onChangedStreet()"></app-select-text>
+                               (valueChanged)="onChangedStreet($event)"></app-select-text>
             </div>
           </mat-grid-tile>
         </mat-grid-list>
@@ -151,7 +151,7 @@
                                [title]="'--Chọn dự án--'"
                                [formControlName]="'project'"
                                [errors]="getMessageErrors('project')"
-                               (valueChanged)="onChangedProject()"></app-select-text>
+                               (valueChanged)="onChangedProject($event)"></app-select-text>
             </div>
           </mat-grid-tile>
           <mat-grid-tile>
